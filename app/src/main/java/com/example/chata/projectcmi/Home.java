@@ -81,13 +81,9 @@ public class Home extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         if (toggleHome.onOptionsItemSelected(item)){
-
-
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -95,9 +91,8 @@ public class Home extends AppCompatActivity {
 
         switch(menuItem.toString()) {
             case "Credits (Area)" :
-//                Intent intentProfile = new Intent(context, Profile.class);
-//                context.startActivity(intentProfile);
-                Toast.makeText(context, "Credits", Toast.LENGTH_LONG).show();
+                Intent intentSelectArea = new Intent(context, SelectArea.class);
+                context.startActivity(intentSelectArea);
                 break;
 
             case "Papers" :

@@ -81,8 +81,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void jsonParse(){
 
-        String url = "http://cms.infinisolutionslk.com/APP/login.json.php?uName=sam&uPass=1";
-        Log.d("JSONPRASE",url);
+        String url = "http://cms.infinisolutionslk.com/APP/login.json.php?uName="+ edtUsername.getText() + "&uPass="+ edtPassword.getText();
+
         JsonObjectRequest loginRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
