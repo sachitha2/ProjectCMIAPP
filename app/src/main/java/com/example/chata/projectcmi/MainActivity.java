@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.view.Window;
@@ -80,13 +81,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void jsonParse(){
 
-        String url = "http://cms.infinisolutionslk.com/APP/login.json.php?uName="+ edtUsername.getText() + "&uPass="+ edtPassword.getText();
-
+        String url = "http://cms.infinisolutionslk.com/APP/login.json.php?uName=sam&uPass=1";
+        Log.d("JSONPRASE",url);
         JsonObjectRequest loginRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-
+                        Log.d("JSONPRASE","in response");
                         try{
 
                             Integer status = response.getInt("satus");
@@ -142,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
 
                         }catch (JSONException e) {
                             e.printStackTrace();
+                            Log.d("JSONPRASE ERROR","Catch");
                         }
 
 
