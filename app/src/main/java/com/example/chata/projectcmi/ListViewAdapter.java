@@ -20,6 +20,7 @@ public class ListViewAdapter extends BaseAdapter {
     String From;
 
     String[] Customer;
+    String[] NIC;
     String[] Installment;
     String[] Total;
 
@@ -32,10 +33,11 @@ public class ListViewAdapter extends BaseAdapter {
 
     }
 
-    public ListViewAdapter(Context context, String[] Customer, String[] Installment, String[] Total, String From){
+    public ListViewAdapter(Context context, String[] Customer, String[] Installment, String[] Total, String[] NIC, String From){
 
         this.context = context;
         this.Customer = Customer;
+        this.NIC = NIC;
         this.Installment = Installment;
         this.Total = Total;
         this.From = From;
@@ -93,7 +95,7 @@ public class ListViewAdapter extends BaseAdapter {
                         intentCreditsByAreaId.putExtra("areaId", Id[position]);
                         intentCreditsByAreaId.putExtra("areaName", Area[position]);
                         context.startActivity(intentCreditsByAreaId);
-                        Toast.makeText(context, Area[position] + " was clicked", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(context, Area[position] + " was clicked", Toast.LENGTH_SHORT).show();
                     }
                 });
                 break;
@@ -113,7 +115,12 @@ public class ListViewAdapter extends BaseAdapter {
                 btnView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(context, Customer[position] + " was clicked", Toast.LENGTH_SHORT).show();
+
+                        Intent intentCreditsOfCustomer = new Intent(context, CreditsOfCustomer.class);
+                        intentCreditsOfCustomer.putExtra("customerNIC", NIC[position]);
+                        intentCreditsOfCustomer.putExtra("customerName", Customer[position]);
+                        context.startActivity(intentCreditsOfCustomer);
+                        //Toast.makeText(context, Customer[position] + " was clicked", Toast.LENGTH_SHORT).show();
                     }
                 });
                 break;

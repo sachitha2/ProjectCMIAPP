@@ -14,13 +14,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".CreditsByAreaId"></activity>
+        <activity android:name=".CreditsOfCustomer"></activity>
+        <activity android:name=".CreditsByAreaId" />
         <activity
             android:name=".SelectArea"
-            android:label="Select Area"></activity>
+            android:label="Select Area" />
         <activity
             android:name=".Home"
-            android:label="Home"></activity>
+            android:label="Home" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
