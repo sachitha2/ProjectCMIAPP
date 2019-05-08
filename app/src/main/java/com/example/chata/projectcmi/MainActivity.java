@@ -1,8 +1,11 @@
 package com.example.chata.projectcmi;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -68,8 +71,11 @@ public class MainActivity extends AppCompatActivity {
         if (!TextUtils.isEmpty(edtUsername.getText())){
             if (!TextUtils.isEmpty(edtPassword.getText())){
 
-                jsonParse();
-
+                if(haveNet()){
+                    jsonParse();
+                }else if(!haveNet()){
+                    Toast.makeText(MainActivity.this,"Network connectin is not available",Toast.LENGTH_SHORT).show();
+                }
             }else {
                 Toast.makeText(MainActivity.this,"Enter Password", Toast.LENGTH_LONG).show();
             }
@@ -80,14 +86,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void jsonParse(){
-
-        String url = "http://cms.infinisolutionslk.com/APP/login.json.php?uName=sam&uPass=1";
+        final ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
+        progressDialog.setTitle("Loading");
+        progressDialog.setMessage("");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        String url = "http://cms.infinisolutionslk.com/APP/login.json.php?uName="+edtUsername.getText()+"&uPass="+edtPassword.getText();
         Log.d("JSONPRASE",url);
         JsonObjectRequest loginRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("JSONPRASE","in response");
+                        Log.d("JSONPRASE","in response"+response.toString());
+
                         try{
 
                             Integer status = response.getInt("satus");
@@ -95,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                             //String logOutTime = response.getString("logOutTime");
 
                             if (status == 1){
-
+                                progressDialog.hide();
                                 //Check if this email is available in cache
 
                                 if (lookForUsername(MainActivity.this).equals(edtUsername.getText())){
@@ -208,5 +219,25 @@ public class MainActivity extends AppCompatActivity {
         }
         back_pressed = System.currentTimeMillis();
     }
+    private  boolean haveNet(){
+        boolean haveWifi = false;
+        boolean haveMobileData = false;
+        ConnectivityManager connectivityManager =(ConnectivityManager) getSystemService( CONNECTIVITY_SERVICE);
+        NetworkInfo[] networkInfos = connectivityManager.getAllNetworkInfo();
+        for(NetworkInfo info:networkInfos){
+            if(info.getTypeName().equalsIgnoreCase("WIFI")){
+                if(info.isConnected()){
+                    haveWifi  = true;
+                }
 
+            }
+            if(info.getTypeName().equalsIgnoreCase("MOBILE")){
+                if(info.isConnected()){
+                    haveMobileData = true;
+                }
+
+            }
+        }
+        return haveMobileData || haveWifi;
+    }
 }
