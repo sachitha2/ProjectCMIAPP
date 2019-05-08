@@ -1,42 +1,21 @@
-/**
- * By sachitha hirushan
- * */
 package com.example.chata.projectcmi;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
-public class Settings extends AppCompatActivity {
+public class Test extends AppCompatActivity {
     SQLiteDatabase sqlite;
     private Button createDBBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
-
-        createDBBtn = findViewById(R.id.createDBBtn);
-
-        createDBBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("onClick","Button clicked");
-
-
-                int x = createDatabases();
-
-                Log.d("onClick ","Database fn " + Integer.toString(x));
-            }
-        });
-
-
+        setContentView(R.layout.activity_test);
     }
+
+
 
     public int createDatabases(){
         sqlite = openOrCreateDatabase("cmi", Context.MODE_PRIVATE,null);
@@ -81,5 +60,4 @@ public class Settings extends AppCompatActivity {
         return 1;
     }
 
-    }
-
+}

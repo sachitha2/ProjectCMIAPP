@@ -91,7 +91,7 @@ public class Home extends AppCompatActivity {
 
         switch(menuItem.toString()) {
             case "Credits (Area)" :
-                Intent intentSelectArea = new Intent(context, SelectArea.class);
+                Intent intentSelectArea = new Intent(context, SelectAreaForCredits.class);
                 context.startActivity(intentSelectArea);
                 break;
 
@@ -109,7 +109,7 @@ public class Home extends AppCompatActivity {
                 break;
 
             case "Settings" :
-                Intent Settings = new Intent(context, Settings.class);
+                Intent Settings = new Intent(context, Test.class);
                 context.startActivity(Settings);
                 Toast.makeText(context, menuItem.toString(), Toast.LENGTH_LONG).show();
                 break;

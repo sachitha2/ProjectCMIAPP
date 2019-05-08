@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Settings">
+    tools:context=".DownloadData">
 
     <Button
-        android:id="@+id/createDBBtn"
+        android:id="@+id/button3"
+        android:background="@drawable/bgbutton"
+        android:textColor="#fff"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bgbutton"
         android:text="Download Data"
-        android:textColor="#fff"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="621dp" />
+        tools:layout_editor_absoluteX="104dp"
+        tools:layout_editor_absoluteY="170dp" />
 </android.support.constraint.ConstraintLayout>
