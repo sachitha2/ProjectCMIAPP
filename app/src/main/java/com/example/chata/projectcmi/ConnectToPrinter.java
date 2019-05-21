@@ -26,6 +26,7 @@ import java.util.UUID;
         public  String mac;
         public  String val;
         public EditText editText;
+        public String BILL = "";
         private static final String TAG = "bluetooth1";
 
 
@@ -53,6 +54,40 @@ import java.util.UUID;
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_connect_to_printer);
+            setTitle("Print Bill");
+            ///get MAC
+
+
+
+            BILL = "                   XXXX MART    \n"
+                    + "                   XX.AA.BB.CC.     \n " +
+                    "                 NO 25 ABC ABCDE    \n" +
+                    "                  XXXXX YYYYYY      \n" +
+                    "                   MMM 590019091      \n";
+            BILL = BILL
+                    + "-----------------------------------------------\n";
+
+
+            BILL = BILL + String.format("%1$-10s %2$10s %3$13s %4$10s", "Item", "Qty", "Rate", "Totel");
+            BILL = BILL + "\n";
+            BILL = BILL
+                    + "-----------------------------------------------";
+            BILL = BILL + "\n " + String.format("%1$-10s %2$10s %3$11s %4$10s", "item", "5", "10", "50.00");
+            BILL = BILL + "\n " + String.format("%1$-10s %2$10s %3$11s %4$10s", "item-002", "10", "5", "50.00");
+            BILL = BILL + "\n " + String.format("%1$-10s %2$10s %3$11s %4$10s", "item-003", "20", "10", "200.00");
+            BILL = BILL + "\n " + String.format("%1$-10s %2$10s %3$11s %4$10s", "item-004", "50", "10", "500.00");
+
+            BILL = BILL
+                    + "\n-----------------------------------------------";
+            BILL = BILL + "\n\n ";
+
+            BILL = BILL + "                   Total Qty:" + "      " + "85" + "\n";
+            BILL = BILL + "                   Total Value:" + "     " + "700.00" + "\n";
+
+            BILL = BILL
+                    + "-----------------------------------------------\n";
+            BILL = BILL + "\n\n ";
+
 
             mac = "02:2F:01:1E:CA:40";
             address = mac;
@@ -68,12 +103,14 @@ import java.util.UUID;
                 public void onClick(View v) {
                     val = editText.getText().toString();
 //                sendData(uline + "\n" + val + "\n");
-                    sendData("hello \n");
+                    sendData(BILL);
                     Toast.makeText(getBaseContext(), "Turn on LED", Toast.LENGTH_SHORT).show();
 
                 }
             });
 
+
+            
             btnOff.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     val = editText.getText().toString();
