@@ -59,14 +59,19 @@ public class SelectBuletoothMAC extends AppCompatActivity {
 
                             ///Creating Sharedpreferense
                             SharedPreferences pref = getSharedPreferences("prefs",MODE_PRIVATE);
-                            boolean firstStart = pref.getBoolean("firstStart",false);
-                            String MacAddress  = pref.getString("MAC",mac.toString());
-                            if (!firstStart){
-                                Toast.makeText(SelectBuletoothMAC.this, "MAC Saved First time", Toast.LENGTH_SHORT).show();
-                            }else{
-                                Toast.makeText(SelectBuletoothMAC.this, "MAC Saved", Toast.LENGTH_SHORT).show();
+                            boolean firstStart = pref.getBoolean("firstStart",true);
+                            String MACAddress = pref.getString("MAC",mac.toString());
+
+                            if (firstStart){
+                                Toast.makeText(SelectBuletoothMAC.this, "First", Toast.LENGTH_SHORT).show();
                                 SharedPreferences.Editor editor = pref.edit();
-                                editor.putBoolean("firstStart",true);
+                                editor.putBoolean("firstStart",false);
+                                editor.putString("MAC",mac.toString());
+                                editor.apply();
+                            }else{
+                                Toast.makeText(SelectBuletoothMAC.this, "Not First", Toast.LENGTH_SHORT).show();
+                                SharedPreferences.Editor editor = pref.edit();
+                                editor.putBoolean("firstStart",false);
                                 editor.putString("MAC",mac.toString());
                                 editor.apply();
                             }
@@ -79,11 +84,11 @@ public class SelectBuletoothMAC extends AppCompatActivity {
 
 
 
-//                            Intent intent =new  Intent(SelectBuletoothMAC.this,ConnectToPrinter.class);
-//                            intent.putExtra("MAC", String.valueOf(mac) );
-//                            intent.putExtra("email","chatson@chatson.com");
-//
-//                            startActivity(intent);
+                            Intent intent =new  Intent(SelectBuletoothMAC.this,ConnectToPrinter.class);
+                            intent.putExtra("MAC", String.valueOf(mac) );
+                            intent.putExtra("email","chatson@chatson.com");
+
+                            startActivity(intent);
                         }
                     }
                 });
