@@ -1,11 +1,17 @@
 package com.example.chata.projectcmi;
 
 import android.app.ProgressDialog;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -23,11 +29,22 @@ public class DownloadData extends AppCompatActivity {
 
     SQLiteDatabase sqlite;
     private RequestQueue requestQueueForCreditList;
+    Button bluetoothBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_download_data);
         requestQueueForCreditList = Volley.newRequestQueue(DownloadData.this);
+
+        bluetoothBtn = findViewById(R.id.SelectBTBtn);
+
+        bluetoothBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentSelectArea = new Intent(DownloadData.this, SelectBuletoothMAC.class);
+                startActivity(intentSelectArea);
+            }
+        });
 
         ProgressDialog progressDialog = new ProgressDialog(DownloadData.this);
         progressDialog.setTitle("Download");
