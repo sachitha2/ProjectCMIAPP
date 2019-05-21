@@ -117,7 +117,7 @@ public class ListViewAdapter extends BaseAdapter {
                     public void onClick(View v) {
 
                         Intent intentCreditsOfCustomer = new Intent(context, CustomerData.class);
-                        intentCreditsOfCustomer.putExtra("customerNIC", NIC[position]);
+                        intentCreditsOfCustomer.putExtra("customerId", Id[position]);
                         intentCreditsOfCustomer.putExtra("customerName", Customer[position]);
                         context.startActivity(intentCreditsOfCustomer);
                         //Toast.makeText(context, Customer[position] + " was clicked", Toast.LENGTH_SHORT).show();
