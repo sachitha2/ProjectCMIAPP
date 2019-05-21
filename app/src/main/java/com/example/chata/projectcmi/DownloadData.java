@@ -1,5 +1,6 @@
 package com.example.chata.projectcmi;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -19,6 +20,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class DownloadData extends AppCompatActivity {
+
     SQLiteDatabase sqlite;
     private RequestQueue requestQueueForCreditList;
     @Override
@@ -26,16 +28,30 @@ public class DownloadData extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_download_data);
         requestQueueForCreditList = Volley.newRequestQueue(DownloadData.this);
-        createDatabases();
+
+        ProgressDialog progressDialog = new ProgressDialog(DownloadData.this);
+        progressDialog.setTitle("Download");
+        progressDialog.setMessage("hello this is a progress dialog box");
+        progressDialog.setCancelable(true);
+        progressDialog.show();
+
+        progressDialog.setMessage("Hiiii");
+
+
+        createDatabases(progressDialog);
     }
 
-    public int createDatabases(){
+    public int createDatabases(ProgressDialog progressDialog){
+
+
+
         sqlite = openOrCreateDatabase("cmi", Context.MODE_PRIVATE,null);//10
 
-
+        progressDialog.setMessage("Deleting Area Table");
         //Drop Table if Exist
         sqlite.execSQL("DROP TABLE IF EXISTS area;");
 
+        progressDialog.setMessage("creating Area Table");
         ////Creating Area Table
         sqlite.execSQL("CREATE TABLE IF  NOT EXISTS area (id int(11) NOT NULL,name varchar(200) NOT NULL);");
 
@@ -43,40 +59,35 @@ public class DownloadData extends AppCompatActivity {
 
 
         ///Download Area Table
-
+        jsonParseCreditList(progressDialog);
 
 
         ///Download Area Table
 
-
-
-
-        sqlite.execSQL("INSERT INTO area (id, name) VALUES ('11', 'Galgamuwa');");
-        sqlite.execSQL("INSERT INTO area (id, name) VALUES ('12', 'Rajanganaya');");
         //sqlite.execSQL("INSERT INTO test (ROLL_NO, NAME) VALUES ('1', '7');");
-        jsonParseCreditList();
 
-        Cursor c =sqlite.rawQuery("SELECT * FROM area;",null);
 
-        if(c.getCount() == 0 ){
-            Toast.makeText(this, "No data in database", Toast.LENGTH_SHORT).show();
-        }
-        int nRow = c.getCount();
-        Toast.makeText(this,Integer.toString(nRow), Toast.LENGTH_SHORT).show();
-
-        StringBuffer buffer = new StringBuffer();
-        while (c.moveToNext()){
-            buffer.append("NAME "+c.getString(1));
-        }
-        Toast.makeText(this,buffer.toString(), Toast.LENGTH_SHORT).show();
+//        Cursor c =sqlite.rawQuery("SELECT * FROM area;",null);
+//
+//        if(c.getCount() == 0 ){
+//            Toast.makeText(this, "No data in database", Toast.LENGTH_SHORT).show();
+//        }
+//        int nRow = c.getCount();
+//        Toast.makeText(this,Integer.toString(nRow), Toast.LENGTH_SHORT).show();
+//
+//        StringBuffer buffer = new StringBuffer();
+//        while (c.moveToNext()){
+//            buffer.append("NAME "+c.getString(1));
+//        }
+//        Toast.makeText(this,buffer.toString(), Toast.LENGTH_SHORT).show();
 
         return 1;
     }
 
 
-    private void jsonParseCreditList() {
-
-        String url = "http://cms.infinisolutionslk.com/APP/area.json.php" ;
+    private void jsonParseCreditList(final ProgressDialog progressDialog) {
+        progressDialog.setMessage("Downloading Area Table");
+        String url = "http://cms.infinisolutionslk.com/APP/area.json.php";
 
         JsonObjectRequest requestCreditList = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -95,8 +106,8 @@ public class DownloadData extends AppCompatActivity {
                                 sqlite.execSQL("INSERT INTO area (id, name) VALUES ('"+id.get(i).toString()+"', '"+area.get(i).toString()+"');");
                             }
 
-
-
+                            progressDialog.setMessage("Area Data Downloaded");
+                            progressDialog.hide();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
