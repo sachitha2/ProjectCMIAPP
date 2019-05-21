@@ -91,7 +91,7 @@ public class ListViewAdapter extends BaseAdapter {
                 btnView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intentCreditsByAreaId = new Intent(context, CreditsByAreaId.class);
+                        Intent intentCreditsByAreaId = new Intent(context, CreditsByArea.class);
                         intentCreditsByAreaId.putExtra("areaId", Id[position]);
                         intentCreditsByAreaId.putExtra("areaName", Area[position]);
                         context.startActivity(intentCreditsByAreaId);

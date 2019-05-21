@@ -7,18 +7,21 @@ import android.os.Bundle;
 import android.widget.Button;
 
 public class Test extends AppCompatActivity {
-    SQLiteDatabase sqlite;
+    SQLiteDatabase sqlite;//1
     private Button createDBBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
+
+
+        createDatabases();
     }
 
 
 
     public int createDatabases(){
-        sqlite = openOrCreateDatabase("cmi", Context.MODE_PRIVATE,null);
+        sqlite = openOrCreateDatabase("cmi", Context.MODE_PRIVATE,null);//10
 
         ////Creating Area Database
 
@@ -37,9 +40,13 @@ public class Test extends AppCompatActivity {
                 "  status int(1) NOT NULL );");//COMMENT '1=active,0=not active'
 
 
+        //area table
+        sqlite.execSQL("CREATE TABLE IF  NOT EXISTS area ("+
+                "id int(11) NOT NULL," +
+                "name varchar(200) NOT NULL);");
 
-
-        //sqlite.execSQL("INSERT INTO test (ROLL_NO, NAME) VALUES ('11', '77');");
+        sqlite.execSQL("INSERT INTO area (id, name) VALUES ('11', 'Galgamuwa');");
+        sqlite.execSQL("INSERT INTO area (id, name) VALUES ('12', 'Rajanganaya');");
         //sqlite.execSQL("INSERT INTO test (ROLL_NO, NAME) VALUES ('1', '7');");
 
 

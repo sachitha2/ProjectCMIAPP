@@ -10,9 +10,12 @@
         android:id="@+id/button3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/bgbutton"
         android:text="Download Data"
         android:textColor="#fff"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="79dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="-16dp"
+        android:layout_margin="20dp"
+        />
 </android.support.constraint.ConstraintLayout>

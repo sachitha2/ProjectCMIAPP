@@ -109,7 +109,7 @@ public class Home extends AppCompatActivity {
                 break;
 
             case "Settings" :
-                Intent Settings = new Intent(context, Test.class);
+                Intent Settings = new Intent(context, DownloadData.class);
                 context.startActivity(Settings);
                 Toast.makeText(context, menuItem.toString(), Toast.LENGTH_LONG).show();
                 break;

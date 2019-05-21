@@ -16,7 +16,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class CreditsByAreaId extends AppCompatActivity {
+public class CreditsByArea extends AppCompatActivity {
 
     private ListView creditList;
     private RequestQueue requestQueueForCreditList;
@@ -31,7 +31,7 @@ public class CreditsByAreaId extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_credits_by_area_id);
+        setContentView(R.layout.activity_credits_by_area);
 
         areaId= getIntent().getStringExtra("areaId");
         areaName= getIntent().getStringExtra("areaName");
@@ -39,7 +39,7 @@ public class CreditsByAreaId extends AppCompatActivity {
         setTitle("" + areaName);
 
         creditList = (ListView) findViewById(R.id.creditList);
-        requestQueueForCreditList = Volley.newRequestQueue(CreditsByAreaId.this);
+        requestQueueForCreditList = Volley.newRequestQueue(CreditsByArea.this);
         jsonParseCreditList();
 
     }
@@ -73,7 +73,7 @@ public class CreditsByAreaId extends AppCompatActivity {
                             }
 
                             //then create the grid view
-                            ListViewAdapter creditListViewAdapter = new ListViewAdapter(CreditsByAreaId.this, customer, installment, total, nic,"CreditsByAreaId");
+                            ListViewAdapter creditListViewAdapter = new ListViewAdapter(CreditsByArea.this, customer, installment, total, nic,"CreditsByAreaId");
                             creditList.setAdapter(creditListViewAdapter);
 
                         } catch (JSONException e) {
