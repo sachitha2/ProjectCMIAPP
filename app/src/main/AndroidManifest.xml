@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".CreditsByArea"></activity>
+        <activity android:name=".CustomerData"></activity>
+        <activity android:name=".CreditsByArea" />
         <activity android:name=".DownloadData" />
         <activity android:name=".SelectAreaForCredits" />
         <activity android:name=".Test" />

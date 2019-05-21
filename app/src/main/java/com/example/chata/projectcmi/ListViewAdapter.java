@@ -116,7 +116,7 @@ public class ListViewAdapter extends BaseAdapter {
                     @Override
                     public void onClick(View v) {
 
-                        Intent intentCreditsOfCustomer = new Intent(context, CreditsOfCustomer.class);
+                        Intent intentCreditsOfCustomer = new Intent(context, CustomerData.class);
                         intentCreditsOfCustomer.putExtra("customerNIC", NIC[position]);
                         intentCreditsOfCustomer.putExtra("customerName", Customer[position]);
                         context.startActivity(intentCreditsOfCustomer);
