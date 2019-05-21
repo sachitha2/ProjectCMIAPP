@@ -12,7 +12,7 @@ import com.android.volley.RequestQueue;
 
 public class SelectAreaForCredits extends AppCompatActivity {
     public ListView areaList;
-//    SQLiteDatabase sqlite;//1
+    SQLiteDatabase sqlite;//1
 
     public String[] name;
     public String[] id;
