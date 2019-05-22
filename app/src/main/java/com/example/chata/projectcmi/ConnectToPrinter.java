@@ -110,7 +110,7 @@ import java.util.UUID;
             });
 
 
-            
+
             btnOff.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     val = editText.getText().toString();

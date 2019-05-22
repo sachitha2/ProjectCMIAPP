@@ -73,6 +73,12 @@ public class DownloadData extends AppCompatActivity {
         sqlite.execSQL("CREATE TABLE IF  NOT EXISTS area (id int(11) NOT NULL,name varchar(200) NOT NULL);");
 
 
+        //Drop Customer Table if Exist
+        sqlite.execSQL("DROP TABLE IF EXISTS customer;");
+
+        //Create Customer Table
+        //TODO
+
 
 
         ///Download Area Table
