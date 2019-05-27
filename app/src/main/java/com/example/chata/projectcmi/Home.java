@@ -95,9 +95,9 @@ public class Home extends AppCompatActivity {
                 context.startActivity(intentSelectArea);
                 break;
 
-            case "Papers" :
-//                Intent intentSubjectList = new Intent(context, SubjectList.class);
-//                context.startActivity(intentSubjectList);
+            case "Customers" :
+                Intent intentCustomers = new Intent(context, Customers.class);
+                context.startActivity(intentCustomers);
                 break;
 
             case "Mark Sheet" :

@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ConnectToPrinter"></activity>
+        <activity android:name=".Customers"></activity>
+        <activity android:name=".ConnectToPrinter" />
         <activity android:name=".SelectBuletoothMAC" />
         <activity android:name=".CustomerData" />
         <activity android:name=".CreditsByArea" />
