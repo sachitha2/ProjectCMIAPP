@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".FinishPendingOrder"></activity>
+        <activity android:name=".PendingPrices"></activity>
+        <activity android:name=".FinishPendingOrder" />
         <activity android:name=".NewPendingOrder" />
         <activity android:name=".Customers" />
         <activity android:name=".ConnectToPrinter" />
