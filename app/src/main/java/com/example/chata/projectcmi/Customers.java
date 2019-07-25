@@ -14,7 +14,7 @@ public class Customers extends AppCompatActivity implements TextWatcher {
     ListView customerList;
 
     String[] name = {"Sachitha Hirushan","Chavindu Nuwanpriya","Sandali Hirunika","Dumidu kasun","Dilshan Shankalpa","Sachin Tharaka","Sandun Malitha"};
-    String[] age = {"10","20","30","40","10","sachitha","10","20","30","40","10","sachitha"};
+    String[] age = {"10","20","30","40","10","10","10","20","30","40","10","10"};
     ArrayList<SingleRowForCustomer> myList;
     CustomerListAdapter myAdapter;
 

@@ -11,8 +11,8 @@ public class CustomerData extends AppCompatActivity {
         setContentView(R.layout.activity_customer_data);
 
         customerId= getIntent().getStringExtra("customerId");
-        customerName= getIntent().getStringExtra("customerName");
+//        customerName= getIntent().getStringExtra("customerName");
 
-        setTitle(customerId+"-"+customerName);
+        setTitle("Customer Profile - "+customerId);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.chata.projectcmi;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -35,7 +37,7 @@ public class CustomerListAdapter extends BaseAdapter implements Filterable {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View row = inflater.inflate(R.layout.customer_list,null);
@@ -45,9 +47,22 @@ public class CustomerListAdapter extends BaseAdapter implements Filterable {
 
 
         textView.setText(originalArray.get(position).getName());
-        textAge.setText(originalArray.get(position).getAge());
+        textAge.setText("CID -: "+originalArray.get(position).getAge());
+
+        row.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intentCustomerProfile = new Intent(c, CustomerData.class);
 
 
+
+                //TODO Config putExtra variables here
+                intentCustomerProfile.putExtra("customerId", originalArray.get(position).getAge());
+                c.startActivity(intentCustomerProfile);
+                Toast.makeText(c, originalArray.get(position).getName() + " was clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return row;
     }
