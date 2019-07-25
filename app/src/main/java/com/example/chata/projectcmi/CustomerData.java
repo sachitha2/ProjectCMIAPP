@@ -14,5 +14,6 @@ public class CustomerData extends AppCompatActivity {
 //        customerName= getIntent().getStringExtra("customerName");
 
         setTitle("Customer Profile - "+customerId);
+
     }
 }
