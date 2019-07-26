@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
+        
+
         if(lookForLoggedAccount(MainActivity.this)){//there is no logged account
 
             edtUsername = (EditText) findViewById(R.id.edtUsername);
@@ -67,7 +69,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onLoginClick(View view){
+        /*
 
+            Tempary
+         */
+
+         Intent intentHome = new Intent();
+         intentHome.setClass(MainActivity.this, Home.class);
+         intentHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+
+
+         startActivity(intentHome);
+         /*
+
+            Tempary
+         */
         if (!TextUtils.isEmpty(edtUsername.getText())){
             if (!TextUtils.isEmpty(edtPassword.getText())){
 

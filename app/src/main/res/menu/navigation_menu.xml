@@ -2,22 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
+        <!--<item-->
+            <!--android:id="@+id/nav_credits"-->
+            <!--android:icon="@drawable/settings"-->
+            <!--android:title="Credits (Area)" />-->
         <item
-            android:id="@+id/nav_credits"
+            android:id="@+id/nav_create"
             android:icon="@drawable/settings"
-            android:title="Credits (Area)" />
+            android:title="Create" />
         <item
             android:id="@+id/nav_papers"
             android:icon="@drawable/settings"
             android:title="Customers" />
-        <item
-            android:id="@+id/nav_marksheet"
-            android:icon="@drawable/settings"
-            android:title="Mark Sheet" />
-        <item
-            android:id="@+id/nav_highscore"
-            android:icon="@drawable/settings"
-            android:title="High Score" />
+
+
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/settings"
@@ -30,10 +28,7 @@
 
     <item android:title="Get In Touch">
         <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/settings"
-                android:title="Share" />
+
             <item
                 android:id="@+id/nav_help"
                 android:icon="@drawable/settings"
@@ -42,6 +37,7 @@
                 android:id="@+id/nav_aboutus"
                 android:icon="@drawable/settings"
                 android:title="About Us" />
+
         </menu>
     </item>
 

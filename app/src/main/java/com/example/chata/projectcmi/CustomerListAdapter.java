@@ -43,12 +43,14 @@ public class CustomerListAdapter extends BaseAdapter implements Filterable {
         View row = inflater.inflate(R.layout.customer_list,null);
 
         TextView textView =(TextView)row.findViewById(R.id.textView);
-        TextView textAge = row.findViewById(R.id.txtAge);
+        TextView textAge = row.findViewById(R.id.txtCID);
+        TextView textNic = row.findViewById(R.id.txtNic);
 
 
         textView.setText(originalArray.get(position).getName());
-        textAge.setText("CID -: "+originalArray.get(position).getAge());
+        textAge.setText(originalArray.get(position).getAge());
 
+        textNic.setText(originalArray.get(position).getNic());
         row.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,7 +102,7 @@ public class CustomerListAdapter extends BaseAdapter implements Filterable {
 
                 for (int i = 0; i < tmpArray.size(); i++) {
                     if (tmpArray.get(i).getName().toUpperCase().contains(constraint)) {
-                        SingleRowForCustomer singleRow = new SingleRowForCustomer(tmpArray.get(i).getName(),tmpArray.get(i).getAge());
+                        SingleRowForCustomer singleRow = new SingleRowForCustomer(tmpArray.get(i).getName(),tmpArray.get(i).getAge(),tmpArray.get(i).getNic(),"","","");
 
 
 
@@ -111,8 +113,8 @@ public class CustomerListAdapter extends BaseAdapter implements Filterable {
 
                     }
 
-                    if (tmpArray.get(i).getAge().toUpperCase().contains(constraint)) {
-                        SingleRowForCustomer singleRow = new SingleRowForCustomer(tmpArray.get(i).getName(),tmpArray.get(i).getAge());
+                    if (tmpArray.get(i).getNic().toUpperCase().contains(constraint)) {
+                        SingleRowForCustomer singleRow = new SingleRowForCustomer(tmpArray.get(i).getName(),tmpArray.get(i).getAge(),tmpArray.get(i).getNic(),"","","");
 
 
 

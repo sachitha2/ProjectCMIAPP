@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -26,7 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class DownloadData extends AppCompatActivity {
-
+    String URL = "http://192.168.43.230/shop/APP/";
     SQLiteDatabase sqlite;
     private RequestQueue requestQueueForCreditList;
     Button bluetoothBtn;
@@ -77,14 +78,18 @@ public class DownloadData extends AppCompatActivity {
         sqlite.execSQL("DROP TABLE IF EXISTS customer;");
 
         //Create Customer Table
-        //TODO
+        sqlite.execSQL("CREATE TABLE IF  NOT EXISTS customer (" +
+                "id int(11) NOT NULL" +
+                ",name varchar(200) NOT NULL" +
+                ",nic varchar(20) NOT NULL);");
 
 
 
 
         ///Download Area Table
-        jsonParseCreditList(progressDialog);
-
+        jsonParseAreaList(progressDialog);
+        ///Download customers list
+        jsonParseCustomerList(progressDialog);
 
         ///Download Area Table
 
@@ -109,9 +114,9 @@ public class DownloadData extends AppCompatActivity {
     }
 
 
-    private void jsonParseCreditList(final ProgressDialog progressDialog) {
+    private void jsonParseAreaList(final ProgressDialog progressDialog) {
         progressDialog.setMessage("Downloading Area Table");
-        String url = "http://cms.infinisolutionslk.com/APP/area.json.php";
+        String url = URL+"area.json.php";
 
         JsonObjectRequest requestCreditList = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -125,11 +130,13 @@ public class DownloadData extends AppCompatActivity {
 
 
 
+
 //
                             for (int i = 0; i < id.length(); i++){
                                 sqlite.execSQL("INSERT INTO area (id, name) VALUES ('"+id.get(i).toString()+"', '"+area.get(i).toString()+"');");
                             }
-
+                            Log.d("DOWNLOAD", "DATA :AREA  AMOUNT "+id.length());
+                            Log.d("DOWNLOAD", "DATA :AREA  DATA "+response);
                             progressDialog.setMessage("Area Data Downloaded");
                             progressDialog.hide();
                         } catch (JSONException e) {
@@ -145,4 +152,44 @@ public class DownloadData extends AppCompatActivity {
         requestQueueForCreditList.add(requestCreditList);
 
     }
+
+    //Download customers Start
+    private void jsonParseCustomerList(final ProgressDialog progressDialog) {
+        progressDialog.setMessage("Downloading Customer Table");
+        String url = URL+"customer.json.php";
+
+        JsonObjectRequest requestCreditList = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        try {
+                            //Read json and assign them to local variables
+                            JSONArray name = response.getJSONArray("name");
+                            JSONArray id = response.getJSONArray("id");
+                            JSONArray nic = response.getJSONArray("nic");
+
+
+//
+                            for (int i = 0; i < id.length(); i++){
+                                sqlite.execSQL("INSERT INTO customer (id, name,nic) VALUES ('"+id.get(i).toString()+"', '"+name.get(i).toString()+"', '"+nic.get(i).toString()+"');");
+                            }
+                            Log.d("DOWNLOAD", "DATA :Customer  AMOUNT "+id.length());
+                            Log.d("DOWNLOAD", "DATA :Customer  DATA "+response);
+                            progressDialog.setMessage("Customer Data Downloaded");
+                            progressDialog.hide();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        requestQueueForCreditList.add(requestCreditList);
+
+    }
+    //Download customers End
 }

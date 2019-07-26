@@ -90,8 +90,8 @@ public class Home extends AppCompatActivity {
     public static void onNavigationItemClick(Context context, MenuItem menuItem){
 
         switch(menuItem.toString()) {
-            case "Credits (Area)" :
-                Intent intentSelectArea = new Intent(context, SelectAreaForCredits.class);
+            case "Create" :
+                Intent intentSelectArea = new Intent(context, Create.class);
                 context.startActivity(intentSelectArea);
                 break;
 

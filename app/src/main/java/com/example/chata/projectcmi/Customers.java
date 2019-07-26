@@ -1,9 +1,12 @@
 package com.example.chata.projectcmi;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -13,8 +16,10 @@ public class Customers extends AppCompatActivity implements TextWatcher {
     EditText searchCustomers;
     ListView customerList;
 
-    String[] name = {"Sachitha Hirushan","Chavindu Nuwanpriya","Sandali Hirunika","Dumidu kasun","Dilshan Shankalpa","Sachin Tharaka","Sandun Malitha"};
-    String[] age = {"10","20","30","40","10","10","10","20","30","40","10","10"};
+    SQLiteDatabase sqLiteDatabase;
+    private String[] id, name,nic;
+
+
     ArrayList<SingleRowForCustomer> myList;
     CustomerListAdapter myAdapter;
 
@@ -23,8 +28,27 @@ public class Customers extends AppCompatActivity implements TextWatcher {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customers);
         setTitle("Customers");
+        ///Read data Start
+        sqLiteDatabase = openOrCreateDatabase("cmi", Customers.MODE_PRIVATE,null);
+        Cursor cForCustomers =sqLiteDatabase.rawQuery("SELECT * FROM customer ;",null);
 
+        int nRow = cForCustomers.getCount();
 
+        id = new String[nRow];
+        name = new String[nRow];
+        nic = new String[nRow];
+
+        int i=0;
+        while (cForCustomers.moveToNext()){
+
+            id[i] = cForCustomers.getString(0);
+            name[i] = cForCustomers.getString(1);
+            nic[i] = cForCustomers.getString(2);
+
+            i++;
+        }
+        ///Read data End
+        Log.d("Customers", "DATA: "+nRow);
         searchCustomers = findViewById(R.id.txtsearchCustomers);
 
         customerList = findViewById(R.id.listCustomers);
@@ -37,8 +61,8 @@ public class Customers extends AppCompatActivity implements TextWatcher {
         myList = new ArrayList<>();
         SingleRowForCustomer singleRow;
 
-        for(int i = 0; i < name.length;i++){
-            singleRow = new SingleRowForCustomer(name[i],age[i]);
+        for( i = 0; i < name.length;i++){
+            singleRow = new SingleRowForCustomer(name[i],id[i] ,nic[i] ,"","","");
 
             myList.add(singleRow);
         }
