@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".AddACustomer"></activity>
+        <activity android:name=".Pack"></activity>
+        <activity android:name=".AddACustomer" />
         <activity android:name=".Create" />
         <activity android:name=".PendingPrices" />
         <activity android:name=".FinishPendingOrder" />

@@ -3,6 +3,7 @@ package com.example.chata.projectcmi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.health.PackageHealthStats;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -100,8 +101,9 @@ public class Home extends AppCompatActivity {
                 context.startActivity(intentCustomers);
                 break;
 
-            case "Mark Sheet" :
-                Toast.makeText(context, menuItem.toString(), Toast.LENGTH_LONG).show();
+            case "packs" :
+                Intent intentPacks = new Intent(context, Pack.class);
+                context.startActivity(intentPacks);
                 break;
 
             case "High Score" :
