@@ -51,7 +51,7 @@
             android:padding="5dp">
 
             <TextView
-                android:id="@+id/itemTotalTxt"
+                android:id="@+id/txtArea"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.35"
@@ -60,7 +60,7 @@
                 android:textSize="16sp" />
 
             <Spinner
-                android:id="@+id/item"
+                android:id="@+id/area"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"

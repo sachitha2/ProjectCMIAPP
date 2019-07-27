@@ -53,7 +53,7 @@
             android:padding="5dp">
 
             <TextView
-                android:id="@+id/itemTotalTxt"
+                android:id="@+id/txtArea"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.1"
