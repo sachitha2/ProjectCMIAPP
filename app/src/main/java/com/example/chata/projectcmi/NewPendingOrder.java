@@ -1,6 +1,8 @@
 package com.example.chata.projectcmi;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AlertDialog;
@@ -9,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -29,6 +32,7 @@ public class NewPendingOrder extends AppCompatActivity {
     JSONObject invoice;
     String qty;
 
+    Button btnCompleteI;
     private TextView total;
 
 
@@ -47,8 +51,12 @@ public class NewPendingOrder extends AppCompatActivity {
         invoice = new JSONObject();
         total = findViewById(R.id.total);
 
+        btnCompleteI = findViewById(R.id.btnCompleteI);
+
         itemList = (LinearLayout) findViewById(R.id.itemList);
         edtQuantity = (EditText) findViewById(R.id.edtQuantity);
+
+        txtInvoiceId = (TextView) findViewById(R.id.txtInvoiceId);
         price = findViewById(R.id.edtPrices);
 
         item = (Spinner) findViewById(R.id.spinerItems);
@@ -94,6 +102,53 @@ public class NewPendingOrder extends AppCompatActivity {
             i++;
         }
 
+
+//
+//        SharedPreferences sharedPreferencesSS = getSharedPreferences("loginInfo", NewPendingOrder.MODE_PRIVATE);
+//        final int vehicleId = sharedPreferencesSS.getInt("uName", -1);
+        txtInvoiceId.setText(  "-" + time);
+
+        btnCompleteI.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Goto Complete invoice activiy
+
+                ///save data in table
+                String itemId;
+                String amount;
+
+                for(int x = 0;x < invoice.length();x++){
+                    try {
+                        JSONArray tmpJson = invoice.getJSONArray(""+x+"");
+//                        sqLiteDatabase.execSQL("INSERT INTO invoice (id, dealId, itemId, amount,sPrice,shopId,stockId,date,s) VALUES (100, '"+vehicleId+"-"+time+"',"+tmpJson.getString(3)+" , "+tmpJson.getString(2)+","+tmpJson.getString(1)+",2502,25, date('now','localtime'),0);");
+                        Log.d("json arr", "onClick: "+tmpJson);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+
+//                sqLiteDatabase.execSQL("INSERT INTO deal (id, shopId, Total, credit, cash,s,date) VALUES ('"+vehicleId+"-"+time+"', "+ShopId+", "+fullTotal+",25,25,2, date('now','localtime'));");
+                Log.d("Reading json object", "onClick: "+invoice);
+                Log.d("Reading json object L", "onClick: length of json object"+invoice.length());
+//                sqLiteSelectShop.execSQL("");
+
+
+                ///save data in table
+
+                Intent intent = new Intent(NewPendingOrder.this, CompletePendingOrder.class);
+//                String message = mMessageEditText.getText().toString();
+
+                intent.putExtra("ShopId", 10);
+                intent.putExtra("ShopName", "sam");
+                intent.putExtra("invoiceNumber", "-"+time);
+                intent.putExtra("json",invoice.toString());
+                intent.putExtra("itemTotla",fullTotal+"");
+                startActivity(intent);
+                NewPendingOrder.this.finish();
+            }
+        });
     }
 
     public void onAddClick(View view) {
