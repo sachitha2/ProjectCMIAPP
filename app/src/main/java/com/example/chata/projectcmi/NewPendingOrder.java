@@ -1,18 +1,39 @@
 package com.example.chata.projectcmi;
 
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class NewPendingOrder extends AppCompatActivity {
-    Spinner sPinerItems;
+    Spinner sPinerItems,item;
     SQLiteDatabase sqLiteDatabase;
     private String[] id, name;
     private TextView txtInvoiceId;
+    EditText edtQuantity,price;
+    private String[] Id,ItemName;
+    private LinearLayout itemList;
+    JSONObject invoice;
+    String qty;
+
+    private TextView total;
+
+
+    public  float fullTotal;
+    int itemCount = 0;
 
     long time;
     @Override
@@ -23,13 +44,22 @@ public class NewPendingOrder extends AppCompatActivity {
         sPinerItems = findViewById(R.id.spinerItems);
         txtInvoiceId = (TextView) findViewById(R.id.txtInvoiceId);
 
+        invoice = new JSONObject();
+        total = findViewById(R.id.total);
+
+        itemList = (LinearLayout) findViewById(R.id.itemList);
+        edtQuantity = (EditText) findViewById(R.id.edtQuantity);
+        price = findViewById(R.id.edtPrices);
+
+        item = (Spinner) findViewById(R.id.spinerItems);
+
         time = System.currentTimeMillis();
 
         txtInvoiceId.setText( time+"");
 
         sqLiteDatabase = openOrCreateDatabase("cmi", Customers.MODE_PRIVATE,null);
 
-        Cursor cForPack =sqLiteDatabase.rawQuery("SELECT * FROM area ;",null);
+        Cursor cForPack =sqLiteDatabase.rawQuery("SELECT * FROM item ;",null);
 
         int nRow = cForPack.getCount();
 
@@ -45,5 +75,119 @@ public class NewPendingOrder extends AppCompatActivity {
         }
         ArrayAdapter<String> packAdaptor = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, name);
         sPinerItems.setAdapter(packAdaptor);
+
+
+
+        Cursor cForItems =sqLiteDatabase.rawQuery("SELECT * FROM item ;",null);
+
+        int nRowItem = cForItems.getCount();
+
+        Id = new String[nRowItem];
+        ItemName = new String[nRowItem];
+
+        i = 0;
+        while (cForItems.moveToNext()){
+
+            Id[i] = cForItems.getString(0);
+            ItemName[i] = cForItems.getString(1);
+
+            i++;
+        }
+
+    }
+
+    public void onAddClick(View view) {
+        if(edtQuantity.getText().length() != 0){
+
+            if (price.getText().toString() == null) {
+                Log.d("Sachitha","Price is null");
+            } else {
+
+
+                JSONArray temp = new JSONArray();
+                temp.put(item.getSelectedItem() + "");
+                temp.put(price.getText() + "");
+                temp.put(edtQuantity.getText() + "");
+                temp.put(Id[item.getSelectedItemPosition()]);
+
+
+
+                try {
+                    invoice.put(itemCount + "", temp);//Id[item.getSelectedItemPosition()]
+                    itemCount++;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                Log.d("Sachitha", invoice.toString());
+
+
+                //new code
+                LinearLayout linearLayout = new LinearLayout(NewPendingOrder.this);
+                linearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+                linearLayout.setPadding(0, 20, 0, 20);
+
+
+                TextView textView1 = new TextView(this);
+                textView1.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0.4f));
+                textView1.setText(item.getSelectedItem() + "");
+
+                TextView textView2 = new TextView(this);
+                textView2.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0.2f));
+                textView2.setText(price.getText() + "");
+
+                TextView textView3 = new TextView(this);
+                textView3.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0.2f));
+                textView3.setText(edtQuantity.getText() + "");
+
+                TextView textView4 = new TextView(this);
+                textView4.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 0.2f));
+
+                qty = edtQuantity.getText() + "";
+                edtQuantity.setText("");
+
+                float sPrice = Float.parseFloat(price.getText() + "");
+                price.setText("");
+                textView4.setText((Integer.valueOf(qty) * sPrice) + "");
+
+                fullTotal += (Integer.valueOf(qty) * sPrice);
+
+                total.setText("Total \n" + fullTotal + "");
+
+                //new code
+
+                linearLayout.addView(textView1);
+                linearLayout.addView(textView2);
+                linearLayout.addView(textView3);
+                linearLayout.addView(textView4);
+
+
+                itemList.addView(linearLayout);
+
+            }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+
+
+
+        AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(this);
+        alertDialog2.setTitle("Delete Data");
+        alertDialog2.setMessage("Are you sure you want to go back?.");
+        // Add the buttons
+        alertDialog2.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+                NewPendingOrder.super.onBackPressed();
+
+            }
+        });
+
+
+        alertDialog2.show();
+
     }
 }

@@ -130,7 +130,8 @@ public class DownloadData extends AppCompatActivity {
         //Download pack Data
         jsonParsepackDataList(progressDialog);
 
-
+        //Download item table
+        jsonParseItemData(progressDialog);
 
         return 1;
     }
