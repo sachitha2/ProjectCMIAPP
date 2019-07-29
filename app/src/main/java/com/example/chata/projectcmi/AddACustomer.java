@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class AddACustomer extends AppCompatActivity {
     Button saveCustomer;
@@ -59,7 +60,31 @@ public class AddACustomer extends AppCompatActivity {
                 cForCustomers.moveToNext();
 
                 //find last id End
-                sqLiteDatabase.execSQL("INSERT INTO customer (id, name,nic,areaId) VALUES ('"+(cForCustomers.getInt(0) + 1)+"', '"+name.getText().toString()+"', '"+nic.getText().toString()+"','"+Id[area.getSelectedItemPosition()]+"');");
+
+                //Check customer availability
+                Cursor cForCustomerAvailability =sqLiteDatabase.rawQuery("SELECT * FROM customer WHERE nic = '"+nic.getText().toString()+"';",null);
+                int nRowCustomers = cForCustomerAvailability.getCount();
+                    if(name.getText().toString().matches("")){
+                        Toast.makeText(getApplicationContext(),"Enter Name",Toast.LENGTH_SHORT).show();
+                    }else if(nic.getText().toString().matches("")){
+                        Toast.makeText(getApplicationContext(),"Enter NIC",Toast.LENGTH_SHORT).show();
+                    }else{
+                        if(nRowCustomers == 0){
+
+                            sqLiteDatabase.execSQL("INSERT INTO customer (id, name,nic,areaId) VALUES ('"+(cForCustomers.getInt(0) + 1)+"', '"+name.getText().toString()+"', '"+nic.getText().toString()+"','"+Id[area.getSelectedItemPosition()]+"');");
+                            name.setText("");
+                            nic.setText("");
+                            name.requestFocus();
+                            Toast.makeText(getApplicationContext(),"Saved Successfully ",Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(getApplicationContext(),"This Customer Already Available",Toast.LENGTH_SHORT).show();
+                            name.setText("");
+                            nic.setText("");
+                            name.requestFocus();
+                        }
+                    }
+
+
 
             }
         });

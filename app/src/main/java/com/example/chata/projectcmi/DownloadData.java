@@ -113,6 +113,15 @@ public class DownloadData extends AppCompatActivity {
                 ",itemId varchar(11) NOT NULL" +
                 ",amount float NOT NULL);");
 
+        //Drop item Table if Exist
+        sqlite.execSQL("DROP TABLE IF EXISTS item;");
+
+        //Create item Table
+        sqlite.execSQL("CREATE TABLE IF  NOT EXISTS item (" +
+                "id int(11) NOT NULL" +
+                ",name varchar(100) NOT NULL);");
+
+
         ///Download Area Table
         jsonParseAreaList(progressDialog);
         ///Download customers list
@@ -245,4 +254,44 @@ public class DownloadData extends AppCompatActivity {
 
     }
     //Download PackData End
+
+
+    //Download Item data Start
+    private void jsonParseItemData(final ProgressDialog progressDialog) {
+        progressDialog.setMessage("Downloading Item Table");
+        String url = URL+"item.json.php";
+
+        JsonObjectRequest requestCreditList = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        try {
+                            //Read json and assign them to local variables
+                            JSONArray item = response.getJSONArray("item");
+                            JSONArray id = response.getJSONArray("id");
+
+
+//
+                            for (int i = 0; i < id.length(); i++){
+                                sqlite.execSQL("INSERT INTO item (id, name) VALUES ('"+id.get(i).toString()+"', '"+item.get(i).toString()+"');");
+                            }
+                            Log.d("DOWNLOAD", "DATA :item  AMOUNT "+id.length());
+                            Log.d("DOWNLOAD", "DATA :item  DATA "+response);
+                            progressDialog.setMessage("item Data Downloaded");
+                            progressDialog.hide();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        requestQueueForCreditList.add(requestCreditList);
+
+    }
+    //Download item data End
 }

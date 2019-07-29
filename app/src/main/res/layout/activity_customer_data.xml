@@ -7,7 +7,7 @@
     tools:context=".CustomerData">
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btnNewPendingOrder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
