@@ -121,6 +121,18 @@ public class DownloadData extends AppCompatActivity {
                 "id int(11) NOT NULL" +
                 ",name varchar(100) NOT NULL);");
 
+        //Creating pending order tables START
+        ///Set ID as auto increment
+        sqlite.execSQL("CREATE TABLE IF  NOT EXISTS orderdata (" +
+                "id int(11) NOT NULL" +
+                ",dealId varchar(100) NOT NULL);");
+
+        //Creating pending order tables END
+
+
+
+
+
 
         ///Download Area Table
         jsonParseAreaList(progressDialog);

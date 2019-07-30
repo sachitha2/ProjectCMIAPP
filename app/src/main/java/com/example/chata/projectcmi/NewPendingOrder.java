@@ -36,7 +36,7 @@ public class NewPendingOrder extends AppCompatActivity {
     private TextView total;
 
 
-    public  float fullTotal;
+    public  float fullTotal = 0;
     int itemCount = 0;
 
     long time;
@@ -140,7 +140,7 @@ public class NewPendingOrder extends AppCompatActivity {
                 Intent intent = new Intent(NewPendingOrder.this, CompletePendingOrder.class);
 //                String message = mMessageEditText.getText().toString();
 
-                intent.putExtra("ShopId", 10);
+                intent.putExtra("ShopId", 11);
                 intent.putExtra("ShopName", "sam");
                 intent.putExtra("invoiceNumber", "-"+time);
                 intent.putExtra("json",invoice.toString());
