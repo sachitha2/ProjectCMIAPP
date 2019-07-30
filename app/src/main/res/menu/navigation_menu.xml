@@ -20,6 +20,11 @@
             android:icon="@drawable/settings"
             android:title="packs" />
         <item
+            android:id="@+id/nav_pendingOrders"
+            android:icon="@drawable/settings"
+            android:title="Pending Orders" />
+
+        <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/settings"
             android:title="Settings" />

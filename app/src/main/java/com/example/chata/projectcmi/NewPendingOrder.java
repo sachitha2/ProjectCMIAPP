@@ -120,7 +120,7 @@ public class NewPendingOrder extends AppCompatActivity {
                 for(int x = 0;x < invoice.length();x++){
                     try {
                         JSONArray tmpJson = invoice.getJSONArray(""+x+"");
-//                        sqLiteDatabase.execSQL("INSERT INTO invoice (id, dealId, itemId, amount,sPrice,shopId,stockId,date,s) VALUES (100, '"+vehicleId+"-"+time+"',"+tmpJson.getString(3)+" , "+tmpJson.getString(2)+","+tmpJson.getString(1)+",2502,25, date('now','localtime'),0);");
+//                        sqLiteDatabase.execSQL("INSERT INTO orderdata (id, dealId, cid,date,s) VALUES (100,time,"+tmpJson.getString(3)+" , "+tmpJson.getString(2)+","+tmpJson.getString(1)+",2502,25, date('now','localtime'),0);");
                         Log.d("json arr", "onClick: "+tmpJson);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -129,7 +129,7 @@ public class NewPendingOrder extends AppCompatActivity {
                 }
 
 
-//                sqLiteDatabase.execSQL("INSERT INTO deal (id, shopId, Total, credit, cash,s,date) VALUES ('"+vehicleId+"-"+time+"', "+ShopId+", "+fullTotal+",25,25,2, date('now','localtime'));");
+                sqLiteDatabase.execSQL("INSERT INTO orderdata (id, dealId, cid,date,s) VALUES (100,'"+time+"',25, date('now','localtime'),3);");
                 Log.d("Reading json object", "onClick: "+invoice);
                 Log.d("Reading json object L", "onClick: length of json object"+invoice.length());
 //                sqLiteSelectShop.execSQL("");

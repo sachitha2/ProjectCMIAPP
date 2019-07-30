@@ -106,8 +106,9 @@ public class Home extends AppCompatActivity {
                 context.startActivity(intentPacks);
                 break;
 
-            case "High Score" :
-                Toast.makeText(context, menuItem.toString(), Toast.LENGTH_LONG).show();
+            case "Pending Orders" :
+                Intent intentPendingOrders = new Intent(context, PendingOrders.class);
+                context.startActivity(intentPendingOrders);
                 break;
 
             case "Settings" :

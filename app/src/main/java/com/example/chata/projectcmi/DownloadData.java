@@ -125,7 +125,10 @@ public class DownloadData extends AppCompatActivity {
         ///Set ID as auto increment
         sqlite.execSQL("CREATE TABLE IF  NOT EXISTS orderdata (" +
                 "id int(11) NOT NULL" +
-                ",dealId varchar(100) NOT NULL);");
+                ",dealId varchar(100) NOT NULL" +
+                ",cid varchar(15)" +
+                ",date datetime NOT NULL " +
+                ",s int(1) NOT NULL);");
 
         //Creating pending order tables END
 
