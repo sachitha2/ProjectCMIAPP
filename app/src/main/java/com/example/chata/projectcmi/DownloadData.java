@@ -127,6 +127,7 @@ public class DownloadData extends AppCompatActivity {
                 "id int(11) NOT NULL" +
                 ",dealId varchar(100) NOT NULL" +
                 ",cid varchar(15)" +
+                ",total float(10)" +
                 ",date datetime NOT NULL " +
                 ",s int(1) NOT NULL);");
 

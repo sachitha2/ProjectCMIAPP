@@ -129,7 +129,7 @@ public class NewPendingOrder extends AppCompatActivity {
                 }
 
 
-                sqLiteDatabase.execSQL("INSERT INTO orderdata (id, dealId, cid,date,s) VALUES (100,'"+time+"',25, date('now','localtime'),3);");
+                sqLiteDatabase.execSQL("INSERT INTO orderdata (id, dealId, cid,total,date,s) VALUES (100,'"+time+"',25,1500, date('now','localtime'),3);");
                 Log.d("Reading json object", "onClick: "+invoice);
                 Log.d("Reading json object L", "onClick: length of json object"+invoice.length());
 //                sqLiteSelectShop.execSQL("");

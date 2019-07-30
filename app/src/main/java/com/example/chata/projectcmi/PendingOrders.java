@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -27,7 +28,7 @@ public class PendingOrders extends AppCompatActivity implements TextWatcher {
 
     SQLiteDatabase sqLiteShops;
 
-    private String[] Id,ShopId,ShopName,Address,Contact,Root,IdNo,Credit;
+    private String[] Id,CustomerId,CustomerName,Address,Contact,Root,IdNo,Credit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +37,8 @@ public class PendingOrders extends AppCompatActivity implements TextWatcher {
 
         sqLiteShops = openOrCreateDatabase("cmi", PendingOrders.MODE_PRIVATE,null);
 
-        shopsList = (ListView) findViewById(R.id.dataList);
-        search = (EditText) findViewById(R.id.search);
+        shopsList =  findViewById(R.id.dataList);
+        search =  findViewById(R.id.search);
         total = findViewById(R.id.txtTotal);
         txtNumInvoice = findViewById(R.id.txtNumInvoice);
 
@@ -48,13 +49,13 @@ public class PendingOrders extends AppCompatActivity implements TextWatcher {
 
 
 
-//        Cursor c =sqLiteShops.rawQuery("SELECT * FROM deal WHERE   date =  date('now','localtime');",null);
-
-        int nRow =1;// c.getCount();
-        txtNumInvoice.setText("Number of invoices " + nRow);
+        Cursor c =sqLiteShops.rawQuery("SELECT * FROM orderdata WHERE   date =  date('now','localtime');",null);
+        Log.d("pending ","orderData : "+c.getCount());
+        int nRow = c.getCount();
+        txtNumInvoice.setText("Number of Pending Orders  " + nRow);
         Id = new String[nRow];
-        ShopId = new String[nRow];
-        ShopName = new String[nRow];
+        CustomerId = new String[nRow];
+        CustomerName = new String[nRow];
         Address = new String[nRow];
         Contact = new String[nRow];
         Root = new String[nRow];
@@ -62,31 +63,30 @@ public class PendingOrders extends AppCompatActivity implements TextWatcher {
         Credit = new String[nRow];
         myList = new ArrayList<>();
         SingleRowForPendingOrders singleRow;
-        //c.moveToNext()
         int i = 0;
-        while (i < 1){
+        while (c.moveToNext()){
 
             Id[i] = "" + i;
-            ShopId[i] ="1"; //c.getString(0);
-            ShopName[i] = "sam";//c.getString(1);
+            CustomerId[i] ="1"; //c.getString(0);
+            CustomerName[i] = "";//c.getString(1);
             Address[i] = "no";//c.getString(2);
 
-            //Looking for shop name
-            Cursor shopNameFind =sqLiteShops.rawQuery("SELECT * FROM shop where id = "+c.getString(1)+";",null);
+            //Looking for customer name
+            Cursor cForCustomer =sqLiteShops.rawQuery("SELECT * FROM customer where id = "+c.getString(2)+";",null);
 
 //            Cursor invoiceQty =sqLiteShops.rawQuery("SELECT * FROM invoice where dealId = '"+c.getString(0)+"';",null);
             int nRowInvoiceQty = 10;//invoiceQty.getCount();
 
 
 //            shopNameFind.moveToNext();
-            customerName = "Hello shop";//shopNameFind.getString(1);
+//            customerName = cForCustomer.getString(1);
 
             //Looking for shop name
 
 
 
 
-            singleRow = new SingleRowForPendingOrders(customerName, ShopId[i], ShopName[i],Address[i],nRowInvoiceQty+"");
+            singleRow = new SingleRowForPendingOrders(customerName, CustomerId[i], CustomerName[i],Address[i],nRowInvoiceQty+"");
 
             myList.add(singleRow);
 
