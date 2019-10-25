@@ -133,7 +133,22 @@ public class DownloadData extends AppCompatActivity {
 
         //Creating pending order tables END
 
+        //creating deals table START
+        sqlite.execSQL("DROP TABLE IF EXISTS deals;");
+        sqlite.execSQL("CREATE TABLE IF  NOT EXISTS deals (" +
+                "id int(15) NOT NULL" +
+                ",date varchar(100) NOT NULL" +
+                ",time varchar(15) NOT NULL" +
+                ",s int(1) NOT NULL," +
+                "PRIMARY KEY (id)" +
+                ");");
 
+
+
+
+        sqlite.execSQL("INSERT INTO deals (id, date,time,s) VALUES (12,'2014','','');");
+        sqlite.execSQL("INSERT INTO deals (id, date,time,s) VALUES (13,'2014','','');");
+        //Creating deals table END
 
 
 
