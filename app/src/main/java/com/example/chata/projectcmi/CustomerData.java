@@ -8,7 +8,7 @@ import android.widget.Button;
 
 public class CustomerData extends AppCompatActivity {
     private String customerId, customerName;
-    private Button btnNewPendingOrder;
+    private Button btnNewPendingOrder,btnDeals;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +19,7 @@ public class CustomerData extends AppCompatActivity {
         setTitle("Customer Profile - "+customerId);
 //        customerName= getIntent().getStringExtra("customerName");
         btnNewPendingOrder = findViewById(R.id.btnNewPendingOrder);
+        btnDeals = findViewById(R.id.btnDeals);
         btnNewPendingOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -27,6 +28,15 @@ public class CustomerData extends AppCompatActivity {
             }
         });
 
+        btnDeals.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+
+                Intent i = new Intent(getBaseContext(),   CustomerDeals.class);
+                i.putExtra("customerId", customerId);
+                startActivity(i);
+            }
+        });
     }
 }

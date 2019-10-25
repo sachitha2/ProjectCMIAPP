@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".CustomerData">
 
+
+    <Button
+        android:id="@+id/btnDeals"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bgbutton"
+        android:text="Deals"
+        android:textColor="#fff"
+
+        app:layout_constraintBottom_toTopOf="@id/btnNewPendingOrder"
+        tools:layout_editor_absoluteX="20dp" />
     <Button
         android:id="@+id/btnNewPendingOrder"
         android:layout_width="match_parent"
