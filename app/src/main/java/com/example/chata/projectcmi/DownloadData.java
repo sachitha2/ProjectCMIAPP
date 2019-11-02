@@ -27,7 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class DownloadData extends AppCompatActivity {
-    String URL = "http://192.168.43.230/shop/APP/";
+    String URL = "http://192.168.43.44/shop/APP/";
     SQLiteDatabase sqlite;
     private RequestQueue requestQueueForCreditList;
     Button bluetoothBtn,btnDownloadData;
@@ -137,17 +137,25 @@ public class DownloadData extends AppCompatActivity {
         sqlite.execSQL("DROP TABLE IF EXISTS deals;");
         sqlite.execSQL("CREATE TABLE IF  NOT EXISTS deals (" +
                 "id int(15) NOT NULL" +
-                ",date varchar(100) NOT NULL" +
-                ",time varchar(15) NOT NULL" +
-                ",s int(1) NOT NULL," +
-                "PRIMARY KEY (id)" +
+                ",date DATE NOT NULL" +
+                ",time TIME NOT NULL" +
+                ",fdate DATE NOT NULL" +
+                ",ftime TIME NOT NULL" +
+                ",tprice FLOAT NOT NULL" +
+                ",rprice FLOAT NOT NULL" +
+                ",status INT(1) NOT NULL" +
+                ",ni INT(1) NOT NULL" +
+                ",cid INT(11) NOT NULL" +
+                ",discount FLOAT NOT NULL" +
+                ",agentId int(2) NOT NULL" +
+                ",PRIMARY KEY (id)" +
                 ");");
 
 
-
-
-        sqlite.execSQL("INSERT INTO deals (id, date,time,s) VALUES (12,'2014','','');");
-        sqlite.execSQL("INSERT INTO deals (id, date,time,s) VALUES (13,'2014','','');");
+//
+//
+//        sqlite.execSQL("INSERT INTO deals (id, date,time,fdate,ftime,tprice,rprice,status,ni,cid,discount,agentId) VALUES (12,'2014-10-25','','2019-10-10','',5.5,2.5,1,5,2500,10.2,19);");
+//        sqlite.execSQL("INSERT INTO deals (id, date,time,fdate,ftime,tprice,rprice,status,ni,cid,discount,agentId) VALUES (13,'2015-08-25','','2019-10-10','',3.6,2,1,5,2588,2.3,19);");
         //Creating deals table END
 
 
@@ -164,6 +172,9 @@ public class DownloadData extends AppCompatActivity {
         //Download item table
         jsonParseItemData(progressDialog);
 
+
+        // Download Deals Table
+        jsonParseDealsList(progressDialog);
         return 1;
     }
 
@@ -206,6 +217,44 @@ public class DownloadData extends AppCompatActivity {
         requestQueueForCreditList.add(requestCreditList);
 
     }
+
+
+    //download deals
+    private void jsonParseDealsList(final ProgressDialog progressDialog) {
+        progressDialog.setMessage("Downloading Deals Table");
+        String url = URL+"deals.json.php";
+
+        JsonObjectRequest requestCreditList = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        try {
+                            //Read json and assign them to local variables
+                            JSONArray id = response.getJSONArray("id");
+                            JSONArray total = response.getJSONArray("tprice");
+//
+                            for (int i = 0; i < id.length(); i++){
+                                sqlite.execSQL("INSERT INTO deals (id, date,time,fdate,ftime,tprice,rprice,status,ni,cid,discount,agentId) VALUES ('"+id.get(i).toString()+"','2015-08-25','','2019-10-10','',"+total.get(i).toString()+",2,1,5,2588,2.3,19);");
+                            }
+                            Log.d("DOWNLOAD", "DATA :AREA  AMOUNT "+id.length());
+                            Log.d("DOWNLOAD", "DATA :AREA  DATA "+response);
+                            progressDialog.setMessage("Area Data Downloaded");
+                            progressDialog.hide();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        requestQueueForCreditList.add(requestCreditList);
+
+    }
+
 
     //Download customers Start
     private void jsonParseCustomerList(final ProgressDialog progressDialog) {
@@ -302,8 +351,6 @@ public class DownloadData extends AppCompatActivity {
                             //Read json and assign them to local variables
                             JSONArray item = response.getJSONArray("item");
                             JSONArray id = response.getJSONArray("id");
-
-
 //
                             for (int i = 0; i < id.length(); i++){
                                 sqlite.execSQL("INSERT INTO item (id, name) VALUES ('"+id.get(i).toString()+"', '"+item.get(i).toString()+"');");
