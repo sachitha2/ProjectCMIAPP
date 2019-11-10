@@ -27,7 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class DownloadData extends AppCompatActivity {
-    String URL = "http://192.168.43.44/shop/APP/";
+    String URL = "http://192.168.1.101/shop/APP/";
     SQLiteDatabase sqlite;
     private RequestQueue requestQueueForCreditList;
     Button bluetoothBtn,btnDownloadData;
@@ -233,9 +233,19 @@ public class DownloadData extends AppCompatActivity {
                             //Read json and assign them to local variables
                             JSONArray id = response.getJSONArray("id");
                             JSONArray total = response.getJSONArray("tprice");
+                            JSONArray cid = response.getJSONArray("cid");
+                            JSONArray date = response.getJSONArray("date");
+                            JSONArray time = response.getJSONArray("time");
+                            JSONArray fdate  = response.getJSONArray("fdate");
+                            JSONArray ftime = response.getJSONArray("ftime");
+                            JSONArray rprice = response.getJSONArray("rprice");
+                            JSONArray status = response.getJSONArray("status");
+                            JSONArray ni = response.getJSONArray("ni");
+                            JSONArray discount = response.getJSONArray("discount");
+                            JSONArray agentId = response.getJSONArray("agentId");
 //
                             for (int i = 0; i < id.length(); i++){
-                                sqlite.execSQL("INSERT INTO deals (id, date,time,fdate,ftime,tprice,rprice,status,ni,cid,discount,agentId) VALUES ('"+id.get(i).toString()+"','2015-08-25','','2019-10-10','',"+total.get(i).toString()+",2,1,5,2588,2.3,19);");
+                                sqlite.execSQL("INSERT INTO deals (id, date,time,fdate,ftime,tprice,rprice,status,ni,cid,discount,agentId) VALUES ('"+id.get(i).toString()+"','"+date.get(i).toString()+"','"+time.get(i).toString()+"','"+fdate.get(i).toString()+"','"+ftime.get(i).toString()+"',"+total.get(i).toString()+","+rprice.get(i).toString()+","+status.get(i).toString()+","+ni.get(i).toString()+","+cid.get(i).toString()+","+discount.get(i).toString()+","+agentId.get(i).toString()+");");
                             }
                             Log.d("DOWNLOAD", "DATA :AREA  AMOUNT "+id.length());
                             Log.d("DOWNLOAD", "DATA :AREA  DATA "+response);

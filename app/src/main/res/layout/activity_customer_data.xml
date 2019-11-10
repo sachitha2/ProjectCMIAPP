@@ -7,6 +7,20 @@
     tools:context=".CustomerData">
 
 
+
+    <Button
+        android:id="@+id/btnNewOrder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bgbutton"
+        android:text="New Order"
+        android:textColor="#fff"
+
+        app:layout_constraintBottom_toTopOf="@id/btnDeals"
+        tools:layout_editor_absoluteX="20dp" />
+
     <Button
         android:id="@+id/btnDeals"
         android:layout_width="match_parent"

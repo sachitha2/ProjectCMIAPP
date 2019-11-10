@@ -36,7 +36,7 @@ public class CustomerDeals extends AppCompatActivity   implements TextWatcher {
 
         sqLiteDatabase  = openOrCreateDatabase("cmi", Context.MODE_PRIVATE,null);
 
-        Cursor cDeals =sqLiteDatabase.rawQuery("SELECT * FROM deals ;",null);
+        Cursor cDeals =sqLiteDatabase.rawQuery("SELECT * FROM deals WHERE  cid = "+customerId+" ;",null);
 
         int nRow = cDeals.getCount();
 
