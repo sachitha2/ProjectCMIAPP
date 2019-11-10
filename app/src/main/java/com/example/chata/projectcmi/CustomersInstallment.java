@@ -1,5 +1,7 @@
 package com.example.chata.projectcmi;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -20,10 +22,20 @@ public class CustomersInstallment extends AppCompatActivity  implements TextWatc
     EditText searchCustomers;
     ListView customerList;
 
+    SQLiteDatabase sqLiteDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customers_installment);
+
+
+
+        sqLiteDatabase = openOrCreateDatabase("cmi", Customers.MODE_PRIVATE,null);
+        Cursor cForCustomers =sqLiteDatabase.rawQuery("SELECT * FROM installment ;",null);
+
+        int nRow = cForCustomers.getCount();
+
 
         InvoiceId= getIntent().getStringExtra("InvoiceId");
 
@@ -44,16 +56,10 @@ public class CustomersInstallment extends AppCompatActivity  implements TextWatc
         myList = new ArrayList<>();
         SingleRowForInstallment singleRow;
 
-//        for( i = 0; i < name.length;i++){
-            singleRow = new SingleRowForInstallment(5+"");
+        for(int i = 1; i <= nRow;i++){
+            singleRow = new SingleRowForInstallment(i+"");
             myList.add(singleRow);
-            singleRow = new SingleRowForInstallment(5+"");
-            myList.add(singleRow);
-            singleRow = new SingleRowForInstallment(5+"");
-            myList.add(singleRow);
-
-
-//        }
+        }
 
         myAdapter = new ListViewInstallmentOfACustomer(this,myList);
 

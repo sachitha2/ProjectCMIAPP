@@ -15,11 +15,18 @@
         android:hint="Search"
 
         />
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add A Payment"
+        app:layout_constraintTop_toBottomOf="@id/txtsearchInstallments"
 
+        />
     <ListView
         android:id="@+id/listInstallments"
         android:layout_width="395dp"
         android:layout_height="500dp"
-        app:layout_constraintTop_toBottomOf="@id/txtsearchInstallments"
+        app:layout_constraintTop_toBottomOf="@id/btn"
         />
 </android.support.constraint.ConstraintLayout>

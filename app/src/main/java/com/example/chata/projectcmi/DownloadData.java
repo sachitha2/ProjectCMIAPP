@@ -27,7 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class DownloadData extends AppCompatActivity {
-    String URL = "http://192.168.1.101/shop/APP/";
+    String URL = "http://trans.infinisolutionslk.com/APP/";
     SQLiteDatabase sqlite;
     private RequestQueue requestQueueForCreditList;
     Button bluetoothBtn,btnDownloadData;
@@ -164,6 +164,7 @@ public class DownloadData extends AppCompatActivity {
                 "cid int(11) NOT NULL);");
 
           sqlite.execSQL("INSERT INTO installment (id, dealid,installmentid,payment,time,date,rdate,status,rpayment,cid) VALUES (25,1258,4,20.5,'','2015-10-25','2015-10-25',1,200.5,5);");
+          sqlite.execSQL("INSERT INTO installment (id, dealid,installmentid,payment,time,date,rdate,status,rpayment,cid) VALUES (26,1258,4,20.5,'','2015-10-25','2015-10-25',1,200.5,5);");
 //
 //
 //        sqlite.execSQL("INSERT INTO deals (id, date,time,fdate,ftime,tprice,rprice,status,ni,cid,discount,agentId) VALUES (13,'2015-08-25','','2019-10-10','',3.6,2,1,5,2588,2.3,19);");
@@ -228,7 +229,45 @@ public class DownloadData extends AppCompatActivity {
         requestQueueForCreditList.add(requestCreditList);
 
     }
+    //TODO  Installment table;
+    private void jsonParseInstallment(final ProgressDialog progressDialog) {
+        progressDialog.setMessage("Downloading Installment Table");
+        String url = URL+"installment.json.php";
 
+        JsonObjectRequest requestCreditList = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        try {
+                            //Read json and assign them to local variables
+                            JSONArray area = response.getJSONArray("area");
+                            JSONArray id = response.getJSONArray("id");
+
+
+
+
+//
+                            for (int i = 0; i < id.length(); i++){
+                                sqlite.execSQL("INSERT INTO area (id, name) VALUES ('"+id.get(i).toString()+"', '"+area.get(i).toString()+"');");
+                            }
+                            Log.d("DOWNLOAD", "DATA :AREA  AMOUNT "+id.length());
+                            Log.d("DOWNLOAD", "DATA :AREA  DATA "+response);
+                            progressDialog.setMessage("Area Data Downloaded");
+                            progressDialog.hide();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        requestQueueForCreditList.add(requestCreditList);
+
+    }
 
     //download deals
     private void jsonParseDealsList(final ProgressDialog progressDialog) {

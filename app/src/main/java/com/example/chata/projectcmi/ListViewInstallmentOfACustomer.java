@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
@@ -43,6 +44,7 @@ public class ListViewInstallmentOfACustomer extends BaseAdapter implements Filte
 
         TextView txtDealId =row.findViewById(R.id.textView);
 
+        Button btn =(Button) row.findViewById(R.id.btn);
 
 
         TextView txtTotal = row.findViewById(R.id.txtTotal);
