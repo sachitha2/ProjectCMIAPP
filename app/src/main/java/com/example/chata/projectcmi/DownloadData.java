@@ -150,11 +150,22 @@ public class DownloadData extends AppCompatActivity {
                 ",agentId int(2) NOT NULL" +
                 ",PRIMARY KEY (id)" +
                 ");");
+        sqlite.execSQL("DROP TABLE IF EXISTS installment;");
+        sqlite.execSQL("CREATE TABLE installment (" +
+                "id int(11) NOT NULL ," +
+                "dealid int(15) NOT NULL," +
+                "installmentid  int(11) NOT NULL," +
+                "payment FLOAT NOT NULL," +
+                "time TIME NOT NULL," +
+                "date DATE NOT NULL," +
+                "rdate DATE NOT NULL," +
+                "status int(1) NOT NULL," +
+                "rpayment FLOAT NOT NULL," +
+                "cid int(11) NOT NULL);");
 
-
+          sqlite.execSQL("INSERT INTO installment (id, dealid,installmentid,payment,time,date,rdate,status,rpayment,cid) VALUES (25,1258,4,20.5,'','2015-10-25','2015-10-25',1,200.5,5);");
 //
 //
-//        sqlite.execSQL("INSERT INTO deals (id, date,time,fdate,ftime,tprice,rprice,status,ni,cid,discount,agentId) VALUES (12,'2014-10-25','','2019-10-10','',5.5,2.5,1,5,2500,10.2,19);");
 //        sqlite.execSQL("INSERT INTO deals (id, date,time,fdate,ftime,tprice,rprice,status,ni,cid,discount,agentId) VALUES (13,'2015-08-25','','2019-10-10','',3.6,2,1,5,2588,2.3,19);");
         //Creating deals table END
 
