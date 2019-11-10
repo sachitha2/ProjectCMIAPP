@@ -1,18 +1,18 @@
 package com.example.chata.projectcmi;
 
 public class SingleRowForInstallment {
-    float total;
+    String total;
 
 
-    public SingleRowForInstallment(float total) {
+    public SingleRowForInstallment(String total) {
         this.total = total;
     }
 
-    public float getTotal() {
+    public String getTotal() {
         return total;
     }
 
-    public void setTotal(float total) {
+    public void setTotal(String total) {
         this.total = total;
     }
 

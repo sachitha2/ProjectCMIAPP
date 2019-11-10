@@ -20,21 +20,9 @@
         android:textAlignment="center"
         android:text="2500"
         />
-    <EditText
+
+    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Amount"
-        />
-    <TextView
-        android:id="@+id/txtTotal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:text="" />
-    <TextView
-        android:id="@+id/txtStatus"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:text="" />
+        android:text="hellooo" />
 </LinearLayout>
