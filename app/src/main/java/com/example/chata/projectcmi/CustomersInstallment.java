@@ -29,15 +29,15 @@ public class CustomersInstallment extends AppCompatActivity  implements TextWatc
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customers_installment);
 
-
+        InvoiceId= getIntent().getStringExtra("InvoiceId");
 
         sqLiteDatabase = openOrCreateDatabase("cmi", Customers.MODE_PRIVATE,null);
-        Cursor cForCustomers =sqLiteDatabase.rawQuery("SELECT * FROM installment ;",null);
+        Cursor cForCustomers =sqLiteDatabase.rawQuery("SELECT * FROM installment WHERE dealid = "+InvoiceId+";",null);
 
         int nRow = cForCustomers.getCount();
 
 
-        InvoiceId= getIntent().getStringExtra("InvoiceId");
+
 
         setTitle("Deal Id "+InvoiceId);
 
@@ -57,6 +57,7 @@ public class CustomersInstallment extends AppCompatActivity  implements TextWatc
         SingleRowForInstallment singleRow;
 
         for(int i = 1; i <= nRow;i++){
+            cForCustomers.moveToNext();
             singleRow = new SingleRowForInstallment(i+"");
             myList.add(singleRow);
         }

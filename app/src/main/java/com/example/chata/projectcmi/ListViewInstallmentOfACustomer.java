@@ -40,11 +40,11 @@ public class ListViewInstallmentOfACustomer extends BaseAdapter implements Filte
     public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View row = inflater.inflate(R.layout.list_deals_of_a_customer,null);
+        View row = inflater.inflate(R.layout.list_view_installment_of_a_customer,null);
 
         TextView txtDealId =row.findViewById(R.id.textView);
 
-        Button btn =(Button) row.findViewById(R.id.btn);
+
 
 
         TextView txtTotal = row.findViewById(R.id.txtTotal);
