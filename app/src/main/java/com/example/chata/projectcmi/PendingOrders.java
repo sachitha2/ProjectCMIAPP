@@ -39,7 +39,7 @@ public class PendingOrders extends AppCompatActivity implements TextWatcher {
 
         shopsList =  findViewById(R.id.dataList);
         search =  findViewById(R.id.search);
-        total = findViewById(R.id.txtTotal);
+        total = findViewById(R.id.payment);
         txtNumInvoice = findViewById(R.id.txtNumInvoice);
 
 //        Cursor totalCash =sqLiteShops.rawQuery("SELECT SUM(Total) FROM deal WHERE S=0 OR S = 1 AND   date =  date('now','localtime');",null);

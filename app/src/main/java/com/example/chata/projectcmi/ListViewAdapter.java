@@ -7,9 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.jar.Attributes;
 
 public class ListViewAdapter extends BaseAdapter {
 
@@ -106,7 +103,7 @@ public class ListViewAdapter extends BaseAdapter {
 
                 TextView customer = (TextView)btnView.findViewById(R.id.txtCustomer);
                 TextView installments = (TextView)btnView.findViewById(R.id.txtInstallments);
-                TextView total = (TextView)btnView.findViewById(R.id.txtTotal);
+                TextView total = (TextView)btnView.findViewById(R.id.payment);
 
                 customer.setText(Customer[position]);
                 installments.setText(Installment[position]);

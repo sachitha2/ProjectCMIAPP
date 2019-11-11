@@ -24,7 +24,7 @@
             android:inputType="textPersonName" />
 
         <TextView
-            android:id="@+id/txtTotal"
+            android:id="@+id/payment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Grand Total 0"

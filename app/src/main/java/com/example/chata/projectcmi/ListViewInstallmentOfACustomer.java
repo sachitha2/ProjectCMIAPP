@@ -1,17 +1,13 @@
 package com.example.chata.projectcmi;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -42,16 +38,16 @@ public class ListViewInstallmentOfACustomer extends BaseAdapter implements Filte
 
         View row = inflater.inflate(R.layout.list_view_installment_of_a_customer,null);
 
-        TextView txtDealId =row.findViewById(R.id.textView);
+        TextView txtDealId =row.findViewById(R.id.id);
 
 
 
 
-        TextView txtTotal = row.findViewById(R.id.txtTotal);
+        TextView txtTotal = row.findViewById(R.id.payment);
 
 
         txtDealId.setText(originalArray.get(position).getTotal());
-        txtTotal.setText("Total price "+originalArray.get(position).getTotal()+"");
+        txtTotal.setText(originalArray.get(position).getTotal()+"");
 
         row.setOnClickListener(new View.OnClickListener() {
             @Override

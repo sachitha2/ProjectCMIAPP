@@ -40,8 +40,8 @@ public class ListViewDealsOfaCustomer extends BaseAdapter implements Filterable 
 
         View row = inflater.inflate(R.layout.list_deals_of_a_customer,null);
 
-        TextView txtDealId =(TextView)row.findViewById(R.id.textView);
-        TextView txtTotal = row.findViewById(R.id.txtTotal);
+        TextView txtDealId =(TextView)row.findViewById(R.id.id);
+        TextView txtTotal = row.findViewById(R.id.payment);
         TextView txtStatus = row.findViewById(R.id.txtStatus);
 
 
