@@ -58,7 +58,7 @@ public class CustomersInstallment extends AppCompatActivity  implements TextWatc
 
         for(int i = 1; i <= nRow;i++){
             cForCustomers.moveToNext();
-            singleRow = new SingleRowForInstallment(i+"");
+            singleRow = new SingleRowForInstallment("0","","","","",i+"");
             myList.add(singleRow);
         }
 

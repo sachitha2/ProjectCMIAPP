@@ -1,10 +1,12 @@
 package com.example.chata.projectcmi;
 
 public class SingleRowForInstallment {
-    String total;
+
     String payment;
     String rpayment;
     String rdate;
+    String id;
+    String dueDate;
 
     public String getId() {
         return id;
@@ -14,7 +16,7 @@ public class SingleRowForInstallment {
         this.id = id;
     }
 
-    String id;
+
 
     public String getPayment() {
         return payment;
@@ -48,32 +50,15 @@ public class SingleRowForInstallment {
         this.dueDate = dueDate;
     }
 
-    String dueDate;
 
-    public SingleRowForInstallment(String total, String payment, String rpayment, String rdate, String dueDate,String id) {
-        this.total = total;
+
+    public SingleRowForInstallment( String payment, String rpayment, String rdate, String dueDate,String id) {
+
         this.payment = payment;
         this.rpayment = rpayment;
         this.rdate = rdate;
         this.dueDate = dueDate;
         this.id = id;
     }
-
-
-
-
-    public SingleRowForInstallment(String total) {
-        this.total = total;
-    }
-
-    public String getTotal() {
-        return total;
-    }
-
-    public void setTotal(String total) {
-        this.total = total;
-    }
-
-
-
+    
 }

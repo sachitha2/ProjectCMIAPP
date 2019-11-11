@@ -13,19 +13,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="1" />
+            android:text="1"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/payment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="18sp"
             android:text="5000" />
 
         <TextView
             android:id="@+id/rpayment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="18sp"
             android:layout_weight="1"
             android:text="4000" />
 
@@ -33,6 +36,7 @@
             android:id="@+id/dueDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="15sp"
             android:layout_weight="1"
             android:text="2019-10-10" />
 
@@ -40,6 +44,7 @@
             android:id="@+id/rDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="15sp"
             android:layout_weight="1"
             android:text="2019-10-12" />
 

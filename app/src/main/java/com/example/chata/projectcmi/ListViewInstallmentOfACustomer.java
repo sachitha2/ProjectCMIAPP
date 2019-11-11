@@ -38,7 +38,11 @@ public class ListViewInstallmentOfACustomer extends BaseAdapter implements Filte
 
         View row = inflater.inflate(R.layout.list_view_installment_of_a_customer,null);
 
-        TextView txtDealId =row.findViewById(R.id.id);
+        TextView txtId =row.findViewById(R.id.id);
+        TextView txtPayment = row.findViewById(R.id.payment);
+        TextView txtRPayment = row.findViewById(R.id.rpayment);
+        TextView txtDate = row.findViewById(R.id.dueDate);
+        TextView txtRDate = row.findViewById(R.id.rDate);
 
 
 
@@ -46,7 +50,7 @@ public class ListViewInstallmentOfACustomer extends BaseAdapter implements Filte
         TextView txtTotal = row.findViewById(R.id.payment);
 
 
-        txtDealId.setText(originalArray.get(position).getTotal());
+        txtId.setText(originalArray.get(position).getId());
         txtTotal.setText(originalArray.get(position).getTotal()+"");
 
         row.setOnClickListener(new View.OnClickListener() {
