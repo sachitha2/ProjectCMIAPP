@@ -7,8 +7,11 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -19,10 +22,12 @@ public class CustomersInstallment extends AppCompatActivity  implements TextWatc
     ArrayList<SingleRowForInstallment> myList;
     ListViewInstallmentOfACustomer myAdapter;
 
-    EditText searchCustomers;
+    EditText searchCustomers,editPayment;
     ListView customerList;
-
+    TextView tot,receivePayment,balance;
     SQLiteDatabase sqLiteDatabase;
+
+    Button btnPayment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +41,34 @@ public class CustomersInstallment extends AppCompatActivity  implements TextWatc
 
         int nRow = cForCustomers.getCount();
 
+        tot = findViewById(R.id.total);
+        receivePayment = findViewById(R.id.rPrice);
+        balance = findViewById(R.id.balance);
+        editPayment = findViewById(R.id.editPayment);
+        btnPayment = findViewById(R.id.btnAddPayment);
+
+        btnPayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Button Click","Sachitha clicked a button");
+
+                //take remain payment
+                Cursor deal = sqLiteDatabase.rawQuery("SELECT * FROM deals WHERE id = "+InvoiceId+";",null);
+                deal.moveToNext();
+
+                float remain = deal.getFloat(6);
+                Log.d("Remain","Remained "+remain+editPayment.getText());
+
+            }
+        });
+
+        Cursor deal = sqLiteDatabase.rawQuery("SELECT * FROM deals WHERE id = "+InvoiceId+";",null);
+        deal.moveToNext();
 
 
+        tot.setText("Total-"+deal.getString(5));
+        receivePayment.setText("Received Payment-"+(deal.getFloat(5)-deal.getFloat(6)));
+        balance.setText("Balance-"+deal.getString(6));
 
         setTitle("Deal Id "+InvoiceId);
 
@@ -58,7 +89,7 @@ public class CustomersInstallment extends AppCompatActivity  implements TextWatc
 
         for(int i = 1; i <= nRow;i++){
             cForCustomers.moveToNext();
-            singleRow = new SingleRowForInstallment("0","","","","",i+"");
+            singleRow = new SingleRowForInstallment(cForCustomers.getString(3),cForCustomers.getString(8),cForCustomers.getString(6),cForCustomers.getString(5),i+"");
             myList.add(singleRow);
         }
 

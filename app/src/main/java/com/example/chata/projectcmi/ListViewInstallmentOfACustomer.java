@@ -47,11 +47,13 @@ public class ListViewInstallmentOfACustomer extends BaseAdapter implements Filte
 
 
 
-        TextView txtTotal = row.findViewById(R.id.payment);
 
 
         txtId.setText(originalArray.get(position).getId());
-        txtTotal.setText(originalArray.get(position).getTotal()+"");
+        txtPayment.setText(originalArray.get(position).getPayment()+"");
+        txtRPayment.setText(originalArray.get(position).getRpayment()+"");
+        txtDate.setText(originalArray.get(position).getDueDate()+"");
+        txtRDate.setText(originalArray.get(position).getRdate()+"");
 
         row.setOnClickListener(new View.OnClickListener() {
             @Override

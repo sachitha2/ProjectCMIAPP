@@ -60,5 +60,5 @@ public class SingleRowForInstallment {
         this.dueDate = dueDate;
         this.id = id;
     }
-    
+
 }

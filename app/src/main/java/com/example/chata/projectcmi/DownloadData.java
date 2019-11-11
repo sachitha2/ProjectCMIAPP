@@ -27,7 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class DownloadData extends AppCompatActivity {
-    String URL = "http://192.168.1.101/shop/APP/";
+    String URL = "http://192.168.1.102/shop/APP/";
     SQLiteDatabase sqlite;
     private RequestQueue requestQueueForCreditList;
     Button bluetoothBtn,btnDownloadData;
@@ -245,13 +245,19 @@ public class DownloadData extends AppCompatActivity {
                             //Read json and assign them to local variables
                             JSONArray id = response.getJSONArray("id");
                             JSONArray dealid = response.getJSONArray("dealId");
-
-
+                            JSONArray payment = response.getJSONArray("payment");
+                            JSONArray rPayment = response.getJSONArray("rpayment");
+                            JSONArray date = response.getJSONArray("date");
+                            JSONArray rDate = response.getJSONArray("rdate");
+                            JSONArray status = response.getJSONArray("status");
+                            JSONArray cid = response.getJSONArray("cid");
+                            JSONArray installmentId = response.getJSONArray("installmentid");
+                            JSONArray time = response.getJSONArray("time");
 
 
 //
                             for (int i = 0; i < id.length(); i++){
-                                sqlite.execSQL("INSERT INTO installment (id, dealid,installmentid,payment,time,date,rdate,status,rpayment,cid) VALUES ("+id.get(i).toString()+","+dealid.get(i).toString()+",4,20.5,'','2015-10-25','2015-10-25',1,200.5,5);");
+                                sqlite.execSQL("INSERT INTO installment (id, dealid,installmentid,payment,time,date,rdate,status,rpayment,cid) VALUES ("+id.get(i).toString()+","+dealid.get(i).toString()+","+installmentId.get(i).toString()+","+payment.get(i).toString()+",'"+time.get(i).toString()+"','"+date.get(i).toString()+"','"+rDate.get(i).toString()+"',"+status.get(i).toString()+","+rPayment.get(i).toString()+","+cid.get(i).toString()+");");
                             }
                             progressDialog.setMessage("Installments data downloaded");
                             progressDialog.hide();

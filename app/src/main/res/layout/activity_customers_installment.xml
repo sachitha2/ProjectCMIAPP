@@ -5,28 +5,147 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CustomersInstallment">
-    <EditText
-        android:id="@+id/txtsearchInstallments"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintTop_toTopOf="parent"
-        android:hint="Search"
 
-        />
-    <Button
-        android:id="@+id/btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add A Payment"
-        app:layout_constraintTop_toBottomOf="@id/txtsearchInstallments"
 
-        />
-    <ListView
-        android:id="@+id/listInstallments"
-        android:layout_width="395dp"
-        android:layout_height="500dp"
-        app:layout_constraintTop_toBottomOf="@id/btn"
-        />
+
+        <EditText
+            android:id="@+id/txtsearchInstallments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            app:layout_constraintTop_toTopOf="parent"
+            android:hint="Search"
+
+            />
+
+
+
+        <TextView
+            android:id="@+id/rPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Received Price-2500"
+            android:textAlignment="center"
+            android:textColor="#FF0000"
+            android:textSize="27dp"
+            app:layout_constraintTop_toBottomOf="@id/txtsearchInstallments" />
+
+        <TextView
+            android:id="@+id/balance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Balance-1000"
+            android:textAlignment="center"
+            android:textColor="#FF0000"
+            android:textSize="25dp"
+            app:layout_constraintTop_toBottomOf="@id/rPrice" />
+
+
+        <TextView
+            android:id="@+id/total"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Total-3500"
+            android:textAlignment="center"
+            android:textColor="#FF0000"
+            android:textSize="20dp"
+            app:layout_constraintTop_toBottomOf="@id/balance" />
+
+        <EditText
+            android:id="@+id/editPayment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter Payment"
+            android:inputType="numberSigned"
+            android:text=""
+            app:layout_constraintTop_toBottomOf="@id/total" />
+        <Button
+            android:id="@+id/btnAddPayment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add A Payment"
+            android:layout_margin="10dp"
+            android:textColor="#fff"
+            android:background="@drawable/bgbutton"
+            app:layout_constraintTop_toBottomOf="@id/editPayment"
+
+            />
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/head"
+            app:layout_constraintTop_toBottomOf="@id/btnAddPayment"
+            android:layout_marginTop="10dp"
+
+            tools:ignore="MissingConstraints">
+
+
+
+                <!-- Row 2 Starts From Here -->
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:background="@color/colorPrimary"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal">
+
+                        <TextView
+                            android:id="@+id/id"
+                            android:layout_width="10dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="ID"
+                            android:textColor="#FFF"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/payment"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="18sp"
+                            android:textColor="#FFF"
+                            android:text="Payment" />
+
+                        <TextView
+                            android:id="@+id/rpayment"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:textSize="18sp"
+                            android:textColor="#FFF"
+                            android:layout_weight="1"
+                            android:text="RP" />
+
+                        <TextView
+                            android:id="@+id/dueDate"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:textSize="11sp"
+                            android:textColor="#FFF"
+                            android:layout_weight="1"
+                            android:text="Due date" />
+
+                        <TextView
+                            android:id="@+id/rDate"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:textSize="11sp"
+                            android:textColor="#FFF"
+                            android:layout_weight="1"
+                            android:text="Received Date" />
+                </TableRow>
+
+                <!-- Row 3 Starts From Here -->
+
+        </TableLayout>
+        <ListView
+            android:id="@+id/listInstallments"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            app:layout_constraintTop_toBottomOf="@id/head"
+            />
+
+
+
 </android.support.constraint.ConstraintLayout>

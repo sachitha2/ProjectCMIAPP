@@ -1,52 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+
+
+
+
+
+
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
 
-        <TextView
-            android:id="@+id/id"
-            android:layout_width="wrap_content"
+
+
+        <!-- Row 2 Starts From Here -->
+        <TableRow
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="1"
-            android:textSize="18sp" />
+            android:gravity="center_horizontal">
 
-        <TextView
-            android:id="@+id/payment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="18sp"
-            android:text="5000" />
+            <TextView
+                android:id="@+id/id"
+                android:layout_width="10dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="1"
+                android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/rpayment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:layout_weight="1"
-            android:text="4000" />
+            <TextView
+                android:id="@+id/payment"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:text="5000" />
 
-        <TextView
-            android:id="@+id/dueDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:layout_weight="1"
-            android:text="2019-10-10" />
+            <TextView
+                android:id="@+id/rpayment"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:text="4000" />
 
-        <TextView
-            android:id="@+id/rDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:layout_weight="1"
-            android:text="2019-10-12" />
+            <TextView
+                android:id="@+id/dueDate"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:textSize="11sp"
+                android:layout_weight="1"
+                android:text="2019-10-10" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/rDate"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:textSize="11sp"
+                android:layout_weight="1"
+                android:text="2019-10-12" />
+        </TableRow>
+
+        <!-- Row 3 Starts From Here -->
+
+    </TableLayout>
 </LinearLayout>
+
