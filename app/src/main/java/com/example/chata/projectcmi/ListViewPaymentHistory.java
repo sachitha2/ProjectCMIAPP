@@ -40,7 +40,7 @@ public class ListViewPaymentHistory  extends BaseAdapter {
         TextView txtDate = row.findViewById(R.id.txt_date);
 
 
-        txtId.setText(originalArray.get(position).getId());
+        txtId.setText(originalArray.get(position).getId()+"");
         txtColloction.setText(originalArray.get(position).getCollection()+"");
         txtDate.setText(originalArray.get(position).getDate()+"");
 

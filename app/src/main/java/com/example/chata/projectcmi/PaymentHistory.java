@@ -40,10 +40,11 @@ public class PaymentHistory extends AppCompatActivity {
 
         customerList = findViewById(R.id.listInstallments);
 
-        SingleRowForPaymentHistory singleRow;
 
-        for(int i = 1; i <= 2;i++){
-            singleRow = new SingleRowForPaymentHistory(1,"200","2019");
+        myList = new ArrayList<>();
+        SingleRowForPaymentHistory singleRow;
+        for(int i = 1; i <= 20;i++){
+            singleRow = new SingleRowForPaymentHistory(i,"200.00","2019-10-25");
             myList.add(singleRow);
         }
 
