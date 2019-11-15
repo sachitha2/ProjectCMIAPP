@@ -3,7 +3,7 @@ package com.example.chata.projectcmi;
 public class SingleRowForPaymentHistory {
 
     int id;
-    float collection;
+    String collection;
     String date;
 
 
@@ -16,11 +16,11 @@ public class SingleRowForPaymentHistory {
         this.id = id;
     }
 
-    public float getCollection() {
+    public String getCollection() {
         return collection;
     }
 
-    public void setCollection(float collection) {
+    public void setCollection(String collection) {
         this.collection = collection;
     }
 
@@ -34,7 +34,7 @@ public class SingleRowForPaymentHistory {
 
 
 
-    public SingleRowForPaymentHistory(int id, float collection, String date) {
+    public SingleRowForPaymentHistory(int id, String collection, String date) {
         this.id = id;
         this.collection = collection;
         this.date = date;
