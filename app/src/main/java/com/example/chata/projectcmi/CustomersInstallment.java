@@ -42,13 +42,12 @@ public class CustomersInstallment extends AppCompatActivity  {
         InvoiceId= getIntent().getStringExtra("InvoiceId");
 
         sqLiteDatabase = openOrCreateDatabase("cmi", Customers.MODE_PRIVATE,null);
-        Cursor cForCustomers =sqLiteDatabase.rawQuery("SELECT * FROM installment WHERE dealid = "+InvoiceId+";",null);
 
-        int nRow = cForCustomers.getCount();
 
         tot = findViewById(R.id.total);
         receivePayment = findViewById(R.id.rPrice);
         balance = findViewById(R.id.balance);
+
         editPayment = (EditText) findViewById(R.id.editPayment);
         btnPayment = findViewById(R.id.btnAddPayment);
         btnPayHistory = findViewById(R.id.btnPayHistory);
@@ -85,29 +84,52 @@ public class CustomersInstallment extends AppCompatActivity  {
 
                 if(!str.isEmpty()){
                     //get status = 0; installments
-
-                    Cursor cursorInstall  = sqLiteDatabase.rawQuery("SELECT * FROM installment WHERE dealid = "+InvoiceId+" AND status = 0;",null);
-                    int numRows = cursorInstall.getCount();
-                    int count = 1;
-                    while(cursorInstall.moveToNext()){
-                        Log.d("DATA INSTALLMENTS","Remain payment "+count+" "+(cursorInstall.getFloat(3) - cursorInstall.getFloat(8)));
-                        count++;
-                    }
-
-                    ///TODO HERE LAST
-                    
-
-
-
                     float inRemain = Float.parseFloat(str);
 
+                        if(inRemain <=  remain){
+                            //add that payment to collection table
+                            sqLiteDatabase.execSQL("INSERT INTO collection(id,userId,installmentId,dealid,payment,date,time) VALUES (1,2,3,"+InvoiceId+","+inRemain+",'','')");
+                            Cursor cursorInstall  = sqLiteDatabase.rawQuery("SELECT * FROM installment WHERE dealid = "+InvoiceId+" AND status = 0;",null);
+                            int numRows = cursorInstall.getCount();
+                            int count = 1;
+
+                            float tmpAmount = 0;
+
+
+                            while(cursorInstall.moveToNext()){
 
 
 
+                                tmpAmount = (cursorInstall.getFloat(3) - cursorInstall.getFloat(8));
 
-                    if(inRemain <=  remain){
-                        //add that payment to collection table
-                        sqLiteDatabase.execSQL("INSERT INTO collection(id,userId,installmentId,dealid,payment,date,time) VALUES (1,2,3,"+InvoiceId+","+inRemain+",'','')");
+                                if(tmpAmount == inRemain){
+                                    Log.d("DATA INSTALLMENTS","Remain payment "+count+" "+tmpAmount);
+                                    sqLiteDatabase.execSQL("UPDATE deals SET rprice = rprice - "+tmpAmount+" WHERE id = "+InvoiceId+";");
+                                    sqLiteDatabase.execSQL("UPDATE installment SET rpayment = rpayment + "+tmpAmount+" WHERE id = "+cursorInstall.getString(0)+";");
+                                    updateList(InvoiceId);
+                                    updateHead(InvoiceId);
+                                    break;
+                                }else if(tmpAmount < inRemain){
+                                    Log.d("DATA INSTALLMENTS","Remain payment "+count+" "+tmpAmount);
+                                    sqLiteDatabase.execSQL("UPDATE installment SET rpayment = rpayment + "+tmpAmount+" WHERE id = "+cursorInstall.getString(0)+";");
+                                    sqLiteDatabase.execSQL("UPDATE deals SET rprice = rprice - "+tmpAmount+" WHERE id = "+InvoiceId+";");
+                                    inRemain -= tmpAmount;
+                                }else{
+                                    sqLiteDatabase.execSQL("UPDATE installment SET rpayment = rpayment + "+inRemain+" WHERE id = "+cursorInstall.getString(0)+";");
+                                    Log.d("DATA INSTALLMENTS","Remain payment "+count+" "+inRemain);
+                                    sqLiteDatabase.execSQL("UPDATE deals SET rprice = rprice - "+inRemain+" WHERE id = "+InvoiceId+";");
+                                    updateList(InvoiceId);
+                                    updateHead(InvoiceId);
+                                    break;
+
+                                }
+
+
+                                count++;
+                            }
+
+                            ///TODO HERE LAST
+
                     }else{
                         alert.setTitle("Enter Amount less than "+remain);
                         alert.show();
@@ -117,19 +139,23 @@ public class CustomersInstallment extends AppCompatActivity  {
             }
         });
 
-        Cursor deal = sqLiteDatabase.rawQuery("SELECT * FROM deals WHERE id = "+InvoiceId+";",null);
-        deal.moveToNext();
 
-
-        tot.setText("Total-"+deal.getString(5));
-        receivePayment.setText("Received Payment-"+(deal.getFloat(5)-deal.getFloat(6)));
-        balance.setText("Balance-"+deal.getString(6));
 
         setTitle("Deal Id "+InvoiceId);
 
+        //update Installment List
+
+        updateList(InvoiceId);
+        updateHead(InvoiceId);
+    }
 
 
 
+
+    void updateList(String InvoiceId){
+        Cursor cForCustomers =sqLiteDatabase.rawQuery("SELECT * FROM installment WHERE dealid = "+InvoiceId+";",null);
+
+        int nRow = cForCustomers.getCount();
 
 
         customerList = findViewById(R.id.listInstallments);
@@ -150,8 +176,16 @@ public class CustomersInstallment extends AppCompatActivity  {
         myAdapter = new ListViewInstallmentOfACustomer(this,myList);
 
         customerList.setAdapter(myAdapter);
-
-
     }
 
+
+    void updateHead(String InvoiceId){
+        Cursor deal = sqLiteDatabase.rawQuery("SELECT * FROM deals WHERE id = "+InvoiceId+";",null);
+        deal.moveToNext();
+
+
+        tot.setText("Total-"+deal.getString(5));
+        receivePayment.setText("Received Payment-"+(deal.getFloat(5)-deal.getFloat(6)));
+        balance.setText("Balance-"+deal.getString(6));
+    }
 }
