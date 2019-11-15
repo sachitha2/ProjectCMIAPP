@@ -175,8 +175,7 @@ public class DownloadData extends AppCompatActivity {
                 "date DATE NOT NULL," +
                 "time TIME NOT NULL" +
                 ");");
-        sqlite.execSQL("INSERT INTO collection(id,userId,installmentId,dealid,payment,date,time) VALUES (1,2,3,4,5,'','')");
-        sqlite.execSQL("INSERT INTO collection(id,userId,installmentId,dealid,payment,date,time) VALUES (1,2,3,4,5,'','')");
+//        sqlite.execSQL("INSERT INTO collection(id,userId,installmentId,dealid,payment,date,time) VALUES (1,2,3,4,5,'','')");
 //
 //
 //        sqlite.execSQL("INSERT INTO deals (id, date,time,fdate,ftime,tprice,rprice,status,ni,cid,discount,agentId) VALUES (13,'2015-08-25','','2019-10-10','',3.6,2,1,5,2588,2.3,19);");
@@ -203,6 +202,10 @@ public class DownloadData extends AppCompatActivity {
         //Download Installments data
         jsonParseInstallment(progressDialog);
 
+
+
+        //Download Collection table
+        jsonParseCollection(progressDialog);
         return 1;
     }
 
@@ -245,7 +248,52 @@ public class DownloadData extends AppCompatActivity {
         requestQueueForCreditList.add(requestCreditList);
 
     }
-    //TODO  Installment table;
+    //  Collection table;
+    private void jsonParseCollection(final ProgressDialog progressDialog) {
+        progressDialog.setMessage("Downloading Collection Table");
+        String url = URL+"collection.json.php";
+
+        JsonObjectRequest requestCreditList = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        try {
+                            //Read json and assign them to local variables
+                            JSONArray id = response.getJSONArray("id");
+                            JSONArray userId = response.getJSONArray("userId");
+                            JSONArray installmentId = response.getJSONArray("installmentId");
+                            JSONArray dealid = response.getJSONArray("dealid");
+                            JSONArray payment = response.getJSONArray("payment");
+                            JSONArray date = response.getJSONArray("date");
+                            JSONArray time = response.getJSONArray("time");
+                            JSONArray dateTime = response.getJSONArray("dateTime");
+
+
+//
+                            for (int i = 0; i < id.length(); i++){
+                                  sqlite.execSQL("INSERT INTO collection(id,userId,installmentId,dealid,payment,date,time) VALUES ("+id.get(i).toString()+","+userId.get(i).toString()+","+installmentId.get(i).toString()+","+dealid.get(i).toString()+","+payment.get(i).toString()+",'"+date.get(i).toString()+"','"+time.get(i).toString()+"')");
+//                                sqlite.execSQL("INSERT INTO installment (id, dealid,installmentid,payment,time,date,rdate,status,rpayment,cid) VALUES ("+id.get(i).toString()+","+dealid.get(i).toString()+","+installmentId.get(i).toString()+","+payment.get(i).toString()+",'"+time.get(i).toString()+"','"+date.get(i).toString()+"','"+rDate.get(i).toString()+"',"+status.get(i).toString()+","+rPayment.get(i).toString()+","+cid.get(i).toString()+");");
+                            }
+                            progressDialog.setMessage("Installments data downloaded");
+                            progressDialog.hide();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        requestQueueForCreditList.add(requestCreditList);
+
+    }
+
+
+
+    //  Installment table;
     private void jsonParseInstallment(final ProgressDialog progressDialog) {
         progressDialog.setMessage("Downloading Installment Table");
         String url = URL+"installments.json.php";

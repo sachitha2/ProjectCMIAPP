@@ -23,9 +23,7 @@ public class PaymentHistory extends AppCompatActivity {
         String InvoiceId = getIntent().getStringExtra("InvoiceId");
 
         sqLiteDatabase = openOrCreateDatabase("cmi", Customers.MODE_PRIVATE,null);
-        Cursor cForCollection =sqLiteDatabase.rawQuery("SELECT * FROM collection;",null);
 
-        total = cForCollection.getCount();
 
         setTitle("Payment History - "+InvoiceId);
 
@@ -40,12 +38,18 @@ public class PaymentHistory extends AppCompatActivity {
 
         customerList = findViewById(R.id.listInstallments);
 
+        Cursor cForCollection =sqLiteDatabase.rawQuery("SELECT * FROM collection WHERE dealid = '"+InvoiceId+"';",null);
+
+        total = cForCollection.getCount();
+
 
         myList = new ArrayList<>();
         SingleRowForPaymentHistory singleRow;
-        for(int i = 1; i <= 20;i++){
-            singleRow = new SingleRowForPaymentHistory(i,"200.00","2019-10-25");
+        int x = 0;
+        while(cForCollection.moveToNext()){
+            singleRow = new SingleRowForPaymentHistory(x++,cForCollection.getString(4),cForCollection.getString(5));
             myList.add(singleRow);
+
         }
 
         myAdapter = new ListViewPaymentHistory(this,myList);
