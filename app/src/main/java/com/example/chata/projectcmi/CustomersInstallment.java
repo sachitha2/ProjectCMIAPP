@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class CustomersInstallment extends AppCompatActivity  implements TextWatcher {
+public class CustomersInstallment extends AppCompatActivity  {
     private String InvoiceId;
 
 
@@ -85,16 +85,24 @@ public class CustomersInstallment extends AppCompatActivity  implements TextWatc
                 float remain = deal.getFloat(6);
                 Log.d("Remain","Remained "+remain+editPayment.getText());
                 String str=editPayment.getText().toString();
-                float inRemain = Float.parseFloat(str);
+
+                if(!str.isEmpty()){
+                    //get status = 0; installments
+
+                    Cursor cursorInstall  = sqLiteDatabase.rawQuery("SELECT * FROM installment WHERE dealid = "+InvoiceId+" AND status = 0;",null);
+
+                    float inRemain = Float.parseFloat(str);
 
 
 
 
-                if(remain <= inRemain){
-
-                }else{
-                    alert.setTitle("AlertDialogExample");
-                    alert.show();
+                    if(inRemain <=  remain){
+                        //add that payment to collection table
+                        sqLiteDatabase.execSQL("INSERT INTO collection(id,userId,installmentId,dealid,payment,date,time) VALUES (1,2,3,"+InvoiceId+","+inRemain+",'','')");
+                    }else{
+                        alert.setTitle("Enter Amount less than "+remain);
+                        alert.show();
+                    }
                 }
 
             }
@@ -113,13 +121,12 @@ public class CustomersInstallment extends AppCompatActivity  implements TextWatc
 
 
 
-        searchCustomers = findViewById(R.id.txtsearchInstallments);
+
 
         customerList = findViewById(R.id.listInstallments);
 
 
 
-        searchCustomers.addTextChangedListener(this);
 
 
         myList = new ArrayList<>();
@@ -139,19 +146,19 @@ public class CustomersInstallment extends AppCompatActivity  implements TextWatc
     }
 
 
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-        this.myAdapter.getFilter().filter(s);
-    }
-
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-    }
-
-    @Override
-    public void afterTextChanged(Editable s) {
-
-    }
+//    @Override
+//    public void onTextChanged(CharSequence s, int start, int before, int count) {
+//        this.myAdapter.getFilter().filter(s);
+//    }
+//
+//    @Override
+//    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//    }
+//
+//    @Override
+//    public void afterTextChanged(Editable s) {
+//
+//    }
 
 }

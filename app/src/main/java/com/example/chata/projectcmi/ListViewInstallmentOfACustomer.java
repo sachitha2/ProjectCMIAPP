@@ -11,12 +11,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ListViewInstallmentOfACustomer extends BaseAdapter implements Filterable {
+public class ListViewInstallmentOfACustomer extends BaseAdapter  {
     Context c;
     ArrayList<SingleRowForInstallment> originalArray,tmpArray;
-    ///filter
-    ListViewInstallmentOfACustomer.CustomFilter cs;
-    ///filter
+
 
 
 
@@ -80,62 +78,7 @@ public class ListViewInstallmentOfACustomer extends BaseAdapter implements Filte
         return position;
     }
     ///Codes for filter
-    @Override
-    public Filter getFilter() {
 
-        if(cs == null){
-            cs = new ListViewInstallmentOfACustomer.CustomFilter();
-        }
-
-        return cs;
-    }
-
-    class CustomFilter extends  Filter{
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-            FilterResults results = new FilterResults();
-
-            if(constraint != null && constraint.length() > 0) {
-                constraint = constraint.toString().toUpperCase();
-
-
-                ArrayList<SingleRowForInstallment> filters = new ArrayList<>();
-
-                for (int i = 0; i < tmpArray.size(); i++) {
-//                    if (tmpArray.get(i).getTotal().toUpperCase().contains(constraint)) {
-//                        SingleRowForInstallment singleRow = new SingleRowForInstallment(tmpArray.get(i).getDealId(),tmpArray.get(i).getTotal(),tmpArray.get(i).isStatus());
-//
-//
-//
-//                        filters.add(singleRow);
-//
-//
-//
-//
-//                    }
-
-
-
-                }
-                results.count = filters.size();
-                results.values = filters;
-
-            }else {
-                results.count = tmpArray.size();
-                results.values = tmpArray;
-
-            }
-            return results;
-        }
-
-
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            originalArray  = (ArrayList<SingleRowForInstallment>)results.values;
-            notifyDataSetChanged();
-        }
-    }
-    ///Codes for filter
 
 
 

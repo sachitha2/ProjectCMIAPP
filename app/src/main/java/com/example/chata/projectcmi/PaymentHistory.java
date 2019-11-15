@@ -125,7 +125,7 @@ public class PaymentHistory extends AppCompatActivity {
 
                     findBT();
                     openBT();
-
+                    progressDialog.show();
                     BILL = "HELLOOO \n hii \n SAM";
                     sendData(BILL,progressDialog);
                 } catch (IOException ex) {
