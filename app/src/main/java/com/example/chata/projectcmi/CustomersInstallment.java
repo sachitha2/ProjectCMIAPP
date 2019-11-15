@@ -1,7 +1,10 @@
 package com.example.chata.projectcmi;
 
+import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -26,8 +29,10 @@ public class CustomersInstallment extends AppCompatActivity  implements TextWatc
     ListView customerList;
     TextView tot,receivePayment,balance;
     SQLiteDatabase sqLiteDatabase;
+    Context context;
+    Button btnPayment,btnPayHistory;
+    AlertDialog.Builder builder;
 
-    Button btnPayment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +49,28 @@ public class CustomersInstallment extends AppCompatActivity  implements TextWatc
         tot = findViewById(R.id.total);
         receivePayment = findViewById(R.id.rPrice);
         balance = findViewById(R.id.balance);
-        editPayment = findViewById(R.id.editPayment);
+        editPayment = (EditText) findViewById(R.id.editPayment);
         btnPayment = findViewById(R.id.btnAddPayment);
+        btnPayHistory = findViewById(R.id.btnPayHistory);
+
+
+        btnPayHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent viewAInvoice = new Intent(, PaymentHistory.class);
+//                viewAInvoice.putExtra("InvoiceId", "samIsWell");
+//                context.startActivity(viewAInvoice);
+
+
+                    Intent intentSelectArea = new Intent(CustomersInstallment.this, PaymentHistory.class);
+                    startActivity(intentSelectArea);
+            }
+        });
+
+
+        builder = new AlertDialog.Builder(this);
+
+        final AlertDialog alert = builder.create();
 
         btnPayment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +83,18 @@ public class CustomersInstallment extends AppCompatActivity  implements TextWatc
 
                 float remain = deal.getFloat(6);
                 Log.d("Remain","Remained "+remain+editPayment.getText());
+                String str=editPayment.getText().toString();
+                float inRemain = Float.parseFloat(str);
+
+
+
+
+                if(remain <= inRemain){
+
+                }else{
+                    alert.setTitle("AlertDialogExample");
+                    alert.show();
+                }
 
             }
         });
