@@ -62,8 +62,9 @@ public class CustomersInstallment extends AppCompatActivity  implements TextWatc
 //                context.startActivity(viewAInvoice);
 
 
-                    Intent intentSelectArea = new Intent(CustomersInstallment.this, PaymentHistory.class);
-                    startActivity(intentSelectArea);
+                    Intent intentPayH = new Intent(CustomersInstallment.this, PaymentHistory.class);
+                    intentPayH.putExtra("InvoiceId",InvoiceId);
+                    startActivity(intentPayH);
             }
         });
 

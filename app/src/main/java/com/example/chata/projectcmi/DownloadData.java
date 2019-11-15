@@ -27,7 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class DownloadData extends AppCompatActivity {
-    String URL = "http://192.168.1.102/shop/APP/";
+    String URL = "http://192.168.43.44/shop/APP/";
     SQLiteDatabase sqlite;
     private RequestQueue requestQueueForCreditList;
     Button bluetoothBtn,btnDownloadData;
@@ -163,6 +163,20 @@ public class DownloadData extends AppCompatActivity {
                 "rpayment FLOAT NOT NULL," +
                 "cid int(11) NOT NULL);");
 
+
+        sqlite.execSQL("DROP TABLE IF EXISTS collection;");
+
+        sqlite.execSQL("CREATE TABLE collection (" +
+                "id int(11) NOT NULL," +
+                "userId int(11) NOT NULL," +
+                "installmentId int(11) NOT NULL," +
+                "dealid int(15) NOT NULL," +
+                "payment FLOAT NOT NULL," +
+                "date DATE NOT NULL," +
+                "time TIME NOT NULL" +
+                ");");
+        sqlite.execSQL("INSERT INTO collection(id,userId,installmentId,dealid,payment,date,time) VALUES (1,2,3,4,5,'','')");
+        sqlite.execSQL("INSERT INTO collection(id,userId,installmentId,dealid,payment,date,time) VALUES (1,2,3,4,5,'','')");
 //
 //
 //        sqlite.execSQL("INSERT INTO deals (id, date,time,fdate,ftime,tprice,rprice,status,ni,cid,discount,agentId) VALUES (13,'2015-08-25','','2019-10-10','',3.6,2,1,5,2588,2.3,19);");
