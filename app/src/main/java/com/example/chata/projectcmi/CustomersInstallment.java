@@ -57,9 +57,6 @@ public class CustomersInstallment extends AppCompatActivity  {
         btnPayHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent viewAInvoice = new Intent(, PaymentHistory.class);
-//                viewAInvoice.putExtra("InvoiceId", "samIsWell");
-//                context.startActivity(viewAInvoice);
 
 
                     Intent intentPayH = new Intent(CustomersInstallment.this, PaymentHistory.class);
@@ -90,8 +87,20 @@ public class CustomersInstallment extends AppCompatActivity  {
                     //get status = 0; installments
 
                     Cursor cursorInstall  = sqLiteDatabase.rawQuery("SELECT * FROM installment WHERE dealid = "+InvoiceId+" AND status = 0;",null);
+                    int numRows = cursorInstall.getCount();
+                    int count = 1;
+                    while(cursorInstall.moveToNext()){
+                        Log.d("DATA INSTALLMENTS","Remain payment "+count+" "+(cursorInstall.getFloat(3) - cursorInstall.getFloat(8)));
+                        count++;
+                    }
+
+                    ///TODO HERE LAST
+                    
+
+
 
                     float inRemain = Float.parseFloat(str);
+
 
 
 
@@ -144,21 +153,5 @@ public class CustomersInstallment extends AppCompatActivity  {
 
 
     }
-
-
-//    @Override
-//    public void onTextChanged(CharSequence s, int start, int before, int count) {
-//        this.myAdapter.getFilter().filter(s);
-//    }
-//
-//    @Override
-//    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//    }
-//
-//    @Override
-//    public void afterTextChanged(Editable s) {
-//
-//    }
 
 }
