@@ -161,7 +161,8 @@ public class DownloadData extends AppCompatActivity {
                 "rdate DATE NOT NULL," +
                 "status int(1) NOT NULL," +
                 "rpayment FLOAT NOT NULL," +
-                "cid int(11) NOT NULL);");
+                "cid int(11) NOT NULL," +
+                "app int(1) NOT NULL);");
 
 
         sqlite.execSQL("DROP TABLE IF EXISTS collection;");
@@ -173,8 +174,8 @@ public class DownloadData extends AppCompatActivity {
                 "dealid int(15) NOT NULL," +
                 "payment FLOAT NOT NULL," +
                 "date DATE NOT NULL," +
-                "time TIME NOT NULL" +
-                ");");
+                "time TIME NOT NULL," +
+                "app int(1) NOT NULL);");
 //        sqlite.execSQL("INSERT INTO collection(id,userId,installmentId,dealid,payment,date,time) VALUES (1,2,3,4,5,'','')");
 //
 //
@@ -272,7 +273,7 @@ public class DownloadData extends AppCompatActivity {
 
 //
                             for (int i = 0; i < id.length(); i++){
-                                  sqlite.execSQL("INSERT INTO collection(id,userId,installmentId,dealid,payment,date,time) VALUES ("+id.get(i).toString()+","+userId.get(i).toString()+","+installmentId.get(i).toString()+","+dealid.get(i).toString()+","+payment.get(i).toString()+",'"+date.get(i).toString()+"','"+time.get(i).toString()+"')");
+                                  sqlite.execSQL("INSERT INTO collection(id,userId,installmentId,dealid,payment,date,time,app) VALUES ("+id.get(i).toString()+","+userId.get(i).toString()+","+installmentId.get(i).toString()+","+dealid.get(i).toString()+","+payment.get(i).toString()+",'"+date.get(i).toString()+"','"+time.get(i).toString()+"',0)");
 //                                sqlite.execSQL("INSERT INTO installment (id, dealid,installmentid,payment,time,date,rdate,status,rpayment,cid) VALUES ("+id.get(i).toString()+","+dealid.get(i).toString()+","+installmentId.get(i).toString()+","+payment.get(i).toString()+",'"+time.get(i).toString()+"','"+date.get(i).toString()+"','"+rDate.get(i).toString()+"',"+status.get(i).toString()+","+rPayment.get(i).toString()+","+cid.get(i).toString()+");");
                             }
                             progressDialog.setMessage("Installments data downloaded");
@@ -319,7 +320,7 @@ public class DownloadData extends AppCompatActivity {
 
 //
                             for (int i = 0; i < id.length(); i++){
-                                sqlite.execSQL("INSERT INTO installment (id, dealid,installmentid,payment,time,date,rdate,status,rpayment,cid) VALUES ("+id.get(i).toString()+","+dealid.get(i).toString()+","+installmentId.get(i).toString()+","+payment.get(i).toString()+",'"+time.get(i).toString()+"','"+date.get(i).toString()+"','"+rDate.get(i).toString()+"',"+status.get(i).toString()+","+rPayment.get(i).toString()+","+cid.get(i).toString()+");");
+                                sqlite.execSQL("INSERT INTO installment (id, dealid,installmentid,payment,time,date,rdate,status,rpayment,cid,app) VALUES ("+id.get(i).toString()+","+dealid.get(i).toString()+","+installmentId.get(i).toString()+","+payment.get(i).toString()+",'"+time.get(i).toString()+"','"+date.get(i).toString()+"','"+rDate.get(i).toString()+"',"+status.get(i).toString()+","+rPayment.get(i).toString()+","+cid.get(i).toString()+",0);");
                             }
                             progressDialog.setMessage("Installments data downloaded");
                             progressDialog.hide();
@@ -501,4 +502,11 @@ public class DownloadData extends AppCompatActivity {
 
     }
     //Download item data End
+
+
+
+    //Upload data part start
+
+
+    //Upload data part ending
 }

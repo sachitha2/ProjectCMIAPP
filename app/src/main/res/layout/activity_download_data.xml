@@ -18,7 +18,18 @@
 
         <!--app:layout_constraintBottom_toTopOf="@+id/button3"-->
         <!--tools:layout_editor_absoluteX="41dp" />-->
+    <Button
+        android:id="@+id/btnUpload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bgbutton"
+        android:text="Upload Data"
+        android:textColor="#fff"
+        app:layout_constraintBottom_toTopOf="@+id/btnDownloadData"
 
+        android:layout_margin="20dp"
+        />
     <Button
         android:id="@+id/btnDownloadData"
         android:layout_width="match_parent"
