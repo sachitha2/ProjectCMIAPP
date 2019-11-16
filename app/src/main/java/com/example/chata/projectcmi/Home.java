@@ -100,7 +100,10 @@ public class Home extends AppCompatActivity {
                 Intent intentCustomers = new Intent(context, Customers.class);
                 context.startActivity(intentCustomers);
                 break;
-
+            case "Installments":
+                Intent intentInstall = new Intent(context,InstallmentsHead.class);
+                context.startActivity(intentInstall);
+                break;
             case "packs" :
                 Intent intentPacks = new Intent(context, Pack.class);
                 context.startActivity(intentPacks);

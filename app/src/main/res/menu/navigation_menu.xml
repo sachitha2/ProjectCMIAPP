@@ -11,6 +11,10 @@
             android:icon="@drawable/settings"
             android:title="Create" />
         <item
+            android:id="@+id/nav_installments"
+            android:icon="@drawable/settings"
+            android:title="Installments" />
+        <item
             android:id="@+id/nav_papers"
             android:icon="@drawable/settings"
             android:title="Customers" />

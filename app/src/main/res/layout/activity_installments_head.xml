@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InstallmentsHead">
+    <Button
+        android:id="@+id/btnAll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bgbutton"
+        android:text="ALL"
+        android:textColor="#fff"
+
+        app:layout_constraintBottom_toTopOf="@+id/btnMonth"
+        tools:layout_editor_absoluteX="20dp" />
+    <Button
+        android:id="@+id/btnMonth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bgbutton"
+        android:text="MONTH"
+        android:textColor="#fff"
+
+        app:layout_constraintBottom_toTopOf="@+id/btnWeek"
+        tools:layout_editor_absoluteX="20dp" />
+    <Button
+        android:id="@+id/btnWeek"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bgbutton"
+        android:text="WEEK"
+        android:textColor="#fff"
+
+        app:layout_constraintBottom_toTopOf="@+id/btnPassed"
+        tools:layout_editor_absoluteX="20dp" />
+    <Button
+        android:id="@+id/btnPassed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bgbutton"
+        android:text="Today"
+        android:textColor="#fff"
+
+        app:layout_constraintBottom_toTopOf="@+id/btnDownloadData"
+        tools:layout_editor_absoluteX="20dp" />
+
+    <Button
+        android:id="@+id/btnDownloadData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/bgbutton"
+        android:text="Passed"
+        android:textColor="#fff"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="20dp" />
+
+</android.support.constraint.ConstraintLayout>
