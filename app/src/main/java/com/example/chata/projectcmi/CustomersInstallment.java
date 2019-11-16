@@ -84,11 +84,13 @@ public class CustomersInstallment extends AppCompatActivity  {
 
                 if(!str.isEmpty()){
                     //get status = 0; installments
+
+
                     float inRemain = Float.parseFloat(str);
 
                         if(inRemain <=  remain){
                             //add that payment to collection table
-                            sqLiteDatabase.execSQL("INSERT INTO collection(id,userId,installmentId,dealid,payment,date,time) VALUES (1,2,3,"+InvoiceId+","+inRemain+",'','')");
+                            sqLiteDatabase.execSQL("INSERT INTO collection(id,userId,installmentId,dealid,payment,date,time) VALUES (1,2,3,"+InvoiceId+","+inRemain+",CURRENT_DATE,'')");
                             Cursor cursorInstall  = sqLiteDatabase.rawQuery("SELECT * FROM installment WHERE dealid = "+InvoiceId+" AND status = 0;",null);
                             int numRows = cursorInstall.getCount();
                             int count = 1;
@@ -128,7 +130,7 @@ public class CustomersInstallment extends AppCompatActivity  {
                                 count++;
                             }
 
-                            ///TODO HERE LAST
+                            editPayment.setText("");
 
                     }else{
                         alert.setTitle("Enter Amount less than "+remain);
