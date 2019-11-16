@@ -43,10 +43,21 @@ public class ListViewDealsOfaCustomer extends BaseAdapter implements Filterable 
         TextView txtDealId =(TextView)row.findViewById(R.id.id);
         TextView txtTotal = row.findViewById(R.id.payment);
         TextView txtStatus = row.findViewById(R.id.txtStatus);
+        TextView txtTotH = row.findViewById(R.id.txtTotH);
+        TextView rpayment = row.findViewById(R.id.rpayment);
+        TextView balance = row.findViewById(R.id.balance);
 
+
+        txtTotH.setText("Total");
+
+
+        rpayment.setText(""+originalArray.get(position).getRpayment());
+
+
+        balance.setText(""+originalArray.get(position).getBalance());
 
         txtDealId.setText(originalArray.get(position).getDealId());
-        txtTotal.setText("Total price "+originalArray.get(position).getTotal()+"");
+        txtTotal.setText(""+originalArray.get(position).getTotal()+"");
 
         row.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +107,7 @@ public class ListViewDealsOfaCustomer extends BaseAdapter implements Filterable 
 
                 for (int i = 0; i < tmpArray.size(); i++) {
                     if (tmpArray.get(i).getDealId().toUpperCase().contains(constraint)) {
-                        SingleRowForDealsOfACustomer singleRow = new SingleRowForDealsOfACustomer(tmpArray.get(i).getDealId(),tmpArray.get(i).getTotal(),tmpArray.get(i).isStatus());
+                        SingleRowForDealsOfACustomer singleRow = new SingleRowForDealsOfACustomer(tmpArray.get(i).getDealId(),tmpArray.get(i).getTotal(),tmpArray.get(i).isStatus(),tmpArray.get(i).getRpayment(),tmpArray.get(i).getBalance());
 
 
 

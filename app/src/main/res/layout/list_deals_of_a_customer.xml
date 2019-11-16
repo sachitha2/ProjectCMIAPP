@@ -1,40 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
 
 
     <TextView
         android:id="@+id/id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:padding="10dp"
-        android:textSize="20dp"
+        android:text="TextView"
         android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
 
-        />
+        android:textSize="40dp" />
 
     <TextView
-        android:id="@+id/txtDealId"
+        android:id="@+id/txtTotH"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
         android:text=""
-        />
+        android:textAlignment="center"
+        android:textSize="30dp"
+        tools:text="Total" />
 
     <TextView
         android:id="@+id/payment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="1000"
         android:textAlignment="center"
-        android:text="" />
+        android:textColor="@color/colorPrimary"
+        android:textSize="25dp" />
+
     <TextView
         android:id="@+id/txtStatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Received Payment"
         android:textAlignment="center"
-        android:text="" />
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/rpayment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="1000"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimary"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/balanceT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Balance"
+        android:textAlignment="center"
+        android:textColor="#f00"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/balance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="1000"
+        android:textAlignment="center"
+        android:textColor="#f00"
+        android:textSize="25dp" />
 
 </LinearLayout>

@@ -18,6 +18,7 @@ public class CustomerDeals extends AppCompatActivity   implements TextWatcher {
     private String customerId;
     private TextView nDeals;
     private String[] id, name,nic,area;
+    private int[] rpayment,total;
     EditText searchCustomers;
     ListView customerList;
 
@@ -48,12 +49,17 @@ public class CustomerDeals extends AppCompatActivity   implements TextWatcher {
         nic = new String[nRow];
         area = new String[nRow];
 
+        rpayment = new int[nRow];
+        total = new int[nRow];
+
         int i=0;
         while (cDeals.moveToNext()){
 
             id[i] = cDeals.getString(0);
             name[i] = cDeals.getString(1);
             nic[i] = cDeals.getString(2);
+            rpayment[i] = cDeals.getInt(6);
+            total[i] = cDeals.getInt(5);
             i++;
         }
         ///Read data End
@@ -71,7 +77,7 @@ public class CustomerDeals extends AppCompatActivity   implements TextWatcher {
         SingleRowForDealsOfACustomer singleRow;
 
         for( i = 0; i < name.length;i++){
-            singleRow = new SingleRowForDealsOfACustomer(id[i],258,true);
+            singleRow = new SingleRowForDealsOfACustomer(id[i],total[i],true,total[i]-rpayment[i],rpayment[i]);
 
             myList.add(singleRow);
         }
