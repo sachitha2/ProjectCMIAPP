@@ -39,10 +39,10 @@
         android:text="WEEK"
         android:textColor="#fff"
 
-        app:layout_constraintBottom_toTopOf="@+id/btnPassed"
+        app:layout_constraintBottom_toTopOf="@+id/btnToday"
         tools:layout_editor_absoluteX="20dp" />
     <Button
-        android:id="@+id/btnPassed"
+        android:id="@+id/btnToday"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
@@ -51,11 +51,11 @@
         android:text="Today"
         android:textColor="#fff"
 
-        app:layout_constraintBottom_toTopOf="@+id/btnDownloadData"
+        app:layout_constraintBottom_toTopOf="@+id/btnpassed"
         tools:layout_editor_absoluteX="20dp" />
 
     <Button
-        android:id="@+id/btnDownloadData"
+        android:id="@+id/btnpassed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
