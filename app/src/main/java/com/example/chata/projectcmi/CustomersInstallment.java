@@ -7,8 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -46,7 +44,7 @@ public class CustomersInstallment extends AppCompatActivity  {
 
         tot = findViewById(R.id.total);
         receivePayment = findViewById(R.id.rPrice);
-        balance = findViewById(R.id.balance);
+        balance = findViewById(R.id.txtAreaHead);
 
         editPayment = (EditText) findViewById(R.id.editPayment);
         btnPayment = findViewById(R.id.btnAddPayment);

@@ -103,7 +103,7 @@ public class ListViewAdapter extends BaseAdapter {
 
                 TextView customer = (TextView)btnView.findViewById(R.id.txtCustomer);
                 TextView installments = (TextView)btnView.findViewById(R.id.txtInstallments);
-                TextView total = (TextView)btnView.findViewById(R.id.payment);
+                TextView total = (TextView)btnView.findViewById(R.id.txtPayment);
 
                 customer.setText(Customer[position]);
                 installments.setText(Installment[position]);

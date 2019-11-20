@@ -42,7 +42,7 @@ public class CustomerListAdapter extends BaseAdapter implements Filterable {
 
         View row = inflater.inflate(R.layout.customer_list,null);
 
-        TextView textView =(TextView)row.findViewById(R.id.id);
+        TextView textView =(TextView)row.findViewById(R.id.txtId);
         TextView textAge = row.findViewById(R.id.txtCID);
         TextView textNic = row.findViewById(R.id.txtNic);
         TextView textArea = row.findViewById(R.id.txtArea);

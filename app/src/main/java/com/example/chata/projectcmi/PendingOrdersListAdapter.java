@@ -44,7 +44,7 @@ public class PendingOrdersListAdapter extends BaseAdapter implements Filterable 
         TextView textView =(TextView)row.findViewById(R.id.txtShopName);
         TextView textId = row.findViewById(R.id.txtInvoiceId);
         TextView shopId = row.findViewById(R.id.txtShopId);
-        TextView total = row.findViewById(R.id.payment);
+        TextView total = row.findViewById(R.id.txtPayment);
         TextView qty = row.findViewById(R.id.txtQty);
 
         textView.setText(originalArray.get(position).getName());

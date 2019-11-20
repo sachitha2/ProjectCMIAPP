@@ -1,29 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
 
     <TextView
         android:id="@+id/txtId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="TextView"
+        android:text="ID:2500"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
 
-        android:textSize="40dp" />
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/txtPaymentHead"
+        tools:text="Total"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=""
+        android:text="Payment"
         android:textAlignment="center"
-        android:textSize="30dp"
-        tools:text="Total" />
+        android:textSize="30dp" />
 
     <TextView
         android:id="@+id/txtPayment"
@@ -32,13 +30,13 @@
         android:text="1000"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
-        android:textSize="25dp" />
+        android:textSize="55dp" />
 
     <TextView
         android:id="@+id/txtDueDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Received Payment"
+        android:text="Due Date 2019/11/20"
         android:textAlignment="center"
         android:textSize="30dp" />
 
@@ -46,7 +44,7 @@
         android:id="@+id/txtCID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="1000"
+        android:text="CID : 250"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
         android:textSize="25dp" />
@@ -55,18 +53,25 @@
         android:id="@+id/txtNIC"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Balance"
+        android:text="NIC : 983142044V"
         android:textAlignment="center"
-        android:textColor="#f00"
+        android:textColor="#000"
         android:textSize="30dp" />
 
     <TextView
         android:id="@+id/txtAreaHead"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="1000"
+        android:text="Area"
         android:textAlignment="center"
-        android:textColor="#f00"
+        android:textColor="#000"
         android:textSize="25dp" />
-
+    <TextView
+        android:id="@+id/txtArea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Galgamuwa"
+        android:textAlignment="center"
+        android:textColor="#000"
+        android:textSize="25dp" />
 </LinearLayout>

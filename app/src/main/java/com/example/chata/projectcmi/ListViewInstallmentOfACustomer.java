@@ -5,8 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -36,9 +34,9 @@ public class ListViewInstallmentOfACustomer extends BaseAdapter  {
 
         View row = inflater.inflate(R.layout.list_view_installment_of_a_customer,null);
 
-        TextView txtId =row.findViewById(R.id.id);
-        TextView txtPayment = row.findViewById(R.id.payment);
-        TextView txtRPayment = row.findViewById(R.id.rpayment);
+        TextView txtId =row.findViewById(R.id.txtId);
+        TextView txtPayment = row.findViewById(R.id.txtPayment);
+        TextView txtRPayment = row.findViewById(R.id.txtCID);
         TextView txtDate = row.findViewById(R.id.dueDate);
         TextView txtRDate = row.findViewById(R.id.rDate);
 

@@ -38,26 +38,26 @@ public class ListViewForInstallments extends BaseAdapter implements Filterable {
     public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater)c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View row = inflater.inflate(R.layout.list_deals_of_a_customer,null);
+        View row = inflater.inflate(R.layout.list_view_installment,null);
 
-        TextView txtDealId =(TextView)row.findViewById(R.id.id);
-        TextView txtTotal = row.findViewById(R.id.payment);
-        TextView txtStatus = row.findViewById(R.id.txtStatus);
-        TextView txtTotH = row.findViewById(R.id.txtTotH);
-        TextView rpayment = row.findViewById(R.id.rpayment);
-        TextView balance = row.findViewById(R.id.balance);
+        TextView txtDealId =(TextView)row.findViewById(R.id.txtId);
+        TextView txtTotal = row.findViewById(R.id.txtPayment);
+        TextView txtStatus = row.findViewById(R.id.txtDueDate);
+        TextView txtTotH = row.findViewById(R.id.txtPaymentHead);
+        TextView rpayment = row.findViewById(R.id.txtCID);
+        TextView balance = row.findViewById(R.id.txtAreaHead);
 
 
         txtTotH.setText("Total");
 
 
-        rpayment.setText(""+originalArray.get(position).getRpayment());
+        rpayment.setText(""+originalArray.get(position).getcName());
 
 
-        balance.setText(""+originalArray.get(position).getBalance());
+        balance.setText(""+originalArray.get(position).getcName());
 
-        txtDealId.setText(originalArray.get(position).getDealId());
-        txtTotal.setText(""+originalArray.get(position).getTotal()+"");
+        txtDealId.setText(originalArray.get(position).getcName());
+        txtTotal.setText(""+originalArray.get(position).getcName()+"");
 
         row.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +65,7 @@ public class ListViewForInstallments extends BaseAdapter implements Filterable {
 
                 Intent viewAInvoice = new Intent(c, CustomersInstallment.class);
 //
-                viewAInvoice.putExtra("InvoiceId", originalArray.get(position).getDealId());
+                viewAInvoice.putExtra("InvoiceId", originalArray.get(position).getId());
                 c.startActivity(viewAInvoice);
                 Toast.makeText(c, "Invoice " + " was clicked", Toast.LENGTH_SHORT).show();
             }
@@ -106,8 +106,8 @@ public class ListViewForInstallments extends BaseAdapter implements Filterable {
                 ArrayList<SingleRowForInstallments> filters = new ArrayList<>();
 
                 for (int i = 0; i < tmpArray.size(); i++) {
-                    if (tmpArray.get(i).getDealId().toUpperCase().contains(constraint)) {
-                        SingleRowForInstallments singleRow = new SingleRowForInstallments(tmpArray.get(i).getDealId(),tmpArray.get(i).getTotal(),tmpArray.get(i).isStatus(),tmpArray.get(i).getRpayment(),tmpArray.get(i).getBalance());
+                    if (tmpArray.get(i).getcName().toUpperCase().contains(constraint)) {
+                        SingleRowForInstallments singleRow = new SingleRowForInstallments(10,"2019-10-20","1000","Sam wilson","250","Galgamuwa","983142044V");
 
 
 

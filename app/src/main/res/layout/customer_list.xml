@@ -20,7 +20,7 @@
         tools:srcCompat="@tools:sample/avatars[0]" />
 
     <TextView
-        android:id="@+id/id"
+        android:id="@+id/txtId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
