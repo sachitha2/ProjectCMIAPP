@@ -104,7 +104,7 @@ public class CustomersInstallment extends AppCompatActivity  {
 
                                 if(tmpAmount == inRemain){
                                     Log.d("DATA INSTALLMENTS","Remain payment "+count+" "+tmpAmount);
-                                    sqLiteDatabase.execSQL("UPDATE deals SET rprice = rprice - "+tmpAmount+" WHERE id = "+InvoiceId+";");
+                                    sqLiteDatabase.execSQL("UPDATE deals SET rprice = rprice - "+tmpAmount+" ,app = 1 WHERE id = "+InvoiceId+";");
                                     sqLiteDatabase.execSQL("UPDATE installment SET rpayment = rpayment + "+tmpAmount+" , rdate = CURRENT_DATE , app = 1 WHERE id = "+cursorInstall.getString(0)+";");
                                     updateList(InvoiceId);
                                     updateHead(InvoiceId);
@@ -112,12 +112,12 @@ public class CustomersInstallment extends AppCompatActivity  {
                                 }else if(tmpAmount < inRemain){
                                     Log.d("DATA INSTALLMENTS","Remain payment "+count+" "+tmpAmount);
                                     sqLiteDatabase.execSQL("UPDATE installment SET rpayment = rpayment + "+tmpAmount+"  , rdate = CURRENT_DATE  , app = 1 WHERE id = "+cursorInstall.getString(0)+";");
-                                    sqLiteDatabase.execSQL("UPDATE deals SET rprice = rprice - "+tmpAmount+" WHERE id = "+InvoiceId+";");
+                                    sqLiteDatabase.execSQL("UPDATE deals SET rprice = rprice - "+tmpAmount+" ,app = 1 WHERE id = "+InvoiceId+";");
                                     inRemain -= tmpAmount;
                                 }else{
                                     sqLiteDatabase.execSQL("UPDATE installment SET rpayment = rpayment + "+inRemain+"  , rdate = CURRENT_DATE  , app = 1 WHERE id = "+cursorInstall.getString(0)+";");
                                     Log.d("DATA INSTALLMENTS","Remain payment "+count+" "+inRemain);
-                                    sqLiteDatabase.execSQL("UPDATE deals SET rprice = rprice - "+inRemain+" WHERE id = "+InvoiceId+";");
+                                    sqLiteDatabase.execSQL("UPDATE deals SET rprice = rprice - "+inRemain+" ,app = 1 WHERE id = "+InvoiceId+";");
                                     updateList(InvoiceId);
                                     updateHead(InvoiceId);
                                     break;
@@ -134,6 +134,8 @@ public class CustomersInstallment extends AppCompatActivity  {
                         alert.setTitle("Enter Amount less than "+remain);
                         alert.show();
                     }
+
+                    updateStatus(InvoiceId);
                 }
 
             }
@@ -183,4 +185,29 @@ public class CustomersInstallment extends AppCompatActivity  {
         receivePayment.setText("Received Payment-"+(deal.getFloat(5)-deal.getFloat(6)));
         balance.setText("Balance-"+deal.getString(6));
     }
-}
+
+
+    void updateStatus(String dealId) {
+        Cursor cForCustomers = sqLiteDatabase.rawQuery("SELECT * FROM installment WHERE dealid = " + dealId + " AND status = 0;", null);
+        while (cForCustomers.moveToNext()) {
+            Log.d("IID","Amount"+(cForCustomers.getInt(3)-cForCustomers.getInt(8)));
+
+            if((cForCustomers.getInt(3)-cForCustomers.getInt(8)) == 0){
+                sqLiteDatabase.execSQL("UPDATE installment SET status = 1 WHERE id = "+cForCustomers.getString(0)+";");
+            }
+        }
+
+
+        Cursor cFordeals = sqLiteDatabase.rawQuery("SELECT * FROM deals WHERE id = "+dealId+";",null);
+
+        cFordeals.moveToNext();
+
+        if(cFordeals.getInt(6) <= 0){
+            sqLiteDatabase.execSQL("UPDATE deals SET status = 1 WHERE id = "+cFordeals.getString(0)+";");
+            Log.d("CustomerI", "updateStatus: Status changed to zero ");
+        }
+    }
+
+
+
+    }

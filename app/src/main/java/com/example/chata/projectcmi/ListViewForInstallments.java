@@ -45,19 +45,17 @@ public class ListViewForInstallments extends BaseAdapter implements Filterable {
         TextView txtStatus = row.findViewById(R.id.txtDueDate);
         TextView txtTotH = row.findViewById(R.id.txtPaymentHead);
         TextView rpayment = row.findViewById(R.id.txtCID);
-        TextView balance = row.findViewById(R.id.txtAreaHead);
 
 
         txtTotH.setText("Total");
 
 
-        rpayment.setText(""+originalArray.get(position).getcName());
+//        rpayment.setText(""+originalArray.get(position).getAmount());
 
 
-        balance.setText(""+originalArray.get(position).getcName());
 
-        txtDealId.setText(originalArray.get(position).getcName());
-        txtTotal.setText(""+originalArray.get(position).getcName()+"");
+        txtDealId.setText("ID:"+originalArray.get(position).getId());
+        txtTotal.setText(""+originalArray.get(position).getAmount()+"");
 
         row.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ViewInstallments"></activity>
+        <activity android:name=".UploadData"></activity>
+        <activity android:name=".ViewInstallments" />
         <activity android:name=".InstallmentsHead" />
         <activity android:name=".MyProfile" />
         <activity android:name=".PaymentHistory" />

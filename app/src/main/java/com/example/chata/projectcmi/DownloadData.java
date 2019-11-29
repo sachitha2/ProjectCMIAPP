@@ -30,7 +30,7 @@ public class DownloadData extends AppCompatActivity {
     String URL = "http://192.168.43.44/shop/APP/";
     SQLiteDatabase sqlite;
     private RequestQueue requestQueueForCreditList;
-    Button bluetoothBtn,btnDownloadData;
+    Button bluetoothBtn,btnDownloadData,uploadData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +41,14 @@ public class DownloadData extends AppCompatActivity {
         final ProgressDialog progressDialog = new ProgressDialog(DownloadData.this);
 
 
-
+        uploadData = findViewById(R.id.btnUpload);
+        uploadData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(DownloadData.this,UploadData.class);
+                startActivity(i);
+            }
+        });
 
 
 
@@ -70,6 +77,8 @@ public class DownloadData extends AppCompatActivity {
 
 
     }
+
+
 
     public int createDatabases(ProgressDialog progressDialog){
 
@@ -147,7 +156,8 @@ public class DownloadData extends AppCompatActivity {
                 ",ni INT(1) NOT NULL" +
                 ",cid INT(11) NOT NULL" +
                 ",discount FLOAT NOT NULL" +
-                ",agentId int(2) NOT NULL" +
+                ",agentId int(2) NOT NULL," +
+                "app int(1) NOT NULL" +
                 ",PRIMARY KEY (id)" +
                 ");");
         sqlite.execSQL("DROP TABLE IF EXISTS installment;");
@@ -364,7 +374,7 @@ public class DownloadData extends AppCompatActivity {
                             JSONArray agentId = response.getJSONArray("agentId");
 //
                             for (int i = 0; i < id.length(); i++){
-                                sqlite.execSQL("INSERT INTO deals (id, date,time,fdate,ftime,tprice,rprice,status,ni,cid,discount,agentId) VALUES ('"+id.get(i).toString()+"','"+date.get(i).toString()+"','"+time.get(i).toString()+"','"+fdate.get(i).toString()+"','"+ftime.get(i).toString()+"',"+total.get(i).toString()+","+rprice.get(i).toString()+","+status.get(i).toString()+","+ni.get(i).toString()+","+cid.get(i).toString()+","+discount.get(i).toString()+","+agentId.get(i).toString()+");");
+                                sqlite.execSQL("INSERT INTO deals (id, date,time,fdate,ftime,tprice,rprice,status,ni,cid,discount,agentId,app) VALUES ('"+id.get(i).toString()+"','"+date.get(i).toString()+"','"+time.get(i).toString()+"','"+fdate.get(i).toString()+"','"+ftime.get(i).toString()+"',"+total.get(i).toString()+","+rprice.get(i).toString()+","+status.get(i).toString()+","+ni.get(i).toString()+","+cid.get(i).toString()+","+discount.get(i).toString()+","+agentId.get(i).toString()+",0);");
                             }
                             Log.d("DOWNLOAD", "DATA :AREA  AMOUNT "+id.length());
                             Log.d("DOWNLOAD", "DATA :AREA  DATA "+response);
@@ -503,10 +513,4 @@ public class DownloadData extends AppCompatActivity {
     }
     //Download item data End
 
-
-
-    //Upload data part start
-
-
-    //Upload data part ending
 }

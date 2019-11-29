@@ -1,6 +1,9 @@
 package com.example.chata.projectcmi;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -14,7 +17,7 @@ public class ViewInstallments extends AppCompatActivity implements TextWatcher {
     String type;
     ListView list;
     EditText search;
-
+    SQLiteDatabase sqLiteDatabase;
 
 
     ArrayList<SingleRowForInstallments> myList;
@@ -39,10 +42,18 @@ public class ViewInstallments extends AppCompatActivity implements TextWatcher {
         myList = new ArrayList<>();
         SingleRowForInstallments singleRow;
 
-        for(int i = 0; i < 10;i++){
-            singleRow = new SingleRowForInstallments(10,"2019-10-20","1000","Sam wilson","250","Galgamuwa","983142044V");
+        sqLiteDatabase  = openOrCreateDatabase("cmi", Context.MODE_PRIVATE,null);
+
+        Cursor cDeals =sqLiteDatabase.rawQuery("SELECT * FROM installment WHERE status = 0;",null);
+
+        int nRow = cDeals.getCount();
+
+        cDeals.moveToNext();
+        for(int i = 0; i < nRow;i++){
+            singleRow = new SingleRowForInstallments(i +1,"2019-10-20",(cDeals.getInt(3) - cDeals.getInt(8))+"","Sam wilson","250","Galgamuwa","983142044V");
 
             myList.add(singleRow);
+            cDeals.moveToNext();
         }
 
         myAdapter = new ListViewForInstallments(this,myList);
