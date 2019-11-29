@@ -6,4 +6,63 @@
     android:layout_height="match_parent"
     tools:context=".UploadData">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Deals"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="40sp" />
+
+        <TextView
+            android:id="@+id/txtDeal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="10"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="35sp" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Installments"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="40sp" />
+
+        <TextView
+            android:id="@+id/txtInstallments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="10"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="35sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Collection"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="40sp" />
+
+        <TextView
+            android:id="@+id/txtCollection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="10"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="35sp" />
+
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

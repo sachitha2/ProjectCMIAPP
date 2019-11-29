@@ -25,7 +25,7 @@ public class UploadData extends AppCompatActivity {
     private RequestQueue requestQueueForStock;
     ProgressDialog progressDialog;
     SQLiteDatabase sqLiteDatabase;
-    TextView txtUploaded;
+    TextView txtDeals,txtInstallments,txtCollection;
     int step = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,13 @@ public class UploadData extends AppCompatActivity {
 
         sqLiteDatabase = openOrCreateDatabase("cmi", UploadData.MODE_PRIVATE,null);
 
+        //text views
+        txtCollection = findViewById(R.id.txtCollection);
+        txtDeals = findViewById(R.id.txtDeal);
+        txtInstallments = findViewById(R.id.txtInstallments);
 
+
+        updateText();
 
 
         progressDialog = new ProgressDialog(UploadData.this);
@@ -48,21 +54,21 @@ public class UploadData extends AppCompatActivity {
         requestQueueForStock = Volley.newRequestQueue(UploadData.this);
         try {
             //looking for status start
-//            Cursor cForDeals =sqLiteDatabase.rawQuery("SELECT * FROM deal where s = 0  AND date =  date('now','localtime');",null);
-//            int nRow = cForDeals.getCount();
-//            Log.d("Data",nRow + "");
+            Cursor cForDeals =sqLiteDatabase.rawQuery("SELECT * FROM deals where app = 1 ;",null);
+            int nRow = cForDeals.getCount();
+            Log.d("Data",nRow + "");
 
 
 
-//            int CForNRNum = cForDeals.getCount();
 //            txtUploaded.setText("To upload "+CForNRNum);
 
-//            if(CForNRNum != 0){
+            if(nRow != 0){
                 jsonParseStockAndPriceRangeTable(progressDialog);
                 progressDialog.show();
-//            }else{
-//                Log.d("SQL","Nodata to upload");
-//            }
+            }else{
+                Toast.makeText(UploadData.this, "No Data Found To Upload", Toast.LENGTH_LONG).show();
+                Log.d("SQL","Nodata to upload");
+            }
 
 
 
@@ -164,15 +170,34 @@ public class UploadData extends AppCompatActivity {
                             //Read json and assign them to local variables
 
                             JSONArray invoices = response.getJSONArray("data");
+                            JSONArray deal = response.getJSONArray("dealId");
+                            JSONArray collection = response.getJSONArray("collection");
                             JSONArray s = response.getJSONArray("s");
                             //TODO Here
                             //We have to config
-                            if(s.get(0).toString() == "1"){
+//                            if(s.get(0).toString() == "1"){
                                 for(int i = 0; i < invoices.length(); i++){
                                     sqLiteDatabase.execSQL("UPDATE installment SET  app = 0 WHERE id = "+invoices.get(i).toString()+";");
 
                                 }
-                            }
+                                //update deal id start
+                                for(int i = 0; i < deal.length(); i++){
+                                    sqLiteDatabase.execSQL("UPDATE deals SET  app = 0 WHERE id = "+deal.get(i).toString()+";");
+
+                                }
+                                //update deal id end
+
+                                //update collection start
+                                for(int i = 0; i < collection.length(); i++){
+                                    sqLiteDatabase.execSQL("UPDATE collection SET  app = 0 WHERE id = "+collection.get(i).toString()+";");
+
+                                }
+                                //update collection end
+
+                                updateText();
+//                            }
+
+
                             progressDialog.hide();
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -192,5 +217,24 @@ public class UploadData extends AppCompatActivity {
 
     }
 
+
+    void updateText(){
+        //set text in textViews
+        //take nRows;
+        Cursor c =sqLiteDatabase.rawQuery("SELECT * FROM deals where app = 1 ;",null);
+        int nRow = c.getCount();
+        txtDeals.setText(""+nRow);
+
+        c =sqLiteDatabase.rawQuery("SELECT * FROM installment  where app = 1 ;",null);
+        nRow = c.getCount();
+
+        txtInstallments.setText(""+nRow);
+
+
+        c =sqLiteDatabase.rawQuery("SELECT * FROM collection  where app = 1 ;",null);
+        nRow = c.getCount();
+
+        txtCollection.setText(""+nRow);
+    }
 
 }
