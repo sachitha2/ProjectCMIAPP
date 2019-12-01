@@ -175,7 +175,7 @@ public class PaymentHistory extends AppCompatActivity {
 
                     // RPP300 is the name of the bluetooth printer device
                     // we got this name from the list of paired devices
-                    if (device.getName().equals("MTP-3")) {
+                    if (device.getName().equals("Printer_EE47")) {
                         mmDevice = device;
                         break;
                     }

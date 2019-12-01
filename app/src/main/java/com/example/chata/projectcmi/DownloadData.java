@@ -27,7 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class DownloadData extends AppCompatActivity {
-    String URL = "http://192.168.43.44/shop/APP/";
+    String URL = "http://trans.infinisolutionslk.com/APP/";
     SQLiteDatabase sqlite;
     private RequestQueue requestQueueForCreditList;
     Button bluetoothBtn,btnDownloadData,uploadData;
@@ -186,6 +186,11 @@ public class DownloadData extends AppCompatActivity {
                 "date DATE NOT NULL," +
                 "time TIME NOT NULL," +
                 "app int(1) NOT NULL);");
+
+
+        //Creating local database for holding bluetooth address
+        sqlite.execSQL("CREATE TABLE localData(" +
+                "btName varchar(50));");
 //        sqlite.execSQL("INSERT INTO collection(id,userId,installmentId,dealid,payment,date,time) VALUES (1,2,3,4,5,'','')");
 //
 //

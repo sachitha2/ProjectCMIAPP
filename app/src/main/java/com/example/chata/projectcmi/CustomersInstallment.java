@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 
@@ -36,7 +38,7 @@ public class CustomersInstallment extends AppCompatActivity  {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // will show the statuses like bluetooth open, close or data sent
     TextView myLabel;
-
+    Date currentTime = Calendar.getInstance().getTime();
     // will enable user to enter any text to be printed
     EditText myTextbox;
 
@@ -172,8 +174,46 @@ public class CustomersInstallment extends AppCompatActivity  {
 
                                 count++;
                             }
-
+                            Cursor cForCustomer = sqLiteDatabase.rawQuery("SELECT * FROM customer WHERE id = "+deal.getString(9)+";",null);
+                            cForCustomer.moveToNext();
                             editPayment.setText("");
+                            //Bill print part start
+                            final ProgressDialog progressDialog = new ProgressDialog(CustomersInstallment.this);
+                            progressDialog.setTitle(" Printing Bill");
+                            progressDialog.setMessage("");
+                            progressDialog.setCancelable(false);
+                            updateStatus(InvoiceId);
+                            //bill print here
+                            try {
+
+                                findBT();
+                                openBT();
+                                progressDialog.show();
+                                BILL =
+                                                "-----------------------------------------------\n"+
+                                                "                  TRANS LANKA                  \n"+
+                                                "-----------------------------------------------\n"+
+                                                "  Address                    \n"+
+                                                "     Mailagashandiya                \n" +
+                                                "     Anuradhapura                   \n" +
+                                                "  Telephone:               \n" +
+                                                "     071-6000061               \n"
+                                                +"-----------------------------------------------\n"
+                                                +"Deal Id : "+InvoiceId+" \n"
+                                                +"Agent : \n"
+                                                +"Customer Name : "+cForCustomer.getString(1)+"\n"
+                                                +"Customer Id : "+deal.getString(9)+" \n"
+                                                +"Date : "+currentTime+" \n"
+                                                +"-----------------------------------------------\n"
+                                                +"Total Price :5000\n" +
+                                                        "Received payment:2000\n" +
+                                                        "Total Received Payment:3000\n" +
+                                                        "Balance:2000\n";
+                                sendData(BILL,progressDialog);
+                            } catch (IOException ex) {
+                                ex.printStackTrace();
+                            }
+                            //Bill print part exit
 
                     }else{
                         alert.setTitle("Enter Amount less than "+remain);
@@ -184,22 +224,6 @@ public class CustomersInstallment extends AppCompatActivity  {
 
 
 
-                        final ProgressDialog progressDialog = new ProgressDialog(CustomersInstallment.this);
-                        progressDialog.setTitle(" Printing Bill");
-                        progressDialog.setMessage("");
-                        progressDialog.setCancelable(false);
-                        updateStatus(InvoiceId);
-                        //bill print here
-                        try {
-
-                            findBT();
-                            openBT();
-                            progressDialog.show();
-                            BILL = "HELLOOO \n hii \n SAM";
-                            sendData(BILL,progressDialog);
-                        } catch (IOException ex) {
-                            ex.printStackTrace();
-                        }
 
                 }
 
@@ -309,7 +333,7 @@ public class CustomersInstallment extends AppCompatActivity  {
 
                     // RPP300 is the name of the bluetooth printer device
                     // we got this name from the list of paired devices
-                    if (device.getName().equals("MTP-3")) {
+                    if (device.getName().equals("Printer_EE47")) {
                         mmDevice = device;
                         break;
                     }
@@ -429,7 +453,11 @@ public class CustomersInstallment extends AppCompatActivity  {
                 public void run() {
                     // Actions to do after 3 seconds
                     o.hide();
+                    //TODO next intent
+
                     CustomersInstallment.this.finish();
+                    Intent i = new Intent(CustomersInstallment.this,UploadData.class);
+                    startActivity(i);
                     try {
                         closeBT();
                     } catch (IOException e) {

@@ -21,7 +21,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class UploadData extends AppCompatActivity {
-    String URL = "http://192.168.43.44/shop/APP/";
+    String URL = "http://trans.infinisolutionslk.com/APP/";
     private RequestQueue requestQueueForStock;
     ProgressDialog progressDialog;
     SQLiteDatabase sqLiteDatabase;
