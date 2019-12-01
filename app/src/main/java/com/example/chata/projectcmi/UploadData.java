@@ -3,6 +3,8 @@ package com.example.chata.projectcmi;
 import android.app.ProgressDialog;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -63,8 +65,18 @@ public class UploadData extends AppCompatActivity {
 //            txtUploaded.setText("To upload "+CForNRNum);
 
             if(nRow != 0){
-                jsonParseStockAndPriceRangeTable(progressDialog);
-                progressDialog.show();
+
+                //check net connection start
+                if(haveNet()){
+                    jsonParseStockAndPriceRangeTable(progressDialog);
+                    progressDialog.show();
+                }else if(!haveNet()){
+                    Toast.makeText(UploadData.this,"Network connection is not available",Toast.LENGTH_SHORT).show();
+                }
+                //check net connection end
+
+
+
             }else{
                 Toast.makeText(UploadData.this, "No Data Found To Upload", Toast.LENGTH_LONG).show();
                 Log.d("SQL","Nodata to upload");
@@ -236,5 +248,27 @@ public class UploadData extends AppCompatActivity {
 
         txtCollection.setText(""+nRow);
     }
+    //check net connection function start
+    private  boolean haveNet(){
+        boolean haveWifi = false;
+        boolean haveMobileData = false;
+        ConnectivityManager connectivityManager =(ConnectivityManager) getSystemService( CONNECTIVITY_SERVICE);
+        NetworkInfo[] networkInfos = connectivityManager.getAllNetworkInfo();
+        for(NetworkInfo info:networkInfos){
+            if(info.getTypeName().equalsIgnoreCase("WIFI")){
+                if(info.isConnected()){
+                    haveWifi  = true;
+                }
 
+            }
+            if(info.getTypeName().equalsIgnoreCase("MOBILE")){
+                if(info.isConnected()){
+                    haveMobileData = true;
+                }
+
+            }
+        }
+        return haveMobileData || haveWifi;
+    }
+    //check net connection function End;
 }

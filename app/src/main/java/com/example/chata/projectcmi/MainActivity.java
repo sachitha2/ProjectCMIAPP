@@ -74,25 +74,26 @@ public class MainActivity extends AppCompatActivity {
             Tempary
          */
 
-         Intent intentHome = new Intent();
-         intentHome.setClass(MainActivity.this, Home.class);
-         intentHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-
-
-         startActivity(intentHome);
+//         Intent intentHome = new Intent();
+//         intentHome.setClass(MainActivity.this, Home.class);
+//         intentHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//
+//
+//
+//         startActivity(intentHome);
          /*
 
             Tempary
          */
         if (!TextUtils.isEmpty(edtUsername.getText())){
             if (!TextUtils.isEmpty(edtPassword.getText())){
-
+                //check net connection start
                 if(haveNet()){
                     jsonParse();
                 }else if(!haveNet()){
                     Toast.makeText(MainActivity.this,"Network connectin is not available",Toast.LENGTH_SHORT).show();
                 }
+                //check net connection end
             }else {
                 Toast.makeText(MainActivity.this,"Enter Password", Toast.LENGTH_LONG).show();
             }
@@ -108,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.setMessage("");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        String url = "http://cms.infinisolutionslk.com/APP/login.json.php?uName="+edtUsername.getText()+"&uPass="+edtPassword.getText();
+        String url = "http://trans.infinisolutionslk.com/APP/login.json.php?uName="+edtUsername.getText()+"&uPass="+edtPassword.getText();
         Log.d("JSONPRASE",url);
         JsonObjectRequest loginRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -236,6 +237,7 @@ public class MainActivity extends AppCompatActivity {
         }
         back_pressed = System.currentTimeMillis();
     }
+    //check net connection function start
     private  boolean haveNet(){
         boolean haveWifi = false;
         boolean haveMobileData = false;
@@ -257,4 +259,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return haveMobileData || haveWifi;
     }
+    //check net connection function End;
 }

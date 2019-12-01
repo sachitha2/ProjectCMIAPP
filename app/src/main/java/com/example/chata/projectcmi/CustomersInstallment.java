@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -185,31 +186,46 @@ public class CustomersInstallment extends AppCompatActivity  {
                             updateStatus(InvoiceId);
                             //bill print here
                             try {
+                                //look for BT on
+                                mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
-                                findBT();
-                                openBT();
-                                progressDialog.show();
-                                BILL =
-                                                "-----------------------------------------------\n"+
-                                                "                  TRANS LANKA                  \n"+
-                                                "-----------------------------------------------\n"+
-                                                "  Address                    \n"+
-                                                "     Mailagashandiya                \n" +
-                                                "     Anuradhapura                   \n" +
-                                                "  Telephone:               \n" +
-                                                "     071-6000061               \n"
-                                                +"-----------------------------------------------\n"
-                                                +"Deal Id : "+InvoiceId+" \n"
-                                                +"Agent : \n"
-                                                +"Customer Name : "+cForCustomer.getString(1)+"\n"
-                                                +"Customer Id : "+deal.getString(9)+" \n"
-                                                +"Date : "+currentTime+" \n"
-                                                +"-----------------------------------------------\n"
-                                                +"Total Price :5000\n" +
-                                                        "Received payment:2000\n" +
-                                                        "Total Received Payment:3000\n" +
-                                                        "Balance:2000\n";
-                                sendData(BILL,progressDialog);
+                                if(mBluetoothAdapter == null) {
+//                              myLabel.setText("No bluetooth adapter available");
+                                }
+
+                                if(!mBluetoothAdapter.isEnabled()) {
+                                    //no BT available
+                                    Toast.makeText(CustomersInstallment.this,"Bill not printed, Turn on BT",Toast.LENGTH_SHORT).show();
+                                    CustomersInstallment.this.finish();
+                                    Intent i = new Intent(CustomersInstallment.this,UploadData.class);
+                                    startActivity(i);
+                                }else{
+                                    findBT();
+                                    openBT();
+                                    progressDialog.show();
+                                    BILL =
+                                            "-----------------------------------------------\n"+
+                                                    "                  TRANS LANKA                  \n"+
+                                                    "-----------------------------------------------\n"+
+                                                    "  Address                    \n"+
+                                                    "     Mailagashandiya                \n" +
+                                                    "     Anuradhapura                   \n" +
+                                                    "  Telephone:               \n" +
+                                                    "     071-6000061               \n"
+                                                    +"-----------------------------------------------\n"
+                                                    +"Deal Id : "+InvoiceId+" \n"
+                                                    +"Agent : \n"
+                                                    +"Customer Name : "+cForCustomer.getString(1)+"\n"
+                                                    +"Customer Id : "+deal.getString(9)+" \n"
+                                                    +"Date : "+currentTime+" \n"
+                                                    +"-----------------------------------------------\n"
+                                                    +"Total Price :5000\n" +
+                                                    "Received payment:2000\n" +
+                                                    "Total Received Payment:3000\n" +
+                                                    "Balance:2000\n";
+                                    sendData(BILL,progressDialog);
+                                }
+
                             } catch (IOException ex) {
                                 ex.printStackTrace();
                             }

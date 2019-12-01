@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -56,13 +58,23 @@ public class DownloadData extends AppCompatActivity {
           btnDownloadData.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View v) {
-                  progressDialog.setTitle("Download");
-                  progressDialog.setMessage("hello this is a progress dialog box");
-                  progressDialog.setCancelable(false);
-                  progressDialog.show();
 
-                  progressDialog.setMessage("Hiiii");
-                  createDatabases(progressDialog);
+
+
+                  //check net connection start
+                  if(haveNet()){
+                      progressDialog.setTitle("Download");
+                      progressDialog.setMessage("hello this is a progress dialog box");
+                      progressDialog.setCancelable(false);
+                      progressDialog.show();
+
+                      progressDialog.setMessage("Hiiii");
+                      createDatabases(progressDialog);
+                  }else if(!haveNet()){
+                      Toast.makeText(DownloadData.this,"Network connection is not available",Toast.LENGTH_SHORT).show();
+                  }
+                  //check net connection end
+
               }
           });
 //        bluetoothBtn = findViewById(R.id.SelectBTBtn);
@@ -187,10 +199,11 @@ public class DownloadData extends AppCompatActivity {
                 "time TIME NOT NULL," +
                 "app int(1) NOT NULL);");
 
-
+        sqlite.execSQL("DROP TABLE IF EXISTS localData;");
         //Creating local database for holding bluetooth address
         sqlite.execSQL("CREATE TABLE localData(" +
-                "btName varchar(50));");
+                "btName varchar(50)," +
+                "date int(1));");
 //        sqlite.execSQL("INSERT INTO collection(id,userId,installmentId,dealid,payment,date,time) VALUES (1,2,3,4,5,'','')");
 //
 //
@@ -518,4 +531,29 @@ public class DownloadData extends AppCompatActivity {
     }
     //Download item data End
 
+
+
+    //check net connection function start
+    private  boolean haveNet(){
+        boolean haveWifi = false;
+        boolean haveMobileData = false;
+        ConnectivityManager connectivityManager =(ConnectivityManager) getSystemService( CONNECTIVITY_SERVICE);
+        NetworkInfo[] networkInfos = connectivityManager.getAllNetworkInfo();
+        for(NetworkInfo info:networkInfos){
+            if(info.getTypeName().equalsIgnoreCase("WIFI")){
+                if(info.isConnected()){
+                    haveWifi  = true;
+                }
+
+            }
+            if(info.getTypeName().equalsIgnoreCase("MOBILE")){
+                if(info.isConnected()){
+                    haveMobileData = true;
+                }
+
+            }
+        }
+        return haveMobileData || haveWifi;
+    }
+    //check net connection function End;
 }
