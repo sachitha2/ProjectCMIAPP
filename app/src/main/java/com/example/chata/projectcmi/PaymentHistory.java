@@ -4,7 +4,9 @@ import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
@@ -15,12 +17,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.BitSet;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 
@@ -51,6 +56,8 @@ public class PaymentHistory extends AppCompatActivity {
     byte[] readBuffer;
     int readBufferPosition;
     volatile boolean stopWorker;
+
+    Date currentTime = Calendar.getInstance().getTime();
     ////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////
     //For bluetooth
@@ -71,7 +78,7 @@ public class PaymentHistory extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_history);
-        String InvoiceId = getIntent().getStringExtra("InvoiceId");
+        final String InvoiceId = getIntent().getStringExtra("InvoiceId");
 
         sqLiteDatabase = openOrCreateDatabase("cmi", Customers.MODE_PRIVATE,null);
 
@@ -80,7 +87,7 @@ public class PaymentHistory extends AppCompatActivity {
 
         txtTotal = findViewById(R.id.titleData);
 
-        Cursor deal = sqLiteDatabase.rawQuery("SELECT * FROM deals WHERE id = "+InvoiceId+";",null);
+        final Cursor deal = sqLiteDatabase.rawQuery("SELECT * FROM deals WHERE id = "+InvoiceId+";",null);
         deal.moveToNext();
 
 
@@ -123,11 +130,49 @@ public class PaymentHistory extends AppCompatActivity {
             public void onClick(View v) {
                 try {
 
-                    findBT();
-                    openBT();
-                    progressDialog.show();
-                    BILL = "HELLOOO \n hii \n SAM";
-                    sendData(BILL,progressDialog);
+                    //look for BT on
+                    mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+                    if(mBluetoothAdapter == null) {
+//                              myLabel.setText("No bluetooth adapter available");
+                    }
+
+                    if(!mBluetoothAdapter.isEnabled()) {
+                        //no BT available
+                        Toast.makeText(PaymentHistory.this,"Bill not printed, Turn on BT",Toast.LENGTH_SHORT).show();
+                        PaymentHistory.this.finish();
+                        Intent i = new Intent(PaymentHistory.this,UploadData.class);
+                        startActivity(i);
+                    }else{
+                        findBT();
+                        openBT();
+                        progressDialog.show();
+                        BILL =
+                                        "-----------------------------------------------\n"+
+                                        "                  TRANS LANKA                  \n"+
+                                        "-----------------------------------------------\n"+
+                                        "  Address                    \n"+
+                                        "     Mailagashandiya                \n" +
+                                        "     Anuradhapura                   \n" +
+                                        "  Telephone:               \n" +
+                                        "     071-6000061               \n"
+                                        +"-----------------------------------------------\n"
+                                        +"Deal Id : "+InvoiceId+" \n"
+                                        +"Agent : \n"
+//                                        +"Customer Name : "+cForCustomer.getString(1)+"\n"
+                                        +"Customer Id : "+deal.getString(9)+" \n"
+                                        +"Date : "+currentTime+" \n"
+                                        +"-----------------------------------------------\n"
+                                        +"Item Name:\n" +
+                                        "Item Price:"+deal.getString(5)+"\n" +
+                                        "Total Received Payment:"+(deal.getInt(5) - deal.getInt(6))+"\n" +
+                                        "Balance:"+(deal.getInt(6))+"\n" +
+                                        "-----------------------------------------------\n"+
+                                        "Today Payment :0\n"
+                                        +"-----------------------------------------------\n"
+                        ;
+                        sendData(BILL,progressDialog);
+                    }
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -175,7 +220,7 @@ public class PaymentHistory extends AppCompatActivity {
 
                     // RPP300 is the name of the bluetooth printer device
                     // we got this name from the list of paired devices
-                    if (device.getName().equals("Printer_EE47")) {
+                    if (device.getName().equals(lookForBTName(PaymentHistory.this))) {
                         mmDevice = device;
                         break;
                     }
@@ -314,4 +359,9 @@ public class PaymentHistory extends AppCompatActivity {
 //--------------------------------------------------------------------------------------------------
     //For bluetooth
 //--------------------------------------------------------------------------------------------------
+
+    public String lookForBTName(Context context){
+        SharedPreferences sharedPreferences = getSharedPreferences("btInfo", context.MODE_PRIVATE);
+        return sharedPreferences.getString("btName", "");
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.chata.projectcmi;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -61,11 +62,17 @@ public class ListViewForInstallments extends BaseAdapter implements Filterable {
             @Override
             public void onClick(View v) {
 
+
                 Intent viewAInvoice = new Intent(c, CustomersInstallment.class);
+
+                viewAInvoice.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //
                 viewAInvoice.putExtra("InvoiceId", originalArray.get(position).getId());
                 c.startActivity(viewAInvoice);
                 Toast.makeText(c, "Invoice " + " was clicked", Toast.LENGTH_SHORT).show();
+
+                ((Activity)c).finish();
+
             }
         });
 

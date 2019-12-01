@@ -32,7 +32,7 @@ public class DownloadData extends AppCompatActivity {
     String URL = "http://trans.infinisolutionslk.com/APP/";
     SQLiteDatabase sqlite;
     private RequestQueue requestQueueForCreditList;
-    Button bluetoothBtn,btnDownloadData,uploadData;
+    Button bluetoothBtn,btnDownloadData,uploadData,btnBT;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +77,18 @@ public class DownloadData extends AppCompatActivity {
 
               }
           });
+
+          btnBT = findViewById(R.id.btnBlue);
+
+          btnBT.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  Intent intentBT = new Intent(DownloadData.this, BTConfig.class);
+                startActivity(intentBT);
+              }
+          });
+
+
 //        bluetoothBtn = findViewById(R.id.SelectBTBtn);
 //
 //        bluetoothBtn.setOnClickListener(new View.OnClickListener() {

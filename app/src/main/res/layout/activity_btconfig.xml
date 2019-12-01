@@ -21,12 +21,13 @@
 
             >
 
-
-            <Button
-                android:id="@+id/button3"
+            <EditText
+                android:id="@+id/editBTName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:ems="10"
+                android:hint="Enter Buletooth Name"
+                android:inputType="textPersonName" />
         </LinearLayout>
 
         <LinearLayout
@@ -39,10 +40,11 @@
 
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/btnSetBT"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:background="@drawable/bgbutton"
+                android:text="SAVE" />
         </LinearLayout>
 
     </LinearLayout>

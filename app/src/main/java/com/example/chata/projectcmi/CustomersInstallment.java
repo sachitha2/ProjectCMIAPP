@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
@@ -204,7 +205,7 @@ public class CustomersInstallment extends AppCompatActivity  {
                                     openBT();
                                     progressDialog.show();
                                     BILL =
-                                            "-----------------------------------------------\n"+
+                                                    "-----------------------------------------------\n"+
                                                     "                  TRANS LANKA                  \n"+
                                                     "-----------------------------------------------\n"+
                                                     "  Address                    \n"+
@@ -219,10 +220,14 @@ public class CustomersInstallment extends AppCompatActivity  {
                                                     +"Customer Id : "+deal.getString(9)+" \n"
                                                     +"Date : "+currentTime+" \n"
                                                     +"-----------------------------------------------\n"
-                                                    +"Total Price :5000\n" +
-                                                    "Received payment:2000\n" +
-                                                    "Total Received Payment:3000\n" +
-                                                    "Balance:2000\n";
+                                                    +"Item Name:\n" +
+                                                    "Item Price:"+deal.getString(5)+"\n" +
+                                                    "Total Received Payment:"+(deal.getInt(5) - deal.getInt(6) + inRemain)+"\n" +
+                                                    "Balance:"+(deal.getInt(6) - inRemain)+"\n" +
+                                                    "-----------------------------------------------\n"+
+                                                    "Today Payment :"+inRemain+"\n"
+                                                    +"-----------------------------------------------\n"
+                                                        ;
                                     sendData(BILL,progressDialog);
                                 }
 
@@ -349,7 +354,7 @@ public class CustomersInstallment extends AppCompatActivity  {
 
                     // RPP300 is the name of the bluetooth printer device
                     // we got this name from the list of paired devices
-                    if (device.getName().equals("Printer_EE47")) {
+                    if (device.getName().equals(lookForBTName(CustomersInstallment.this))) {
                         mmDevice = device;
                         break;
                     }
@@ -492,5 +497,11 @@ public class CustomersInstallment extends AppCompatActivity  {
 //--------------------------------------------------------------------------------------------------
     //For bluetooth
 //--------------------------------------------------------------------------------------------------
+
+
+    public String lookForBTName(Context context){
+        SharedPreferences sharedPreferences = getSharedPreferences("btInfo", context.MODE_PRIVATE);
+        return sharedPreferences.getString("btName", "");
+    }
 
     }
