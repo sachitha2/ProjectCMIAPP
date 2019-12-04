@@ -6,107 +6,133 @@
     android:layout_height="match_parent"
     tools:context=".DownloadData">
 
-    <Button
-        android:id="@+id/SelectBTBtn"
+
+
+
+
+
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+
+        >
+
+
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+
+        >
+
+
+        <TextView
+        android:id="@+id/txtDeals"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Blutooth"
-        android:textColor="#000"
-        android:layout_margin="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnUpload"
+        android:text="TextView"
+        android:textSize="25sp" />
 
-         />
-
-    <Button
-        android:id="@+id/btnUpload"
+        <TextView
+        android:id="@+id/txtInstallments"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="Upload Data"
-        android:textColor="#000"
-        app:layout_constraintBottom_toTopOf="@+id/btnDownloadData"
-        android:layout_margin="10dp"
-        />
-    <Button
-        android:id="@+id/btnDownloadData"
+        android:text="TextView"
+        android:textSize="25sp" />
+
+        <TextView
+        android:id="@+id/txtArea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="Download Data"
-        android:textColor="#000"
-        app:layout_constraintBottom_toTopOf="@+id/btnBlue"
-        android:layout_margin="10dp"
-        />
+        android:text="TextView"
+        android:textSize="25sp" />
 
-    <Button
-        android:id="@+id/btnBlue"
+        <TextView
+        android:id="@+id/txtCustomers"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="Bluetooth Settings"
-        android:textColor="#000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_margin="10dp"
-        />
+        android:text="TextView"
+        android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/txtCollection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/txtItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textSize="25sp" />
+        </LinearLayout>
 
 
 
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:orientation="vertical"-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1"
 
-        <!--&gt;-->
+                >
 
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:orientation="vertical"-->
-            <!--android:layout_weight="1"-->
+                <Button
+                    android:id="@+id/SelectBTBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Blutooth"
+                    android:textColor="#000"
+                    android:layout_margin="10dp"
+                    app:layout_constraintBottom_toTopOf="@+id/btnUpload"
 
-            <!--&gt;-->
+                    />
+
+                <Button
+                    android:id="@+id/btnUpload"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Upload Data"
+                    android:textColor="#000"
+                    app:layout_constraintBottom_toTopOf="@+id/btnDownloadData"
+                    android:layout_margin="10dp"
+                    />
+                <Button
+                    android:id="@+id/btnDownloadData"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Download Data"
+                    android:textColor="#000"
+                    app:layout_constraintBottom_toTopOf="@+id/btnBlue"
+                    android:layout_margin="10dp"
+                    />
+
+                <Button
+                    android:id="@+id/btnBlue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Bluetooth Settings"
+                    android:textColor="#000"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_margin="10dp"
+                    />
+
+            </LinearLayout>
+        </LinearLayout>
 
 
-           <!---->
-        <!--</LinearLayout>-->
-
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_weight="1"-->
-            <!--android:orientation="vertical"-->
-
-            <!--&gt;-->
 
 
-            <!--<TextView-->
-                <!--android:id="@+id/textView"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="TextView"-->
-                <!--android:textSize="25sp" />-->
 
-            <!--<TextView-->
-                <!--android:id="@+id/textView4"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="TextView"-->
-                <!--android:textSize="25sp" />-->
 
-            <!--<TextView-->
-                <!--android:id="@+id/textView7"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="TextView"-->
-                <!--android:textSize="25sp" />-->
 
-            <!--<TextView-->
-                <!--android:id="@+id/textView8"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="TextView"-->
-                <!--android:textSize="25sp" />-->
-        <!--</LinearLayout>-->
-
-    <!--</LinearLayout>-->
 </android.support.constraint.ConstraintLayout>

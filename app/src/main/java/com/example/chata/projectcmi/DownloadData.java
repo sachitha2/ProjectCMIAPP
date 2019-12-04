@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -29,6 +30,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class DownloadData extends AppCompatActivity {
+
+    //init textView start
+    TextView txtDeal;
+    TextView txtInstallment;
+    TextView txtCustomer;
+    TextView txtCollection;
+    TextView txtItem;
+    TextView txtArea;
+    //init textView end
+
     String URL = "http://trans.infinisolutionslk.com/APP/";
     SQLiteDatabase sqlite;
     private RequestQueue requestQueueForCreditList;
@@ -39,6 +50,23 @@ public class DownloadData extends AppCompatActivity {
         setContentView(R.layout.activity_download_data);
         requestQueueForCreditList = Volley.newRequestQueue(DownloadData.this);
 
+
+        //init textView start
+         txtDeal = findViewById(R.id.txtDeals);
+         txtInstallment = findViewById(R.id.txtInstallments) ;
+         txtCustomer  = findViewById(R.id.txtCustomers);
+         txtCollection = findViewById(R.id.txtCollection);
+         txtItem = findViewById(R.id.txtItem);
+         txtArea = findViewById(R.id.txtArea);
+        //init textView end
+
+
+        txtDeal.setText("Deal");
+        txtInstallment.setText("installment");
+        txtCustomer.setText("customer");
+        txtCollection.setText("collection");
+        txtItem.setText("item");
+        txtArea.setText("area");
 
         final ProgressDialog progressDialog = new ProgressDialog(DownloadData.this);
 
@@ -282,6 +310,17 @@ public class DownloadData extends AppCompatActivity {
                                 Log.d("JSON","DATA"+item);
                                 Log.d("JSON","DATA"+customer);
                                 Log.d("JSON","DATA"+area);
+
+
+                                //Deals start
+                                JSONArray dealId = response.getJSONArray("id");
+
+                                txtDeal.setText("Deal "+dealId.length());
+                                txtInstallment.setText("installment");
+                                txtCustomer.setText("customer");
+                                txtCollection.setText("collection");
+                                txtItem.setText("item");
+                                txtArea.setText("area");
 
 //                            JSONArray area = response.getJSONArray("area");
 //                            JSONArray id = response.getJSONArray("id");
