@@ -250,10 +250,67 @@ public class DownloadData extends AppCompatActivity {
 
 
         //new download json function start
+        jsonDownload(progressDialog);
         //new download json function end
         return 1;
     }
+    //new download method start
+    private void jsonDownload(final ProgressDialog progressDialog) {
+        progressDialog.setMessage("Downloading data");
+        String url = URL+"downloadData.php";
 
+        JsonObjectRequest requestCreditList = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        try {
+                            //Read json and assign them to local variables
+
+
+                                JSONObject deal = response.getJSONObject("deal");
+                                JSONObject installmet = response.getJSONObject("installmet");
+                                JSONObject collection = response.getJSONObject("collection");
+                                JSONObject item = response.getJSONObject("item");
+                                JSONObject customer = response.getJSONObject("customer");
+                                JSONObject area = response.getJSONObject("area");
+
+
+                                Log.d("JSON","DATA"+deal);
+                                Log.d("JSON","DATA"+installmet);
+                                Log.d("JSON","DATA"+collection);
+                                Log.d("JSON","DATA"+item);
+                                Log.d("JSON","DATA"+customer);
+                                Log.d("JSON","DATA"+area);
+
+//                            JSONArray area = response.getJSONArray("area");
+//                            JSONArray id = response.getJSONArray("id");
+//
+//
+//
+//
+////
+//                            for (int i = 0; i < id.length(); i++){
+//                                sqlite.execSQL("INSERT INTO area (id, name) VALUES ('"+id.get(i).toString()+"', '"+area.get(i).toString()+"');");
+//                            }
+//                            Log.d("DOWNLOAD", "DATA :AREA  AMOUNT "+id.length());
+//                            Log.d("DOWNLOAD", "DATA :AREA  DATA "+response);
+//                            progressDialog.setMessage("Area Data Downloaded");
+                              progressDialog.hide();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        requestQueueForCreditList.add(requestCreditList);
+
+    }
+    //new download method end
 
     private void jsonParseAreaList(final ProgressDialog progressDialog) {
         progressDialog.setMessage("Downloading Area Table");
