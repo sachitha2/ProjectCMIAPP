@@ -226,27 +226,31 @@ public class DownloadData extends AppCompatActivity {
 
 
         ///Download Area Table
-        jsonParseAreaList(progressDialog);
+//        jsonParseAreaList(progressDialog);
         ///Download customers list
-        jsonParseCustomerList(progressDialog);
+//        jsonParseCustomerList(progressDialog);
 
         //Download pack Data
-        jsonParsepackDataList(progressDialog);
+//        jsonParsepackDataList(progressDialog);
 
         //Download item table
-        jsonParseItemData(progressDialog);
+//        jsonParseItemData(progressDialog);
 
 
         // Download Deals Table
-        jsonParseDealsList(progressDialog);
+//        jsonParseDealsList(progressDialog);
 
         //Download Installments data
-        jsonParseInstallment(progressDialog);
+//        jsonParseInstallment(progressDialog);
 
 
 
         //Download Collection table
-        jsonParseCollection(progressDialog);
+//        jsonParseCollection(progressDialog);
+
+
+        //new download json function start
+        //new download json function end
         return 1;
     }
 
