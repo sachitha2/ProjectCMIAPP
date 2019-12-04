@@ -201,7 +201,7 @@ public class CustomersInstallment extends AppCompatActivity  {
                                     Intent i = new Intent(CustomersInstallment.this,UploadData.class);
                                     startActivity(i);
                                 }else{
-                                    findBT();
+                                    findBT(progressDialog);
                                     openBT();
                                     progressDialog.show();
                                     BILL =
@@ -333,7 +333,7 @@ public class CustomersInstallment extends AppCompatActivity  {
             e.printStackTrace();
         }
     }
-    void findBT() {
+    void findBT(ProgressDialog progressDialog) {
 
         try {
             mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -350,15 +350,30 @@ public class CustomersInstallment extends AppCompatActivity  {
             Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
 
             if(pairedDevices.size() > 0) {
+                boolean printer = false;
                 for (BluetoothDevice device : pairedDevices) {
 
                     // RPP300 is the name of the bluetooth printer device
                     // we got this name from the list of paired devices
                     if (device.getName().equals(lookForBTName(CustomersInstallment.this))) {
                         mmDevice = device;
+                        printer = true;
                         break;
                     }
+
+
+
                 }
+
+                if(printer == false){
+                    Toast.makeText(CustomersInstallment.this,"Can not connect to the printer.",Toast.LENGTH_SHORT).show();
+                    CustomersInstallment.this.finish();
+                }
+
+
+            }else{
+                Toast.makeText(CustomersInstallment.this,"No paired devices found",Toast.LENGTH_SHORT).show();
+                CustomersInstallment.this.finish();
             }
 
 //            myLabel.setText("Bluetooth device found.");
