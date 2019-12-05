@@ -295,7 +295,7 @@ public class DownloadData extends AppCompatActivity {
                         try {
                             //Read json and assign them to local variables
 
-
+                                int i = 0;
                                 JSONObject deal = response.getJSONObject("deal");
                                 JSONObject installmet = response.getJSONObject("installmet");
                                 JSONObject collection = response.getJSONObject("collection");
@@ -313,14 +313,58 @@ public class DownloadData extends AppCompatActivity {
 
 
                                 //Deals start
-                                JSONArray dealId = response.getJSONArray("id");
-
+                                JSONArray dealId = deal.getJSONArray("id");
                                 txtDeal.setText("Deal "+dealId.length());
-                                txtInstallment.setText("installment");
-                                txtCustomer.setText("customer");
-                                txtCollection.setText("collection");
-                                txtItem.setText("item");
-                                txtArea.setText("area");
+
+                                for(i = 0; i< dealId.length();i++){
+
+                                }
+                                //Deals end
+
+
+                                //installment start
+                                JSONArray installmentId = installmet.getJSONArray("id");
+                                //installment end
+
+
+                                //collection start
+                                JSONArray collectionId = collection.getJSONArray("id");
+                                //collection end
+
+
+                                //item start
+                                JSONArray itemId = item.getJSONArray("id");
+                                //item end
+
+
+
+                                //customer start
+                                JSONArray customerId = customer.getJSONArray("id");
+                                JSONArray customerName = customer.getJSONArray("name");
+                                JSONArray customerNIC = customer.getJSONArray("nic");
+                                JSONArray customerAreaId = customer.getJSONArray("areaid");
+
+                                //sqlite.execSQL("INSERT INTO customer (id, name,nic,areaId) VALUES ('"+id.get(i).toString()+"', '"+name.get(i).toString()+"', '"+nic.get(i).toString()+"','"+areaId.get(i).toString()+"');");
+                                for(i = 0;i<customerId.length();i++){
+                                    sqlite.execSQL("INSERT INTO customer (id, name,nic,areaId) VALUES ('"+customerId.get(i).toString()+"', '"+customerName.get(i).toString()+"', '"+customerNIC.get(i).toString()+"','"+customerAreaId.get(i).toString()+"');");
+                                }
+                                //customer end
+
+
+                                //area start
+                                JSONArray areaId = area.getJSONArray("id");
+                                JSONArray areaName = area.getJSONArray("area");
+
+                                for(i = 0;i < areaId.length();i++){
+                                    sqlite.execSQL("INSERT INTO area (id, name) VALUES ('"+areaId.get(i).toString()+"', '"+areaName.get(i).toString()+"');");
+                                }
+                                //area end
+
+                                txtInstallment.setText("installment "+installmentId.length());
+                                txtCustomer.setText("customer "+customerId.length());
+                                txtCollection.setText("collection "+collectionId.length());
+                                txtItem.setText("item "+itemId.length());
+                                txtArea.setText("area "+areaId.length());
 
 //                            JSONArray area = response.getJSONArray("area");
 //                            JSONArray id = response.getJSONArray("id");
@@ -371,7 +415,7 @@ public class DownloadData extends AppCompatActivity {
 //
                             for (int i = 0; i < id.length(); i++){
                                 sqlite.execSQL("INSERT INTO area (id, name) VALUES ('"+id.get(i).toString()+"', '"+area.get(i).toString()+"');");
-                            }
+                        }
                             Log.d("DOWNLOAD", "DATA :AREA  AMOUNT "+id.length());
                             Log.d("DOWNLOAD", "DATA :AREA  DATA "+response);
                             progressDialog.setMessage("Area Data Downloaded");
