@@ -323,7 +323,19 @@ public class DownloadData extends AppCompatActivity {
 
 
                                 //installment start
-                                JSONArray installmentId = installmet.getJSONArray("id");
+                                JSONArray IId = installmet.getJSONArray("id");
+                                JSONArray Idealid = installmet.getJSONArray("dealid");
+                                JSONArray Ipayment = installmet.getJSONArray("payment");
+                                JSONArray IrPayment = installmet.getJSONArray("rpayment");
+                                JSONArray Idate = installmet.getJSONArray("date");
+                                JSONArray IrDate = installmet.getJSONArray("rdate");
+                                JSONArray Istatus = installmet.getJSONArray("status");
+                                JSONArray Icid = installmet.getJSONArray("cid");
+                                JSONArray INumber = installmet.getJSONArray("installmentid");
+                                JSONArray Itime = installmet.getJSONArray("time");
+                                for (i = 0; i < IId.length(); i++){
+                                    sqlite.execSQL("INSERT INTO installment (id, dealid,installmentid,payment,time,date,rdate,status,rpayment,cid,app) VALUES ("+IId.get(i).toString()+","+Idealid.get(i).toString()+","+INumber.get(i).toString()+","+Ipayment.get(i).toString()+",'"+Itime.get(i).toString()+"','"+Idate.get(i).toString()+"','"+IrDate.get(i).toString()+"',"+Istatus.get(i).toString()+","+IrPayment.get(i).toString()+","+Icid.get(i).toString()+",0);");
+                                }
                                 //installment end
 
 
@@ -360,7 +372,7 @@ public class DownloadData extends AppCompatActivity {
                                 }
                                 //area end
 
-                                txtInstallment.setText("installment "+installmentId.length());
+                                txtInstallment.setText("installment "+IId.length());
                                 txtCustomer.setText("customer "+customerId.length());
                                 txtCollection.setText("collection "+collectionId.length());
                                 txtItem.setText("item "+itemId.length());
