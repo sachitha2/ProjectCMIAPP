@@ -372,6 +372,11 @@ public class DownloadData extends AppCompatActivity {
 
                                 //item start
                                 JSONArray itemId = item.getJSONArray("id");
+                                JSONArray itemName = item.getJSONArray("item");
+
+                                for (i = 0; i < itemId.length(); i++){
+                                    sqlite.execSQL("INSERT INTO item (id, name) VALUES ('"+itemId.get(i).toString()+"', '"+itemName.get(i).toString()+"');");
+                                }
                                 //item end
 
 
