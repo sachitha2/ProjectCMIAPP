@@ -315,9 +315,19 @@ public class DownloadData extends AppCompatActivity {
                                 //Deals start
                                 JSONArray dealId = deal.getJSONArray("id");
                                 txtDeal.setText("Deal "+dealId.length());
-
-                                for(i = 0; i< dealId.length();i++){
-
+                                JSONArray Dtotal = deal.getJSONArray("tprice");
+                                JSONArray Dcid = deal.getJSONArray("cid");
+                                JSONArray Ddate = deal.getJSONArray("date");
+                                JSONArray Dtime = deal.getJSONArray("time");
+                                JSONArray Dfdate  = deal.getJSONArray("fdate");
+                                JSONArray Dftime = deal.getJSONArray("ftime");
+                                JSONArray Drprice = deal.getJSONArray("rprice");
+                                JSONArray Dstatus = deal.getJSONArray("status");
+                                JSONArray Dni = deal.getJSONArray("ni");
+                                JSONArray Ddiscount = deal.getJSONArray("discount");
+                                JSONArray DagentId = deal.getJSONArray("agentId");
+                                for (i = 0; i < dealId.length(); i++){
+                                    sqlite.execSQL("INSERT INTO deals (id, date,time,fdate,ftime,tprice,rprice,status,ni,cid,discount,agentId,app) VALUES ('"+dealId.get(i).toString()+"','"+Ddate.get(i).toString()+"','"+Dtime.get(i).toString()+"','"+Dfdate.get(i).toString()+"','"+Dftime.get(i).toString()+"',"+Dtotal.get(i).toString()+","+Drprice.get(i).toString()+","+Dstatus.get(i).toString()+","+Dni.get(i).toString()+","+Dcid.get(i).toString()+","+Ddiscount.get(i).toString()+","+DagentId.get(i).toString()+",0);");
                                 }
                                 //Deals end
 
@@ -341,6 +351,7 @@ public class DownloadData extends AppCompatActivity {
 
                                 //collection start
                                 JSONArray collectionId = collection.getJSONArray("id");
+                                
                                 //collection end
 
 
