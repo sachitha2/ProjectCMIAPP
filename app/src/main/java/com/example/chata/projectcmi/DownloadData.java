@@ -351,7 +351,22 @@ public class DownloadData extends AppCompatActivity {
 
                                 //collection start
                                 JSONArray collectionId = collection.getJSONArray("id");
-                                
+
+
+                                JSONArray Cid = collection.getJSONArray("id");
+                                JSONArray CuserId = collection.getJSONArray("userId");
+                                JSONArray CinstallmentId = collection.getJSONArray("installmentId");
+                                JSONArray Cdealid = collection.getJSONArray("dealid");
+                                JSONArray Cpayment = collection.getJSONArray("payment");
+                                JSONArray Cdate = collection.getJSONArray("date");
+                                JSONArray Ctime = collection.getJSONArray("time");
+                                JSONArray CdateTime = collection.getJSONArray("dateTime");
+
+
+
+                                for (i = 0; i < Cid.length(); i++){
+                                    sqlite.execSQL("INSERT INTO collection(id,userId,installmentId,dealid,payment,date,time,app) VALUES ("+Cid.get(i).toString()+","+CuserId.get(i).toString()+","+CinstallmentId.get(i).toString()+","+Cdealid.get(i).toString()+","+Cpayment.get(i).toString()+",'"+Cdate.get(i).toString()+"','"+Ctime.get(i).toString()+"',0)");
+                                   }
                                 //collection end
 
 
