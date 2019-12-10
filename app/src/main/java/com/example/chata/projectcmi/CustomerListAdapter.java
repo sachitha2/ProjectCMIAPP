@@ -47,6 +47,7 @@ public class CustomerListAdapter extends BaseAdapter implements Filterable {
         TextView textNic = row.findViewById(R.id.txtNic);
         TextView textArea = row.findViewById(R.id.txtArea);
         TextView txtAddress = row.findViewById(R.id.txtAddress);
+        TextView txtTp = row.findViewById(R.id.txtTp);
 
 
         textView.setText(originalArray.get(position).getName().toUpperCase());
@@ -55,6 +56,7 @@ public class CustomerListAdapter extends BaseAdapter implements Filterable {
         textNic.setText(originalArray.get(position).getNic());
         textArea.setText(originalArray.get(position).getArea());
         txtAddress.setText(originalArray.get(position).getAddress());
+        txtTp.setText(originalArray.get(position).getTp());
 
         row.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,29 +108,27 @@ public class CustomerListAdapter extends BaseAdapter implements Filterable {
                 ArrayList<SingleRowForCustomer> filters = new ArrayList<>();
 
                 for (int i = 0; i < tmpArray.size(); i++) {
+                    //Search By name Start
                     if (tmpArray.get(i).getName().toUpperCase().contains(constraint)) {
-                        SingleRowForCustomer singleRow = new SingleRowForCustomer(tmpArray.get(i).getName(),tmpArray.get(i).getAge(),tmpArray.get(i).getNic(),"","",tmpArray.get(i).getArea());
-
-
-
+                        SingleRowForCustomer singleRow = new SingleRowForCustomer(tmpArray.get(i).getName(),tmpArray.get(i).getAge(),tmpArray.get(i).getNic(),"",tmpArray.get(i).getAddress(),tmpArray.get(i).getArea(),tmpArray.get(i).getTp());
                         filters.add(singleRow);
-
-
-
-
                     }
+                    //Search By name End
 
+                    //Search by NIC Start
                     if (tmpArray.get(i).getNic().toUpperCase().contains(constraint)) {
-                        SingleRowForCustomer singleRow = new SingleRowForCustomer(tmpArray.get(i).getName(),tmpArray.get(i).getAge(),tmpArray.get(i).getNic(),"","",tmpArray.get(i).getArea());
-
-
-
+                        SingleRowForCustomer singleRow = new SingleRowForCustomer(tmpArray.get(i).getName(),tmpArray.get(i).getAge(),tmpArray.get(i).getNic(),"",tmpArray.get(i).getAddress(),tmpArray.get(i).getArea(),tmpArray.get(i).getTp());
                         filters.add(singleRow);
-
-
-
-
                     }
+                    //Search by NIC End
+
+
+                    //Search by CID Start
+                    if (tmpArray.get(i).getAge().toUpperCase().contains(constraint)) {
+                        SingleRowForCustomer singleRow = new SingleRowForCustomer(tmpArray.get(i).getName(),tmpArray.get(i).getAge(),tmpArray.get(i).getNic(),"",tmpArray.get(i).getAddress(),tmpArray.get(i).getArea(),tmpArray.get(i).getTp());
+                        filters.add(singleRow);
+                    }
+                    //Search by CID End
 
                 }
                 results.count = filters.size();

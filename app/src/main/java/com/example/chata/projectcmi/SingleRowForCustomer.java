@@ -8,15 +8,27 @@ public class SingleRowForCustomer {
     String id;
     String address;
     String area;
+    String tp;
 
 
-    public SingleRowForCustomer(String name,String age,String nic,String id,String address,String area) {
+    public SingleRowForCustomer(String name,String age,String nic,String id,String address,String area,String tp) {
         this.name = name;
         this.age = age;
         this.nic = nic;
         this.id = id;
         this.address = address;
         this.area = area;
+        this.tp = tp;
+    }
+
+
+
+    public String getTp() {
+        return tp;
+    }
+
+    public void setTp(String tp) {
+        this.tp = tp;
     }
 
     public String getName() {
