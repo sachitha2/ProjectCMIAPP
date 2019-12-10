@@ -17,14 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Home extends AppCompatActivity {
-    //init textView start
-    TextView txtDeal;
-    TextView txtInstallment;
-    TextView txtCustomer;
-    TextView txtCollection;
-    TextView txtItem;
-    TextView txtArea;
-    //init textView end
     private DrawerLayout navigationDrawerHome;
     private ActionBarDrawerToggle toggleHome;
 
@@ -34,33 +26,6 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-
-        SQLiteDatabase sqLiteDatabase = openOrCreateDatabase("cmi", Customers.MODE_PRIVATE, null);
-        //init textView start
-        txtDeal = findViewById(R.id.txtDeals);
-        txtInstallment = findViewById(R.id.txtInstallments) ;
-        txtCustomer  = findViewById(R.id.txtCustomers);
-        txtCollection = findViewById(R.id.txtCollection);
-        txtItem = findViewById(R.id.txtItem);
-        txtArea = findViewById(R.id.txtArea);
-        //init textView end
-
-        Cursor installment = sqLiteDatabase.rawQuery("SELECT * FROM installment;",null);
-        Cursor deal = sqLiteDatabase.rawQuery("SELECT * FROM deals;",null);
-
-        int nRowInstallment = installment.getCount();
-        int nRowDeal = deal.getCount();
-
-
-        txtInstallment.setText("installment "+nRowInstallment);
-        txtCustomer.setText("customer ");
-        txtCollection.setText("collection ");
-        txtItem.setText("item ");
-        txtArea.setText("area ");
-        txtDeal.setText("Deal "+nRowDeal);
-
-
 
 
         sharedPreferences03 = getSharedPreferences("loginInfo", Home.MODE_PRIVATE);

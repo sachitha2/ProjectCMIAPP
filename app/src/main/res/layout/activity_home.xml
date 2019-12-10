@@ -25,47 +25,6 @@
             >
 
 
-            <TextView
-                android:id="@+id/txtDeals"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textSize="25sp" />
-
-            <TextView
-                android:id="@+id/txtInstallments"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textSize="25sp" />
-
-            <TextView
-                android:id="@+id/txtArea"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textSize="25sp" />
-
-            <TextView
-                android:id="@+id/txtCustomers"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textSize="25sp" />
-
-            <TextView
-                android:id="@+id/txtCollection"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textSize="25sp" />
-
-            <TextView
-                android:id="@+id/txtItem"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textSize="25sp" />
         </LinearLayout>
 
 
