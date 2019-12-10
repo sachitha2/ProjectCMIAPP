@@ -73,7 +73,7 @@ public class UploadData extends AppCompatActivity {
                 //check net connection start
                 if(haveNet()){
 //                    jsonParseStockAndPriceRangeTable(progressDialog);
-                    js(progressDialog);
+                    uploadData(progressDialog);
                     progressDialog.show();
                 }else if(!haveNet()){
                     Toast.makeText(UploadData.this,"Network connection is not available",Toast.LENGTH_SHORT).show();
@@ -96,7 +96,7 @@ public class UploadData extends AppCompatActivity {
 //        }
 
     }
-    void js(final ProgressDialog progressDialog){
+    void uploadData(final ProgressDialog progressDialog){
 //        String  url = "http://192.168.1.100/shop/APP/TEST.php";
         String  url = "http://trans.infinisolutionslk.com/APP/takeData.json.php";
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
@@ -133,7 +133,7 @@ public class UploadData extends AppCompatActivity {
                                 //update collection start
                                 for(int i = 0; i < collection.length(); i++){
                                     sqLiteDatabase.execSQL("UPDATE collection SET  app = 0 WHERE id = "+collection.get(i).toString()+";");
-
+                                    sendSMS(progressDialog,"2500","0715591137");
                                 }
                                 //update collection end
 
@@ -149,7 +149,7 @@ public class UploadData extends AppCompatActivity {
                         }
                         //TODO
                         updateText();
-                        progressDialog.hide();
+
                     }
                 },
                 new Response.ErrorListener()
@@ -198,10 +198,7 @@ public class UploadData extends AppCompatActivity {
     }
 
 
-    //SMS SENDING PART START
 
-
-    //SMS SENDING PART END
 
 
 
@@ -314,4 +311,53 @@ public class UploadData extends AppCompatActivity {
 
 
     //take data function end
+
+
+
+    //SMS SENDING PART START
+    void sendSMS(final ProgressDialog progressDialog,String cash,String tp){
+//        String  url = "http://192.168.1.100/shop/APP/TEST.php";
+
+        String text = "Received your payment of  \n" +
+                "Rs. "+cash+" \n" +
+                "Thank you very much. Dont pay any payment without a Receipt \n" +
+                "Hot line 0716000061 \n" +
+                "TransLanka";
+
+        String  url = "http://app.newsletters.lk/smsAPI?sendsms&apikey=fWU8bCDzTimMSqIm2qZJBRWMVN0QGqDr&apitoken=icBN1567943789&type=sms&from=TransLanka&to=+94"+tp.substring(1,10)+"&text="+text+"&scheduledate=&route=0";
+        StringRequest postRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("SMSResponse", response);
+                        try {
+
+                            JSONObject obj = new JSONObject(response);
+
+                            Log.d("My App", obj.toString());
+
+
+                        } catch (Throwable tx) {
+                            Log.e("My App", "Could not parse malformed JSON: \"" + response + "\"");
+                        }
+
+                        progressDialog.hide();
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", error+"");
+                        progressDialog.hide();
+                    }
+                }
+        );
+        requestQueueForStock.add(postRequest);
+    }
+
+    //SMS SENDING PART END
 }
