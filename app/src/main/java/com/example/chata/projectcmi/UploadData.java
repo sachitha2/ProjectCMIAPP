@@ -16,11 +16,15 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class UploadData extends AppCompatActivity {
     String URL = "http://trans.infinisolutionslk.com/APP/";
@@ -54,7 +58,7 @@ public class UploadData extends AppCompatActivity {
 
 
         requestQueueForStock = Volley.newRequestQueue(UploadData.this);
-        try {
+//        try {
             //looking for status start
             Cursor cForDeals =sqLiteDatabase.rawQuery("SELECT * FROM deals where app = 1 ;",null);
             int nRow = cForDeals.getCount();
@@ -68,7 +72,8 @@ public class UploadData extends AppCompatActivity {
 
                 //check net connection start
                 if(haveNet()){
-                    jsonParseStockAndPriceRangeTable(progressDialog);
+//                    jsonParseStockAndPriceRangeTable(progressDialog);
+                    js(progressDialog);
                     progressDialog.show();
                 }else if(!haveNet()){
                     Toast.makeText(UploadData.this,"Network connection is not available",Toast.LENGTH_SHORT).show();
@@ -86,108 +91,34 @@ public class UploadData extends AppCompatActivity {
 
             //looking for status End
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
 
     }
-
-
-
-    public void jsonParseStockAndPriceRangeTable(final ProgressDialog progressDialog) throws JSONException {
-
-        Cursor cForInstallment =sqLiteDatabase.rawQuery("SELECT * FROM installment WHERE app = 1;",null);
-
-        int nRow = cForInstallment.getCount();
-
-        progressDialog.setMessage("Uploading data");
-        String data = "sachitha hirushannn";
-
-        JSONObject json = new JSONObject();
-        JSONArray installmentArray = new JSONArray();
-        JSONArray dealsArray = new JSONArray();
-        JSONArray collectionArray = new JSONArray();
-
-
-        Log.d("DATA", "jsonParseStockAndPriceRangeTable: "+nRow);
-
-
-        int i=0;
-        while (cForInstallment.moveToNext()){
-            JSONObject invoiceData = new JSONObject();
-            invoiceData.put("iid",cForInstallment.getString(0));//invoice id
-            invoiceData.put("rpayment",cForInstallment.getString(8));//Received Payment
-            invoiceData.put("status",cForInstallment.getString(7));//Received Payment
-            installmentArray.put(invoiceData);
-//            if(i == 10){
-//                break;
-//            }
-            i++;
-        }
-        //deals array making start
-        Cursor cForDeals =sqLiteDatabase.rawQuery("SELECT * FROM deals WHERE app = 1;",null);
-
-        int nRowDeals = cForInstallment.getCount();
-
-
-
-        while(cForDeals.moveToNext()){
-            JSONObject dealsData = new JSONObject();
-            dealsData.put("rprice",cForDeals.getString(6));
-            dealsData.put("id",cForDeals.getString(0));
-            dealsData.put("s",cForDeals.getString(7));
-
-            dealsArray.put(dealsData);
-        }
-
-
-        //deals array making end
-
-        //collection array start
-        Cursor cForCollection =sqLiteDatabase.rawQuery("SELECT * FROM collection WHERE app = 1;",null);
-
-        int nRowCollecgion = cForInstallment.getCount();
-        Log.d("JSON", "jsonParseStockAndPriceRangeTable: n row for deals"+nRowCollecgion);
-        while(cForCollection.moveToNext()){
-            JSONObject collectionsData = new JSONObject();
-
-            collectionsData.put("id",cForCollection.getString(0));
-            collectionsData.put("userId",cForCollection.getString(1));
-            collectionsData.put("installmentId",cForCollection.getString(2));
-            collectionsData.put("dealid",cForCollection.getString(3));
-            collectionsData.put("payment",cForCollection.getString(4));
-
-            //TODO Date configuration
-
-
-            collectionArray.put(collectionsData);
-        }
-
-        //collection array end
-
-        ///////////////////////invoice item part
-        json.put("dealsData",dealsArray);
-        json.put("iData",installmentArray);
-        json.put("collection",collectionArray);
-
-        Log.d("JSON","json"+json);
-        String url = URL+"takeData.json.php?data="+json.toString();
-        Log.d("JSON URL",url);
-        JsonObjectRequest requestDownloadStock = new JsonObjectRequest(Request.Method.POST, url, null,
-                new Response.Listener<JSONObject>() {
+    void js(final ProgressDialog progressDialog){
+//        String  url = "http://192.168.1.100/shop/APP/TEST.php";
+        String  url = "http://trans.infinisolutionslk.com/APP/takeData.json.php";
+        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>()
+                {
                     @Override
-                    public void onResponse(JSONObject response) {
-
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
                         try {
-                            //Read json and assign them to local variables
 
-                            JSONArray invoices = response.getJSONArray("data");
-                            JSONArray deal = response.getJSONArray("dealId");
-                            JSONArray collection = response.getJSONArray("collection");
-                            JSONArray s = response.getJSONArray("s");
-                            //TODO Here
-                            //We have to config
-//                            if(s.get(0).toString() == "1"){
+                            JSONObject obj = new JSONObject(response);
+
+                            Log.d("My App", obj.toString());
+                            JSONArray invoices = obj.getJSONArray("data");
+                            JSONArray deal = obj.getJSONArray("dealId");
+                            JSONArray collection = obj.getJSONArray("collection");
+                            JSONArray s = obj.getJSONArray("s");
+
+                            Log.d("invoices",s.get(0).toString()+"");
+                            if(s.get(0).toString().equals("1")){
+                                Log.d("IFFF","IN IF");
                                 for(int i = 0; i < invoices.length(); i++){
                                     sqLiteDatabase.execSQL("UPDATE installment SET  app = 0 WHERE id = "+invoices.get(i).toString()+";");
 
@@ -206,29 +137,46 @@ public class UploadData extends AppCompatActivity {
                                 }
                                 //update collection end
 
-                                updateText();
-//                            }
 
 
-                            progressDialog.hide();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+
+                            }else {
+                                Log.d("IFFF","IN ELSE");
+                            }
+
+                        } catch (Throwable tx) {
+                            Log.e("My App", "Could not parse malformed JSON: \"" + response + "\"");
                         }
+                        //TODO
+                        updateText();
+                        progressDialog.hide();
                     }
-                }, new Response.ErrorListener() {
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", error+"");
+                        progressDialog.hide();
+                    }
+                }
+        ) {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                try {
+                    params.put("data",data());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                return params;
             }
-        });
-
-        requestQueueForStock.add(requestDownloadStock);
-        // recursie function
-//            jsonParseStockAndPriceRangeTable(progressDialog);
-
-
+        };
+        requestQueueForStock.add(postRequest);
     }
-
 
     void updateText(){
         //set text in textViews
@@ -248,6 +196,15 @@ public class UploadData extends AppCompatActivity {
 
         txtCollection.setText(""+nRow);
     }
+
+
+    //SMS SENDING PART START
+
+
+    //SMS SENDING PART END
+
+
+
     //check net connection function start
     private  boolean haveNet(){
         boolean haveWifi = false;
@@ -271,4 +228,90 @@ public class UploadData extends AppCompatActivity {
         return haveMobileData || haveWifi;
     }
     //check net connection function End;
+
+
+    //take data function start
+    String data() throws JSONException {
+        Cursor cForInstallment = sqLiteDatabase.rawQuery("SELECT * FROM installment WHERE app = 1;", null);
+
+        int nRow = cForInstallment.getCount();
+
+        progressDialog.setMessage("Uploading data");
+        String data = "sachitha hirushannn";
+
+        JSONObject json = new JSONObject();
+        JSONArray installmentArray = new JSONArray();
+        JSONArray dealsArray = new JSONArray();
+        JSONArray collectionArray = new JSONArray();
+
+
+        Log.d("DATA", "jsonParseStockAndPriceRangeTable: " + nRow);
+
+
+        int i = 0;
+        while (cForInstallment.moveToNext()) {
+            JSONObject invoiceData = new JSONObject();
+            invoiceData.put("iid", cForInstallment.getString(0));//invoice id
+            invoiceData.put("rpayment", cForInstallment.getString(8));//Received Payment
+            invoiceData.put("status", cForInstallment.getString(7));//Received Payment
+            installmentArray.put(invoiceData);
+//            if(i == 10){
+//                break;
+//            }
+            i++;
+        }
+        //deals array making start
+        Cursor cForDeals = sqLiteDatabase.rawQuery("SELECT * FROM deals WHERE app = 1;", null);
+
+        int nRowDeals = cForInstallment.getCount();
+
+
+        while (cForDeals.moveToNext()) {
+            JSONObject dealsData = new JSONObject();
+            dealsData.put("rprice", cForDeals.getString(6));
+            dealsData.put("id", cForDeals.getString(0));
+            dealsData.put("s", cForDeals.getString(7));
+
+            dealsArray.put(dealsData);
+        }
+
+
+        //deals array making end
+
+        //collection array start
+        Cursor cForCollection = sqLiteDatabase.rawQuery("SELECT * FROM collection WHERE app = 1;", null);
+
+        int nRowCollecgion = cForInstallment.getCount();
+        Log.d("JSON", "jsonParseStockAndPriceRangeTable: n row for deals" + nRowCollecgion);
+        while (cForCollection.moveToNext()) {
+            JSONObject collectionsData = new JSONObject();
+
+            collectionsData.put("id", cForCollection.getString(0));
+            collectionsData.put("userId", cForCollection.getString(1));
+            collectionsData.put("installmentId", cForCollection.getString(2));
+            collectionsData.put("dealid", cForCollection.getString(3));
+            collectionsData.put("payment", cForCollection.getString(4));
+
+            //TODO Date configuration
+
+
+            collectionArray.put(collectionsData);
+        }
+
+        //collection array end
+
+        ///////////////////////invoice item part
+        json.put("dealsData", dealsArray);
+        json.put("iData", installmentArray);
+        json.put("collection", collectionArray);
+
+        Log.d("JSON", "json" + json);
+
+
+        return json.toString();
+    }
+
+
+
+    //take data function end
 }
