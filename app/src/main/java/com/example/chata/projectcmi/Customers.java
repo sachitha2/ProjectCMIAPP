@@ -17,7 +17,7 @@ public class Customers extends AppCompatActivity implements TextWatcher {
     ListView customerList;
 
     SQLiteDatabase sqLiteDatabase;
-    private String[] id, name,nic,area;
+    private String[] id, name,nic,area,address;
 
 
     ArrayList<SingleRowForCustomer> myList;
@@ -38,6 +38,7 @@ public class Customers extends AppCompatActivity implements TextWatcher {
         name = new String[nRow];
         nic = new String[nRow];
         area = new String[nRow];
+        address = new String[nRow];
 
         int i=0;
         while (cForCustomers.moveToNext()){
@@ -45,6 +46,7 @@ public class Customers extends AppCompatActivity implements TextWatcher {
             id[i] = cForCustomers.getString(0);
             name[i] = cForCustomers.getString(1);
             nic[i] = cForCustomers.getString(2);
+            address[i] = cForCustomers.getString(5);
 
 
             //get area name
@@ -70,7 +72,7 @@ public class Customers extends AppCompatActivity implements TextWatcher {
         SingleRowForCustomer singleRow;
 
         for( i = 0; i < name.length;i++){
-            singleRow = new SingleRowForCustomer(name[i],id[i] ,nic[i] ,"","",area[i]);
+            singleRow = new SingleRowForCustomer(name[i],id[i] ,nic[i] ,"",address[i],area[i]);
 
             myList.add(singleRow);
         }

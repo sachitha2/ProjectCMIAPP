@@ -9,6 +9,7 @@ public class SingleRowForCustomer {
     String address;
     String area;
 
+
     public SingleRowForCustomer(String name,String age,String nic,String id,String address,String area) {
         this.name = name;
         this.age = age;

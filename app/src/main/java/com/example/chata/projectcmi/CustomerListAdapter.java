@@ -46,13 +46,16 @@ public class CustomerListAdapter extends BaseAdapter implements Filterable {
         TextView textAge = row.findViewById(R.id.txtCID);
         TextView textNic = row.findViewById(R.id.txtNic);
         TextView textArea = row.findViewById(R.id.txtArea);
+        TextView txtAddress = row.findViewById(R.id.txtAddress);
 
 
-        textView.setText(originalArray.get(position).getName());
+        textView.setText(originalArray.get(position).getName().toUpperCase());
         textAge.setText(originalArray.get(position).getAge());
 
         textNic.setText(originalArray.get(position).getNic());
         textArea.setText(originalArray.get(position).getArea());
+        txtAddress.setText(originalArray.get(position).getAddress());
+
         row.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

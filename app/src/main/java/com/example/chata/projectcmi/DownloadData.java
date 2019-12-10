@@ -155,7 +155,9 @@ public class DownloadData extends AppCompatActivity {
                 "id int(11) NOT NULL" +
                 ",name varchar(200) NOT NULL" +
                 ",nic varchar(20) NOT NULL" +
-                ",areaId varchar(3) NOT NULL);");
+                ",areaId varchar(3) NOT NULL," +
+                "tp VARCHAR(10) NOT NULL," +
+                "address TEXT NOT NULL);");
 
         //Drop pack Table if Exist
         sqlite.execSQL("DROP TABLE IF EXISTS pack;");
@@ -386,10 +388,12 @@ public class DownloadData extends AppCompatActivity {
                                 JSONArray customerName = customer.getJSONArray("name");
                                 JSONArray customerNIC = customer.getJSONArray("nic");
                                 JSONArray customerAreaId = customer.getJSONArray("areaid");
+                                JSONArray customerTp = customer.getJSONArray("tp");
+                                JSONArray customerAddress = customer.getJSONArray("address");
 
                                 //sqlite.execSQL("INSERT INTO customer (id, name,nic,areaId) VALUES ('"+id.get(i).toString()+"', '"+name.get(i).toString()+"', '"+nic.get(i).toString()+"','"+areaId.get(i).toString()+"');");
                                 for(i = 0;i<customerId.length();i++){
-                                    sqlite.execSQL("INSERT INTO customer (id, name,nic,areaId) VALUES ('"+customerId.get(i).toString()+"', '"+customerName.get(i).toString()+"', '"+customerNIC.get(i).toString()+"','"+customerAreaId.get(i).toString()+"');");
+                                    sqlite.execSQL("INSERT INTO customer (id, name,nic,areaId,tp,address) VALUES ('"+customerId.get(i).toString()+"', '"+customerName.get(i).toString()+"', '"+customerNIC.get(i).toString()+"','"+customerAreaId.get(i).toString()+"','"+customerTp.get(i).toString()+"','"+customerAddress.get(i).toString()+"');");
                                 }
                                 //customer end
 

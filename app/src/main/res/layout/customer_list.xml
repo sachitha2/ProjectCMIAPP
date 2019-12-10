@@ -8,8 +8,7 @@
     android:layout_marginBottom="10dp"
 
     android:orientation="vertical"
-    android:paddingTop="20dp"
-    android:paddingBottom="20dp"
+    android:padding="20dp"
     app:layout_constraintCircleRadius="10dp">
 
 
@@ -25,9 +24,9 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:text="TextView"
-        android:textColor="@color/colorPrimary"
         android:textAlignment="center"
-        android:textSize="25dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="30sp"
 
         />
 
@@ -58,6 +57,14 @@
         android:layout_height="wrap_content"
         android:text="Galgamuwa"
         android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/txtTp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textSize="25sp" />
 
 
 </LinearLayout>
