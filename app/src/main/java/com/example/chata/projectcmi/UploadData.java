@@ -27,7 +27,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UploadData extends AppCompatActivity {
-    String URL = "http://trans.infinisolutionslk.com/APP/";
+    private static  final  String TAG = "UploadData";
+//    String URL = ;
     private RequestQueue requestQueueForStock;
     ProgressDialog progressDialog;
     SQLiteDatabase sqLiteDatabase;
@@ -98,7 +99,7 @@ public class UploadData extends AppCompatActivity {
     }
     void uploadData(final ProgressDialog progressDialog){
 //        String  url = "http://192.168.1.100/shop/APP/TEST.php";
-        String  url = "http://trans.infinisolutionslk.com/APP/takeData.json.php";
+        String  url = Common.URL+"takeData.json.php";
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>()
                 {
@@ -131,9 +132,26 @@ public class UploadData extends AppCompatActivity {
                                 //update deal id end
 
                                 //update collection start
+
+
+                                Cursor cForCustomer;
+                                Cursor cForCollection;
                                 for(int i = 0; i < collection.length(); i++){
                                     sqLiteDatabase.execSQL("UPDATE collection SET  app = 0 WHERE id = "+collection.get(i).toString()+";");
-                                    sendSMS(progressDialog,"2500","0715591137");
+
+                                      //write a query to take data from database
+                                    //take deal id from collection.get(i).toString;
+                                    cForCollection = sqLiteDatabase.rawQuery("SELECT * FROM collection WHERE id = "+collection.get(i).toString()+";",null);
+                                    cForCollection.moveToNext();
+                                    Log.d(TAG,"Collection id deal id:"+cForCollection.getString(3));
+                                    cForCustomer = sqLiteDatabase.rawQuery("SELECT * FROM customer,deals WHERE customer.id = deals.cid AND deals.id = "+cForCollection.getString(3)+";", null);
+
+                                    cForCustomer.moveToNext();
+
+                                    Log.d(TAG,"Customer data :"+cForCustomer.getString(4));
+
+
+                                    sendSMS(progressDialog,cForCollection.getString(4),cForCustomer.getString(4));
                                 }
                                 //update collection end
 
@@ -319,7 +337,7 @@ public class UploadData extends AppCompatActivity {
 //        String  url = "http://192.168.1.100/shop/APP/TEST.php";
 
         String text = "Received your payment of  \n" +
-                "Rs. "+cash+" \n" +
+                "Rs. "+cash+".00 \n" +
                 "Thank you very much. Dont pay any payment without a Receipt \n" +
                 "Hot line 0716000061 \n" +
                 "TransLanka";

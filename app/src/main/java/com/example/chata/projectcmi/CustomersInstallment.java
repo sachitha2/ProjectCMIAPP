@@ -32,7 +32,7 @@ import java.util.UUID;
 
 public class CustomersInstallment extends AppCompatActivity  {
 
-
+    private static final String TAG = "CustomersInstallment";
     ////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////
     //For bluetooth
@@ -137,7 +137,18 @@ public class CustomersInstallment extends AppCompatActivity  {
 
                         if(inRemain <=  remain){
                             //add that payment to collection table
-                            sqLiteDatabase.execSQL("INSERT INTO collection(id,userId,installmentId,dealid,payment,date,time,app) VALUES (1,2,3,"+InvoiceId+","+inRemain+",CURRENT_DATE,CURRENT_TIME,1)");
+
+                            //take last id of collection;
+                            Cursor cForLastCollection = sqLiteDatabase.rawQuery("SELECT * FROM collection ORDER BY id DESC",null);
+                            cForLastCollection.moveToNext();
+
+                            Log.d(TAG,""+cForLastCollection.getString(0));
+
+                            //Get USER ID
+                            //TODO
+
+
+                            sqLiteDatabase.execSQL("INSERT INTO collection(id,userId,installmentId,dealid,payment,date,time,app) VALUES ("+(cForLastCollection.getInt(0)+1)+","+lookForUserId(CustomersInstallment.this)+",3,"+InvoiceId+","+inRemain+",CURRENT_DATE,CURRENT_TIME,1)");
                             Cursor cursorInstall  = sqLiteDatabase.rawQuery("SELECT * FROM installment WHERE dealid = "+InvoiceId+" AND status = 0;",null);
                             int numRows = cursorInstall.getCount();
                             int count = 1;
@@ -518,5 +529,10 @@ public class CustomersInstallment extends AppCompatActivity  {
         SharedPreferences sharedPreferences = getSharedPreferences("btInfo", context.MODE_PRIVATE);
         return sharedPreferences.getString("btName", "");
     }
-
+    public String lookForUserId(Context context){
+        SharedPreferences sharedPreferences = getSharedPreferences("loginInfo", context.MODE_PRIVATE);
+        return sharedPreferences.getString("userId", "");
     }
+    }
+
+

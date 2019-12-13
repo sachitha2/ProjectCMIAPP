@@ -40,7 +40,6 @@ public class DownloadData extends AppCompatActivity {
     TextView txtArea;
     //init textView end
 
-    String URL = "http://trans.infinisolutionslk.com/APP/";
     SQLiteDatabase sqlite;
     private RequestQueue requestQueueForCreditList;
     Button bluetoothBtn,btnDownloadData,uploadData,btnBT;
@@ -287,7 +286,7 @@ public class DownloadData extends AppCompatActivity {
     //new download method start
     private void jsonDownload(final ProgressDialog progressDialog) {
         progressDialog.setMessage("Downloading data");
-        String url = URL+"downloadData.php";
+        String url = Common.URL+"downloadData.php";
 
         JsonObjectRequest requestCreditList = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {

@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.setMessage("");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        String url = "http://trans.infinisolutionslk.com/APP/login.json.php?uName="+edtUsername.getText()+"&uPass="+edtPassword.getText();
+        String url = Common.URL+"login.json.php?uName="+edtUsername.getText()+"&uPass="+edtPassword.getText();
         Log.d("JSONPRASE",url);
         JsonObjectRequest loginRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
                             Integer status = response.getInt("satus");
                             String message = response.getString("Messege");
+                            Integer userId = response.getInt("userId");
                             //String logOutTime = response.getString("logOutTime");
 
                             if (status == 1){
@@ -145,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
                                     SharedPreferences.Editor editor = sharedPreferences.edit();
 
                                     editor.putString("uName", edtUsername.getText().toString());
+                                    editor.putString("userId", userId+"");
                                     editor.putInt("loginStatus", 1);
                                     editor.apply();
 
