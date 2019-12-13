@@ -117,8 +117,12 @@ public class UploadData extends AppCompatActivity {
                             JSONArray collection = obj.getJSONArray("collection");
                             JSONArray s = obj.getJSONArray("s");
 
+                            JSONArray newCollectionId = obj.getJSONArray("collectionNewId");
+
                             Log.d("invoices",s.get(0).toString()+"");
                             if(s.get(0).toString().equals("1")){
+
+
                                 Log.d("IFFF","IN IF");
                                 for(int i = 0; i < invoices.length(); i++){
                                     sqLiteDatabase.execSQL("UPDATE installment SET  app = 0 WHERE id = "+invoices.get(i).toString()+";");
@@ -137,7 +141,10 @@ public class UploadData extends AppCompatActivity {
                                 Cursor cForCustomer;
                                 Cursor cForCollection;
                                 for(int i = 0; i < collection.length(); i++){
-                                    sqLiteDatabase.execSQL("UPDATE collection SET  app = 0 WHERE id = "+collection.get(i).toString()+";");
+
+                                    Log.d(TAG,"Collection old >"+collection.get(i).toString()+" New id > "+newCollectionId.get(i).toString());
+
+                                    sqLiteDatabase.execSQL("UPDATE collection SET  app = 0,id = "+newCollectionId.get(i).toString()+"  WHERE id = "+collection.get(i).toString()+";");
 
                                       //write a query to take data from database
                                     //take deal id from collection.get(i).toString;
