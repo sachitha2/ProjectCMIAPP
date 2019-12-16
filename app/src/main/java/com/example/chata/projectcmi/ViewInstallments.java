@@ -104,7 +104,7 @@ public class ViewInstallments extends AppCompatActivity implements TextWatcher {
 
 String area(int areaId){
     if(type.equals("ALL")){
-        return "";
+        return "-";
     }else {
 
 
@@ -113,8 +113,11 @@ String area(int areaId){
         if (customer.getCount() != 0) {
             return customer.getCount() + customer.getString(1);
         } else {
-            return "";
+            return "-";
         }
     }
 }
+
+
+
 }

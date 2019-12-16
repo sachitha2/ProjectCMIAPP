@@ -7,8 +7,4 @@ public class Common {
 
     public static String URL = "http://trans.infinisolutionslk.com/APP/";
 
-
-
-
-
 }

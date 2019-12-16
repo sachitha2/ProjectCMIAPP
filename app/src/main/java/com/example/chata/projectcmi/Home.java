@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -27,7 +28,7 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-
+        Log.d("HOME","Database Created "+lookForDB(Home.this));
         sharedPreferences03 = getSharedPreferences("loginInfo", Home.MODE_PRIVATE);
 
         navigationDrawerHome = (DrawerLayout) findViewById(R.id.activity_home);
@@ -185,5 +186,13 @@ public class Home extends AppCompatActivity {
         }
         back_pressed = System.currentTimeMillis();
     }
-
+    public boolean lookForDB(Context context){
+        SharedPreferences sharedPreferences = getSharedPreferences("database", context.MODE_PRIVATE);
+        int loginStatus = sharedPreferences.getInt("status",0);
+        if(loginStatus == 1){
+            return true;
+        }else {
+            return false;
+        }
+    }
 }

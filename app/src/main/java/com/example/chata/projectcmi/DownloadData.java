@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
@@ -246,6 +247,9 @@ public class DownloadData extends AppCompatActivity {
         sqlite.execSQL("CREATE TABLE localData(" +
                 "btName varchar(50)," +
                 "date int(1));");
+
+
+        databasePreference(DownloadData.this);
 //        sqlite.execSQL("INSERT INTO collection(id,userId,installmentId,dealid,payment,date,time) VALUES (1,2,3,4,5,'','')");
 //
 //
@@ -451,4 +455,40 @@ public class DownloadData extends AppCompatActivity {
         return haveMobileData || haveWifi;
     }
     //check net connection function End;
+
+
+    public boolean lookForDB(Context context){
+        SharedPreferences sharedPreferences = getSharedPreferences("database", context.MODE_PRIVATE);
+        int loginStatus = sharedPreferences.getInt("status",0);
+        if(loginStatus == 1){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+
+    public void databasePreference(Context context){
+        if (lookForDB(context)){
+
+            //update login status
+
+            SharedPreferences sharedPreferences = getSharedPreferences("database", context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+            editor.putInt("status", 1);
+            editor.apply();
+
+        }else{
+
+            //create cache
+
+            SharedPreferences sharedPreferences = getSharedPreferences("database", context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+            editor.putInt("status", 1);
+            editor.apply();
+
+        }
+    }
 }

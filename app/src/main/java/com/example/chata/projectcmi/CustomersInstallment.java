@@ -144,8 +144,11 @@ public class CustomersInstallment extends AppCompatActivity  {
 
                             Log.d(TAG,""+cForLastCollection.getString(0));
 
-                            //Get USER ID
+
                             //TODO
+                            //download status update
+
+
 
 
                             sqLiteDatabase.execSQL("INSERT INTO collection(id,userId,installmentId,dealid,payment,date,time,app) VALUES ("+(cForLastCollection.getInt(0)+1)+","+lookForUserId(CustomersInstallment.this)+",3,"+InvoiceId+","+inRemain+",CURRENT_DATE,CURRENT_TIME,1)");
@@ -532,6 +535,42 @@ public class CustomersInstallment extends AppCompatActivity  {
         SharedPreferences sharedPreferences = getSharedPreferences("loginInfo", context.MODE_PRIVATE);
         return sharedPreferences.getString("userId", "");
     }
+
+
+//    public boolean lookForUpload(Context context){
+//        SharedPreferences sharedPreferences = getSharedPreferences("upload", context.MODE_PRIVATE);
+//        int loginStatus = sharedPreferences.getInt("status",0);
+//        if(loginStatus == 1){
+//            return true;
+//        }else {
+//            return false;
+//        }
+//    }
+//
+//
+//    public void uploadPreference(Context context,int val){
+//        if (lookForUpload(context)){
+//
+//            //update login status
+//
+//            SharedPreferences sharedPreferences = getSharedPreferences("upload", context.MODE_PRIVATE);
+//            SharedPreferences.Editor editor = sharedPreferences.edit();
+//
+//            editor.putInt("status", val);
+//            editor.apply();
+//
+//        }else{
+//
+//            //create cache
+//
+//            SharedPreferences sharedPreferences = getSharedPreferences("upload", context.MODE_PRIVATE);
+//            SharedPreferences.Editor editor = sharedPreferences.edit();
+//
+//            editor.putInt("status", val);
+//            editor.apply();
+//
+//        }
+//    }
     }
 
 
