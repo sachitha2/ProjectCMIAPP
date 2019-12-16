@@ -67,6 +67,8 @@ public class CustomersInstallment extends AppCompatActivity  {
 
 
     private String InvoiceId;
+    private String BillNumber;
+    long time= System.currentTimeMillis();
 
 
     ArrayList<SingleRowForInstallment> myList;
@@ -147,11 +149,11 @@ public class CustomersInstallment extends AppCompatActivity  {
 
                             //TODO
                             //download status update
+                            BillNumber = lookForUserId(CustomersInstallment.this)+"-"+time;
+                            Log.d(TAG,BillNumber);
 
 
-
-
-                            sqLiteDatabase.execSQL("INSERT INTO collection(id,userId,installmentId,dealid,payment,date,time,app) VALUES ("+(cForLastCollection.getInt(0)+1)+","+lookForUserId(CustomersInstallment.this)+",3,"+InvoiceId+","+inRemain+",CURRENT_DATE,CURRENT_TIME,1)");
+                            sqLiteDatabase.execSQL("INSERT INTO collection(id,userId,installmentId,dealid,payment,date,time,app) VALUES ('"+BillNumber+"',"+lookForUserId(CustomersInstallment.this)+",3,"+InvoiceId+","+inRemain+",CURRENT_DATE,CURRENT_TIME,1)");
                             Cursor cursorInstall  = sqLiteDatabase.rawQuery("SELECT * FROM installment WHERE dealid = "+InvoiceId+" AND status = 0;",null);
                             int numRows = cursorInstall.getCount();
                             int count = 1;

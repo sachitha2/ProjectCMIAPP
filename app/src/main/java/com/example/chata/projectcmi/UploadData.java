@@ -75,7 +75,7 @@ public class UploadData extends AppCompatActivity {
                 if(haveNet()){
 //                    jsonParseStockAndPriceRangeTable(progressDialog);
                     uploadData(progressDialog);
-                    progressDialog.show();
+//                    progressDialog.show();
                 }else if(!haveNet()){
                     Toast.makeText(UploadData.this,"Network connection is not available",Toast.LENGTH_SHORT).show();
                 }
@@ -117,7 +117,6 @@ public class UploadData extends AppCompatActivity {
                             JSONArray collection = obj.getJSONArray("collection");
                             JSONArray s = obj.getJSONArray("s");
 
-                            JSONArray newCollectionId = obj.getJSONArray("collectionNewId");
 
                             Log.d("invoices",s.get(0).toString()+"");
                             if(s.get(0).toString().equals("1")){
@@ -142,20 +141,22 @@ public class UploadData extends AppCompatActivity {
                                 Cursor cForCollection;
                                 for(int i = 0; i < collection.length(); i++){
 
-                                    Log.d(TAG,"Collection old >"+collection.get(i).toString()+" New id > "+newCollectionId.get(i).toString());
+                                    Log.d(TAG,"Collection old >"+collection.get(i).toString()+" New id > ");
+                                    Log.d(TAG,"NUMBER of rows"+collection.length());
 
-                                    sqLiteDatabase.execSQL("UPDATE collection SET  app = 0,id = "+newCollectionId.get(i).toString()+"  WHERE id = "+collection.get(i).toString()+";");
+                                    sqLiteDatabase.execSQL("UPDATE collection SET  app = 0 WHERE id LIKE '"+collection.get(i).toString()+"';");
 
                                       //write a query to take data from database
                                     //take deal id from collection.get(i).toString;
-                                    cForCollection = sqLiteDatabase.rawQuery("SELECT * FROM collection WHERE id = "+collection.get(i).toString()+";",null);
-                                    cForCollection.moveToNext();
-                                    Log.d(TAG,"Collection id deal id:"+cForCollection.getString(3));
-                                    cForCustomer = sqLiteDatabase.rawQuery("SELECT * FROM customer,deals WHERE customer.id = deals.cid AND deals.id = "+cForCollection.getString(3)+";", null);
+//                                    cForCollection = sqLiteDatabase.rawQuery("SELECT * FROM collection WHERE id = "+collection.get(i).toString()+";",null);
+//                                    cForCollection.moveToNext();
 
-                                    cForCustomer.moveToNext();
+//                                    Log.d(TAG,"Collection id deal id:"+cForCollection.getString(3));
+//                                    cForCustomer = sqLiteDatabase.rawQuery("SELECT * FROM customer,deals WHERE customer.id = deals.cid AND deals.id = "+cForCollection.getString(3)+";", null);
+//
+//                                    cForCustomer.moveToNext();
 
-                                    Log.d(TAG,"Customer data :"+cForCustomer.getString(4));
+//                                    Log.d(TAG,"Customer data :"+cForCustomer.getString(4));
 
 
 //                                    sendSMS(progressDialog,cForCollection.getString(4),cForCustomer.getString(4));
