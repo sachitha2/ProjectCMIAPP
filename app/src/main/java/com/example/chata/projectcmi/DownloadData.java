@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -154,9 +155,9 @@ public class DownloadData extends AppCompatActivity {
                 "id int(11) NOT NULL" +
                 ",name varchar(200) NOT NULL" +
                 ",nic varchar(20) NOT NULL" +
-                ",areaId varchar(3) NOT NULL," +
-                "tp VARCHAR(10) NOT NULL," +
-                "address TEXT NOT NULL);");
+                ",areaId varchar(3) NOT NULL" +
+                ",tp VARCHAR(10) NOT NULL" +
+                ",address TEXT);");
 
         //Drop pack Table if Exist
         sqlite.execSQL("DROP TABLE IF EXISTS pack;");
@@ -231,7 +232,7 @@ public class DownloadData extends AppCompatActivity {
         sqlite.execSQL("DROP TABLE IF EXISTS collection;");
 
         sqlite.execSQL("CREATE TABLE collection (" +
-                "id int(11) NOT NULL," +
+                "id varchar(20) NOT NULL," +
                 "userId int(11) NOT NULL," +
                 "installmentId int(11) NOT NULL," +
                 "dealid int(15) NOT NULL," +
@@ -285,7 +286,7 @@ public class DownloadData extends AppCompatActivity {
     }
     //new download method start
     private void jsonDownload(final ProgressDialog progressDialog) {
-        progressDialog.setMessage("Downloading data");
+        progressDialog.setMessage("Downloading data\nThis will take a while.");
         String url = Common.URL+"downloadData.php";
 
         JsonObjectRequest requestCreditList = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -315,7 +316,6 @@ public class DownloadData extends AppCompatActivity {
 
                                 //Deals start
                                 JSONArray dealId = deal.getJSONArray("id");
-                                txtDeal.setText("Deal "+dealId.length());
                                 JSONArray Dtotal = deal.getJSONArray("tprice");
                                 JSONArray Dcid = deal.getJSONArray("cid");
                                 JSONArray Ddate = deal.getJSONArray("date");
@@ -393,6 +393,7 @@ public class DownloadData extends AppCompatActivity {
                                 //sqlite.execSQL("INSERT INTO customer (id, name,nic,areaId) VALUES ('"+id.get(i).toString()+"', '"+name.get(i).toString()+"', '"+nic.get(i).toString()+"','"+areaId.get(i).toString()+"');");
                                 for(i = 0;i<customerId.length();i++){
                                     sqlite.execSQL("INSERT INTO customer (id, name,nic,areaId,tp,address) VALUES ('"+customerId.get(i).toString()+"', '"+customerName.get(i).toString()+"', '"+customerNIC.get(i).toString()+"','"+customerAreaId.get(i).toString()+"','"+customerTp.get(i).toString()+"','"+customerAddress.get(i).toString()+"');");
+
                                 }
                                 //customer end
 
@@ -405,9 +406,9 @@ public class DownloadData extends AppCompatActivity {
                                     sqlite.execSQL("INSERT INTO area (id, name) VALUES ('"+areaId.get(i).toString()+"', '"+areaName.get(i).toString()+"');");
                                 }
                                 //area end
-
-                                txtInstallment.setText("installment "+IId.length());
-                                txtCustomer.setText("customer "+customerId.length());
+                                  txtDeal.setText("Deal "+dealId.length());
+                                  txtInstallment.setText("installment "+IId.length());
+                                  txtCustomer.setText("customer "+customerId.length());
                                 txtCollection.setText("collection "+collectionId.length());
                                 txtItem.setText("item "+itemId.length());
                                 txtArea.setText("area "+areaId.length());

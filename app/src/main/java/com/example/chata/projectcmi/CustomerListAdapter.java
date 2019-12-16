@@ -1,5 +1,6 @@
 package com.example.chata.projectcmi;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -64,12 +65,14 @@ public class CustomerListAdapter extends BaseAdapter implements Filterable {
 
                 Intent intentCustomerProfile = new Intent(c, CustomerData.class);
 
-
+                intentCustomerProfile.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
                 //TODO Config putExtra variables here
                 intentCustomerProfile.putExtra("customerId", originalArray.get(position).getAge());
                 c.startActivity(intentCustomerProfile);
                 Toast.makeText(c, originalArray.get(position).getName() + " was clicked", Toast.LENGTH_SHORT).show();
+
+                ((Activity)c).finish();
             }
         });
 

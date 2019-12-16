@@ -149,13 +149,12 @@ public class PaymentHistory extends AppCompatActivity {
                         progressDialog.show();
                         BILL =
                                         "-----------------------------------------------\n"+
-                                        "                  TRANS LANKA                  \n"+
+                                        "             Saveero Lanka Furnitures                  \n"+
                                         "-----------------------------------------------\n"+
                                         "  Address                    \n"+
-                                        "     Mailagashandiya                \n" +
-                                        "     Anuradhapura                   \n" +
+                                        "    5 Kanuwa,Rajanganaya                    \n" +
                                         "  Telephone:               \n" +
-                                        "     071-6000061               \n"
+                                        "     077-1632769               \n"
                                         +"-----------------------------------------------\n"
                                         +"Deal Id : "+InvoiceId+" \n"
                                         +"Agent : \n"

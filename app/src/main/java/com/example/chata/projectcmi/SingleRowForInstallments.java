@@ -11,6 +11,26 @@ public class SingleRowForInstallments {
     String cid;
     String area;
     String nic;
+    String subArea;
+
+    public String getDealId() {
+        return dealId;
+    }
+
+    public void setDealId(String dealId) {
+        this.dealId = dealId;
+    }
+
+    String dealId;
+    public String getSubArea() {
+        return subArea;
+    }
+
+    public void setSubArea(String subArea) {
+        this.subArea = subArea;
+    }
+
+
 
 
     public int getId() {
@@ -73,7 +93,7 @@ public class SingleRowForInstallments {
 
 
 
-    public SingleRowForInstallments(int id, String dueDate, String amount, String cName, String cid, String area, String nic) {
+    public SingleRowForInstallments(int id, String dueDate, String amount, String cName, String cid, String area, String nic,String subArea,String dealId) {
         this.id = id;
         this.dueDate = dueDate;
         this.amount = amount;
@@ -81,6 +101,8 @@ public class SingleRowForInstallments {
         this.cid = cid;
         this.area = area;
         this.nic = nic;
+        this.dealId = dealId;
+        this.subArea = subArea;
     }
 
 

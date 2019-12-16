@@ -158,7 +158,7 @@ public class UploadData extends AppCompatActivity {
                                     Log.d(TAG,"Customer data :"+cForCustomer.getString(4));
 
 
-                                    sendSMS(progressDialog,cForCollection.getString(4),cForCustomer.getString(4));
+//                                    sendSMS(progressDialog,cForCollection.getString(4),cForCustomer.getString(4));
                                 }
                                 //update collection end
 
@@ -168,9 +168,10 @@ public class UploadData extends AppCompatActivity {
                             }else {
                                 Log.d("IFFF","IN ELSE");
                             }
-
+                            progressDialog.hide();
                         } catch (Throwable tx) {
                             Log.e("My App", "Could not parse malformed JSON: \"" + response + "\"");
+                            progressDialog.hide();
                         }
                         //TODO
                         updateText();
