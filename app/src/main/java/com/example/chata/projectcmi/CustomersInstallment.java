@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +26,8 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -41,6 +45,8 @@ public class CustomersInstallment extends AppCompatActivity  {
     // will show the statuses like bluetooth open, close or data sent
     TextView myLabel;
     Date currentTime = Calendar.getInstance().getTime();
+
+
     // will enable user to enter any text to be printed
     EditText myTextbox;
 
@@ -68,7 +74,7 @@ public class CustomersInstallment extends AppCompatActivity  {
 
     private String InvoiceId;
     private String BillNumber;
-    long time= System.currentTimeMillis();
+    long time;
 
 
     ArrayList<SingleRowForInstallment> myList;
@@ -149,6 +155,7 @@ public class CustomersInstallment extends AppCompatActivity  {
 
                             //TODO
                             //download status update
+                            time = System.currentTimeMillis();
                             BillNumber = lookForUserId(CustomersInstallment.this)+"-"+time;
                             Log.d(TAG,BillNumber);
 
@@ -212,42 +219,78 @@ public class CustomersInstallment extends AppCompatActivity  {
 
                                 if(!mBluetoothAdapter.isEnabled()) {
                                     //no BT available
-                                    Toast.makeText(CustomersInstallment.this,"Bill not printed, Turn on BT",Toast.LENGTH_SHORT).show();
-                                    CustomersInstallment.this.finish();
-                                    Intent i = new Intent(CustomersInstallment.this,UploadData.class);
-                                    startActivity(i);
+
+                                    if(haveNet()){
+                                        Toast.makeText(CustomersInstallment.this,"Bill not printed, Turn on BT",Toast.LENGTH_SHORT).show();
+                                        CustomersInstallment.this.finish();
+                                        Intent i = new Intent(CustomersInstallment.this,UploadData.class);
+                                        startActivity(i);
+                                    }else{
+                                        Toast.makeText(CustomersInstallment.this,"No internet connection\n Data will be uploaded next time.",Toast.LENGTH_SHORT).show();
+                                    }
+
+
                                 }else{
                                     findBT(progressDialog);
                                     openBT();
                                     progressDialog.show();
+
+//                                    Cursor getItemName = sqLiteDatabase.rawQuery("SELECT * FROM item WHERE dealid = "+InvoiceId+";",null);;
+
                                     BILL =
                                                     "-----------------------------------------------\n"+
-                                                    "        Saveero Lanka Furnitures                  \n"+
+                                                    "TransLanka Marketing                \n"+
                                                     "-----------------------------------------------\n"+
-                                                    "  Address                    \n"+
-                                                    "     5 Kanuwa,Rajanganaya                   \n" +
+                                                    "  No 152, 2nd Floor Mailagas Junction A/pura                   \n"+
                                                     "  Telephone:               \n" +
-                                                    "     077-1632769               \n"
+                                                    "     071-6000061               \n"
                                                     +"-----------------------------------------------\n"
                                                     +"Deal Id : "+InvoiceId+" \n"
-                                                    +"Agent : \n"
+//                                                    +"Agent : \n"
                                                     +"Customer Name : "+cForCustomer.getString(1)+"\n"
                                                     +"Customer Id : "+deal.getString(9)+" \n"
-                                                    +"Date : "+currentTime+" \n"
-                                                    +"-----------------------------------------------\n"
-                                                    +"Item Name:\n" +
+                                                    +"Date : "+getDateString(currentTime)+" \n"
+                                                    +"-----------------------------------------------\n"+
+//                                                    +"Item Name:\n" +
                                                     "Item Price:"+deal.getString(5)+"\n" +
                                                     "Total Received Payment:"+(deal.getInt(5) - deal.getInt(6) + inRemain)+"\n" +
-                                                    "Balance:"+(deal.getInt(6) - inRemain)+"\n" +
+
                                                     "-----------------------------------------------\n"+
-                                                    "Today Payment :"+inRemain+"\n"
+                                                    "Today Payment :"+str+"\n"
                                                     +"-----------------------------------------------\n"
                                                         ;
-                                    sendData(BILL,progressDialog);
+
+                                                    BILL = BILL + String.format("%1$-15s %2$15s", "Payment", "Received Date");
+                                                    BILL = BILL + "\n-----------------------------------------------\n";
+                                                    Cursor cForInstallmentBill = sqLiteDatabase.rawQuery("SELECT * FROM collection WHERE dealid = "+InvoiceId+";",null);
+
+                                                    int lenInstall = cForInstallmentBill.getCount();
+                                                    cForInstallmentBill.moveToNext();
+
+                                                    for(int x = 0;x < lenInstall;x++){
+                                                        BILL = BILL + String.format("%1$-15s %2$15s", cForInstallmentBill.getString(4),  cForInstallmentBill.getString(5));BILL = BILL + "\n";
+                                                        cForInstallmentBill.moveToNext();
+                                                    }
+                                                    BILL = BILL + "\n-----------------------------------------------\n";
+                                                    BILL = BILL+ "\nBalance:"+(deal.getInt(6) - Float.parseFloat(str));
+                                                    BILL = BILL + "\n-----------------------------------------------\n";
+
+
+                                    Log.d(TAG,BILL);
+                                    Thread.sleep(1000);
+                                    if(BILL == null){
+                                        Toast.makeText(CustomersInstallment.this,"NULL/ CLICK Again ",Toast.LENGTH_SHORT).show();
+
+                                    }else{
+                                        sendData(BILL,progressDialog);
+                                    }
+
                                 }
 
                             } catch (IOException ex) {
                                 ex.printStackTrace();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
                             }
                             //Bill print part exit
 
@@ -381,6 +424,7 @@ public class CustomersInstallment extends AppCompatActivity  {
                 }
 
                 if(printer == false){
+
                     Toast.makeText(CustomersInstallment.this,"Can not connect to the printer.",Toast.LENGTH_SHORT).show();
                     CustomersInstallment.this.finish();
                 }
@@ -494,9 +538,7 @@ public class CustomersInstallment extends AppCompatActivity  {
         try {
 
             // the text typed by the user
-            String msg ;
-            msg = BILL;
-            mmOutputStream.write(msg.getBytes());
+            mmOutputStream.write(BILL.getBytes());
             //Added by chata
 //            closeBT();
             Handler handler = new Handler();
@@ -505,10 +547,15 @@ public class CustomersInstallment extends AppCompatActivity  {
                     // Actions to do after 3 seconds
                     o.hide();
                     //TODO next intent
+                    if(!haveNet()){
+                        Toast.makeText(CustomersInstallment.this,"No internet connection\n Data will be uploaded next time.",Toast.LENGTH_SHORT).show();
+                    }else{
+                        CustomersInstallment.this.finish();
+                        Intent i = new Intent(CustomersInstallment.this,UploadData.class);
+                        startActivity(i);
 
-                    CustomersInstallment.this.finish();
-                    Intent i = new Intent(CustomersInstallment.this,UploadData.class);
-                    startActivity(i);
+                    }
+
                     try {
                         closeBT();
                     } catch (IOException e) {
@@ -521,6 +568,8 @@ public class CustomersInstallment extends AppCompatActivity  {
 
         } catch (Exception e) {
             e.printStackTrace();
+            o.hide();
+            Toast.makeText(CustomersInstallment.this,"Got an error",Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -573,6 +622,35 @@ public class CustomersInstallment extends AppCompatActivity  {
 //
 //        }
 //    }
+
+
+    private  boolean haveNet(){
+        boolean haveWifi = false;
+        boolean haveMobileData = false;
+        ConnectivityManager connectivityManager =(ConnectivityManager) getSystemService( CONNECTIVITY_SERVICE);
+        NetworkInfo[] networkInfos = connectivityManager.getAllNetworkInfo();
+        for(NetworkInfo info:networkInfos){
+            if(info.getTypeName().equalsIgnoreCase("WIFI")){
+                if(info.isConnected()){
+                    haveWifi  = true;
+                }
+
+            }
+            if(info.getTypeName().equalsIgnoreCase("MOBILE")){
+                if(info.isConnected()){
+                    haveMobileData = true;
+                }
+
+            }
+        }
+        return haveMobileData || haveWifi;
+    }
+
+
+    public static String getDateString(Date date){
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return sdf.format(date);
+    }
     }
 
 

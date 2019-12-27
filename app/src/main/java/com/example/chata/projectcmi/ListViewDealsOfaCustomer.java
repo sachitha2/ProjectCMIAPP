@@ -1,5 +1,6 @@
 package com.example.chata.projectcmi;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -68,6 +69,7 @@ public class ListViewDealsOfaCustomer extends BaseAdapter implements Filterable 
                 viewAInvoice.putExtra("InvoiceId", originalArray.get(position).getDealId());
                 c.startActivity(viewAInvoice);
                 Toast.makeText(c, "Invoice " + " was clicked", Toast.LENGTH_SHORT).show();
+                ((Activity)c).finish();
             }
         });
 

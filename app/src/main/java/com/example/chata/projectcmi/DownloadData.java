@@ -118,15 +118,15 @@ public class DownloadData extends AppCompatActivity {
           });
 
 
-        bluetoothBtn = findViewById(R.id.SelectBTBtn);
+//        bluetoothBtn = findViewById(R.id.SelectBTBtn);
 
-        bluetoothBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentSelectArea = new Intent(DownloadData.this, SelectBuletoothMAC.class);
-                startActivity(intentSelectArea);
-            }
-        });
+//        bluetoothBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intentSelectArea = new Intent(DownloadData.this, SelectBuletoothMAC.class);
+//                startActivity(intentSelectArea);
+//            }
+//        });
 
 
     }

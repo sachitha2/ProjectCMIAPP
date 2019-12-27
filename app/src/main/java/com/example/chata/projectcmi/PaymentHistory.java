@@ -149,28 +149,40 @@ public class PaymentHistory extends AppCompatActivity {
                         progressDialog.show();
                         BILL =
                                         "-----------------------------------------------\n"+
-                                        "             Saveero Lanka Furnitures                  \n"+
+                                        "TransLanka Marketing                 \n"+
                                         "-----------------------------------------------\n"+
-                                        "  Address                    \n"+
-                                        "    5 Kanuwa,Rajanganaya                    \n" +
+                                        "  No 152, 2nd Floor Mailagas Junction A/pura \n"+
                                         "  Telephone:               \n" +
-                                        "     077-1632769               \n"
+                                        "     071-6000061               \n"
                                         +"-----------------------------------------------\n"
                                         +"Deal Id : "+InvoiceId+" \n"
-                                        +"Agent : \n"
+//                                        +"Agent : \n"
 //                                        +"Customer Name : "+cForCustomer.getString(1)+"\n"
                                         +"Customer Id : "+deal.getString(9)+" \n"
                                         +"Date : "+currentTime+" \n"
-                                        +"-----------------------------------------------\n"
-                                        +"Item Name:\n" +
+                                        +"-----------------------------------------------\n"+
+//                                        +"Item Name:\n" +
                                         "Item Price:"+deal.getString(5)+"\n" +
                                         "Total Received Payment:"+(deal.getInt(5) - deal.getInt(6))+"\n" +
-                                        "Balance:"+(deal.getInt(6))+"\n" +
+//                                        "Balance:"+(deal.getInt(6))+"\n" +
                                         "-----------------------------------------------\n"+
                                         "Today Payment :0\n"
-                                        +"-----------------------------------------------\n"
-                        ;
-                        sendData(BILL,progressDialog);
+                                        +"-----------------------------------------------\n";
+                                        BILL = BILL + String.format("%1$-15s %2$15s", "Payment", "Received Date");
+                                        BILL = BILL + "\n-----------------------------------------------\n";
+                                        Cursor cForInstallmentBill = sqLiteDatabase.rawQuery("SELECT * FROM collection WHERE dealid = "+InvoiceId+";",null);
+
+                                        int lenInstall = cForInstallmentBill.getCount();
+                                        cForInstallmentBill.moveToNext();
+
+                                        for(int x = 0;x < lenInstall;x++){
+                                            BILL = BILL + String.format("%1$-15s %2$15s", cForInstallmentBill.getString(4),  cForInstallmentBill.getString(5));BILL = BILL + "\n";
+                                            cForInstallmentBill.moveToNext();
+                                        }
+                                        BILL = BILL + "\n-----------------------------------------------\n";
+                                        BILL = BILL+ "\nBalance:"+(deal.getInt(6));
+                                        BILL = BILL + "\n-----------------------------------------------\n";
+                                        sendData(BILL,progressDialog);
                     }
                 } catch (IOException ex) {
                     ex.printStackTrace();
@@ -329,9 +341,7 @@ public class PaymentHistory extends AppCompatActivity {
         try {
 
             // the text typed by the user
-            String msg ;
-            msg = BILL;
-            mmOutputStream.write(msg.getBytes());
+            mmOutputStream.write(BILL.getBytes());
             //Added by chata
 //            closeBT();
             Handler handler = new Handler();

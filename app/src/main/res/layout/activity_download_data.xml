@@ -83,16 +83,16 @@
 
                 >
 
-                <Button
-                    android:id="@+id/SelectBTBtn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Blutooth"
-                    android:textColor="#000"
-                    android:layout_margin="10dp"
-                    app:layout_constraintBottom_toTopOf="@+id/btnUpload"
+                <!--<Button-->
+                    <!--android:id="@+id/SelectBTBtn"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Blutooth"-->
+                    <!--android:textColor="#000"-->
+                    <!--android:layout_margin="10dp"-->
+                    <!--app:layout_constraintBottom_toTopOf="@+id/btnUpload"-->
 
-                    />
+                    <!--/>-->
 
                 <Button
                     android:id="@+id/btnUpload"
