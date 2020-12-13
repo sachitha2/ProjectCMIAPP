@@ -52,9 +52,10 @@ public class Customers extends AppCompatActivity implements TextWatcher {
 
 
             //get area name
-            Cursor cForArea =sqLiteDatabase.rawQuery("SELECT name FROM area  WHERE id = '"+cForCustomers.getString(3)+"' ;",null);
-            cForArea.moveToNext();
-            area[i] =cForArea.getString(0);
+//            Cursor cForArea =sqLiteDatabase.rawQuery("SELECT name FROM area  WHERE id = '"+cForCustomers.getString(3)+"' ;",null);
+//            cForArea.moveToNext();
+//            area[i] =cForArea.getString(0);
+            area[i] ="";
 
 
             i++;
